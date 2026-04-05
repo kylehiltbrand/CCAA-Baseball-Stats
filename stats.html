@@ -354,9 +354,10 @@ const RUNS_PER_WIN  = 6.0;    // scaled for HS run environment — produces mean
 const REPL_RUNS_600 = -33.4;  // replacement-level runs per 600 PA (scaled)
 const RAA_PER_600   = 95.1;   // runs above avg per 600 PA swing
 // Regression anchors — full credibility at these thresholds
-const WRC_FULL_PA   = 150;    // PA for full wRC+ credibility
+const WRC_FULL_PA   = 80;     // PA for full wRC+ credibility
 const ERA_FULL_IP   = 40;     // IP for full ERA+ credibility
-const WAR_FULL_PA   = 100;    // PA for full oWAR credibility
+const REPL_WRC      = 65;     // wRC+ at replacement level — below this = negative oWAR
+const WAR_FULL_PA   = 80;     // PA for full oWAR credibility
 const WAR_FULL_IP   = 30;     // IP for full pWAR credibility
 
 function calcWOBA(bb, hbp, h, doubles, triples, hr, ab, sf) {
@@ -371,17 +372,19 @@ function calcWRC_plus(woba, pa) {
   const wRC = ((woba - LG_WOBA) / WOBA_SCALE + LG_R_PA) * pa;
   const lgWRC = LG_R_PA * pa;
   const raw = lgWRC > 0 ? (wRC / lgWRC) * 100 : 100;
-  // Regress toward 100 for small samples
+  // Asymmetric regression: above-avg → anchor 100, below-avg → anchor replacement level (65)
+  // This lets poor hitters show negative WAR rather than getting pulled to average
   const weight = Math.min(pa / WRC_FULL_PA, 1.0);
-  return Math.round(raw * weight + 100 * (1 - weight));
+  const anchor = raw >= 100 ? 100 : REPL_WRC;
+  return Math.round(raw * weight + anchor * (1 - weight));
 }
 
 function calcOWAR(wRC_plus, pa) {
   if (wRC_plus === null || pa < 15) return null;
   const weight = Math.min(pa / WAR_FULL_PA, 1.0);
-  // Scale to HS season (200 PA full season instead of MLB 600 PA)
-  const HS_PA = 200;
-  const raa = ((wRC_plus - 100) / 100) * (pa / HS_PA) * (RAA_PER_600 * HS_PA / 600);
+  // runs above average (negative if below-avg hitter)
+  const raa = ((wRC_plus - 100) / 100) * (pa / 600) * RAA_PER_600;
+  // runs above replacement (replacement is below average, so this adds value)
   const rar = raa - REPL_RUNS_600 * (pa / 600);
   const raw = rar / RUNS_PER_WIN;
   return Math.round(raw * weight * 10) / 10;
