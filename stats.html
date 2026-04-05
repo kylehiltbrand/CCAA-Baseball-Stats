@@ -112,7 +112,122 @@ footer a:hover{color:var(--text)}
   <button class="fbtn" onclick="setLeague('sunset',this)"><span class="dot ds"></span>Sunset</button>
   <button class="fbtn" onclick="setLeague('ocean',this)"><span class="dot do"></span>Ocean</button>
 </div></div>
-<main>
+
+<style id="glossary-css">
+.gloss-wrap{background:var(--bg2);border:1px solid var(--bdr);border-radius:8px;overflow:hidden;margin-bottom:1rem}
+.gloss-toggle{width:100%;background:none;border:none;padding:.85rem 1rem;display:flex;align-items:center;justify-content:space-between;cursor:pointer;color:var(--text);font-family:'Inter',sans-serif;font-size:.85rem;font-weight:600;transition:background .15s}
+.gloss-toggle:hover{background:var(--bg3)}
+.gloss-toggle .gtitle{display:flex;align-items:center;gap:.5rem;font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;letter-spacing:.02em}
+.gloss-toggle .chevron{font-size:.7rem;color:var(--sub);transition:transform .2s}
+.gloss-toggle.open .chevron{transform:rotate(180deg)}
+.gloss-body{display:none;padding:1rem 1.25rem 1.25rem;border-top:1px solid var(--bdr)}
+.gloss-body.open{display:block}
+.gloss-intro{font-size:.72rem;color:var(--sub);margin-bottom:1rem;line-height:1.6}
+.gloss-section-title{font-size:.65rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:var(--mtn);margin:1rem 0 .6rem;padding-bottom:.3rem;border-bottom:1px solid rgba(224,123,57,.2)}
+.gloss-section-title.pitch{color:var(--ocn);border-bottom-color:rgba(56,189,248,.2)}
+.gloss-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem}
+@media(max-width:900px){.gloss-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:580px){.gloss-grid{grid-template-columns:1fr}}
+.gloss-item{background:var(--bg3);border:1px solid var(--bdr);border-radius:6px;padding:.65rem .75rem}
+.gi-label{display:flex;align-items:center;gap:.4rem;margin-bottom:.3rem}
+.gi-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.9rem;color:var(--text)}
+.gi-def{font-size:.68rem;color:var(--sub);line-height:1.5}
+.gi-def code{font-size:.62rem;color:var(--sky);background:rgba(99,179,237,.1);padding:.05rem .3rem;border-radius:3px;white-space:nowrap}
+</style>
+<style id="dl-css">
+.dl-btn{display:flex;align-items:center;gap:.4rem;padding:.38rem .85rem;background:var(--bg3);border:1px solid var(--bdr);border-radius:5px;font-family:'Inter',sans-serif;font-size:.7rem;font-weight:600;color:var(--sub);cursor:pointer;transition:all .15s;white-space:nowrap;margin-left:auto}
+.dl-btn:hover{border-color:var(--gold);color:var(--gold)}
+</style><main>
+
+<div class="gloss-wrap">
+  <button class="gloss-toggle" onclick="toggleGloss(this)">
+    <span class="gtitle">📋 Stat Glossary &amp; Formulas</span>
+    <span class="chevron">▲</span>
+  </button>
+  <div class="gloss-body">
+    <p class="gloss-intro">Advanced metrics computed from base stats using sabermetric formulas. All league constants calibrated to 2025-26 CCAA data (13 teams): lg AVG .304 · lg OBP .409 · lg wOBA .361 · lg ERA 4.61.</p>
+
+    <div class="gloss-section-title">HITTING</div>
+    <div class="gloss-grid">
+      <div class="gloss-item">
+        <div class="gi-label"><span class="gi-name">AVG</span></div>
+        <div class="gi-def">Batting Average — <code>H / AB</code></div>
+      </div>
+      <div class="gloss-item">
+        <div class="gi-label"><span class="gi-name">OBP</span></div>
+        <div class="gi-def">On-Base % — <code>(H+BB+HBP) / (AB+BB+HBP+SF)</code></div>
+      </div>
+      <div class="gloss-item">
+        <div class="gi-label"><span class="gi-name">SLG</span></div>
+        <div class="gi-def">Slugging % — <code>Total Bases / AB</code></div>
+      </div>
+      <div class="gloss-item">
+        <div class="gi-label"><span class="gi-name">OPS</span></div>
+        <div class="gi-def">On-Base + Slugging — <code>OBP + SLG</code></div>
+      </div>
+      <div class="gloss-item">
+        <div class="gi-label"><span class="gi-name">wOBA</span><span class="advb">ADV</span></div>
+        <div class="gi-def">Weighted On-Base Avg — weights each outcome by run value <code>(BB×.69, 1B×.88, 2B×1.24, 3B×1.56, HR×2.00)</code></div>
+      </div>
+      <div class="gloss-item">
+        <div class="gi-label"><span class="gi-name">wRC+</span><span class="advb">ADV</span></div>
+        <div class="gi-def">Weighted Runs Created+ — league-adjusted wRC, 100 = average, &gt;100 above average. Regressed toward 100 for &lt;150 PA.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gi-label"><span class="gi-name">oWAR</span><span class="advb">ADV</span></div>
+        <div class="gi-def">Offensive WAR — wins above replacement from batting. Based on CCAA run environment (13.6 runs/win). Regressed for &lt;200 PA.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gi-label"><span class="gi-name">BB/K</span><span class="advb">ADV</span></div>
+        <div class="gi-def">Walk-to-Strikeout Ratio — <code>BB / K</code>. Plate discipline metric; higher = better.</div>
+      </div>
+    </div>
+
+    <div class="gloss-section-title pitch">PITCHING</div>
+    <div class="gloss-grid">
+      <div class="gloss-item">
+        <div class="gi-label"><span class="gi-name">ERA</span></div>
+        <div class="gi-def">Earned Run Average — <code>(ER × 9) / IP</code>. CCAA league avg: 4.61.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gi-label"><span class="gi-name">WHIP</span></div>
+        <div class="gi-def">Walks + Hits per Inning Pitched — <code>(BB+H) / IP</code></div>
+      </div>
+      <div class="gloss-item">
+        <div class="gi-label"><span class="gi-name">K/9</span><span class="advb">ADV</span></div>
+        <div class="gi-def">Strikeouts per 9 innings — <code>(K × 9) / IP</code>. CCAA league avg: 8.3.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gi-label"><span class="gi-name">BB/9</span></div>
+        <div class="gi-def">Walks per 9 innings — <code>(BB × 9) / IP</code>. CCAA league avg: 4.9.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gi-label"><span class="gi-name">K/BB</span><span class="advb">ADV</span></div>
+        <div class="gi-def">Strikeout-to-Walk Ratio — <code>K / BB</code>. Command metric; higher = better.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gi-label"><span class="gi-name">K%</span><span class="advb">ADV</span></div>
+        <div class="gi-def">Strikeout Rate — <code>K / Batters Faced</code>. More reliable than K/9 for small samples.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gi-label"><span class="gi-name">ERA+</span><span class="advb">ADV</span></div>
+        <div class="gi-def">ERA adjusted to CCAA average — <code>(lgERA / ERA) × 100</code>. 100 = avg, &gt;100 is better. Regressed for &lt;40 IP.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gi-label"><span class="gi-name">pWAR</span><span class="advb">ADV</span></div>
+        <div class="gi-def">Pitching WAR — wins above replacement based on ERA vs CCAA average. Regressed for &lt;50 IP.</div>
+      </div>
+    </div>
+
+    <div style="margin-top:.85rem;font-size:.65rem;color:var(--dim);line-height:1.6">
+      ★ All WAR values use CCAA run environment: lg ERA 4.61, runs/win 13.6, replacement level −33.4 runs/600 PA.
+      Small-sample regression applied: wRC+ and ERA+ converge toward 100 (average) below threshold PAs/IP.
+    </div>
+  </div>
+</div>
+<script>
+function toggleGloss(btn){btn.classList.toggle('open');btn.nextElementSibling.classList.toggle('open')}
+</script>
 <div class="ib">📊 Stats computed from MaxPreps exports. Advanced metrics (wOBA, wRC+, oWAR, K/9, K/BB, ERA+, pWAR) calculated from raw counting stats across all 13 teams with data.</div>
 <div class="ib">🏅 Leaderboard qualifiers: min 20 PA (hitters) · min 5 IP (pitchers) — based on CCAA-wide average</div>
 <div class="ctrl">
@@ -134,6 +249,7 @@ footer a:hover{color:var(--text)}
     <option value="0">Any IP</option><option value="3">3+ IP</option>
     <option value="5" selected>5+ IP</option><option value="10">10+ IP</option>
   </select>
+  <button class="dl-btn" onclick="downloadCSV()">⬇ Download CSV</button>
 </div>
 
 <div id="p-hs" class="card">
@@ -225,37 +341,49 @@ footer a:hover{color:var(--text)}
 // League averages for advanced stat calculations
 // Computed from all teams with full stat data
 
-const LEAGUE_AVG_OBP = 0.390;
-const LEAGUE_AVG_SLG = 0.390;
-const LEAGUE_AVG_ERA = 4.20;
-const LEAGUE_INNINGS = 93; // avg IP per team
 
 // wOBA weights (standard)
 const wBB = 0.69, wHBP = 0.72, w1B = 0.88, w2B = 1.24, w3B = 1.56, wHR = 2.00;
 
+// ── CCAA League Constants (derived from 13-team 2025-26 data) ──
+const LG_WOBA       = 0.361;  // CCAA league avg wOBA
+const WOBA_SCALE    = 0.882;  // wOBA/lgOBP ratio for this run environment
+const LG_R_PA       = 0.192;  // runs per PA (CCAA avg; MLB≈0.115)
+const LG_ERA        = 4.61;   // CCAA league ERA
+const RUNS_PER_WIN  = 13.61;  // higher run environment → more runs per win
+const REPL_RUNS_600 = -33.4;  // replacement-level runs per 600 PA (scaled)
+const RAA_PER_600   = 95.1;   // runs above avg per 600 PA swing
+// Regression anchors — full credibility at these thresholds
+const WRC_FULL_PA   = 150;    // PA for full wRC+ credibility
+const ERA_FULL_IP   = 40;     // IP for full ERA+ credibility
+const WAR_FULL_PA   = 200;    // PA for full oWAR credibility
+const WAR_FULL_IP   = 50;     // IP for full pWAR credibility
+
 function calcWOBA(bb, hbp, h, doubles, triples, hr, ab, sf) {
   const singles = h - doubles - triples - hr;
   const num = wBB*bb + wHBP*hbp + w1B*singles + w2B*doubles + w3B*triples + wHR*hr;
-  const den = ab + bb + sf + hbp;
+  const den = ab + bb + (sf||0) + hbp;
   return den > 0 ? num / den : 0;
 }
 
 function calcWRC_plus(woba, pa) {
-  if (pa < 10) return null;
-  const lgWOBA = 0.318;
-  const wOBAScale = 1.157;
-  const lgR_PA = 0.115;
-  const wRC = ((woba - lgWOBA) / wOBAScale + lgR_PA) * pa;
-  const lgWRC = lgR_PA * pa;
-  return lgWRC > 0 ? Math.round((wRC / lgWRC) * 100) : null;
+  if (!pa || pa < 10) return null;
+  const wRC = ((woba - LG_WOBA) / WOBA_SCALE + LG_R_PA) * pa;
+  const lgWRC = LG_R_PA * pa;
+  const raw = lgWRC > 0 ? (wRC / lgWRC) * 100 : 100;
+  // Regress toward 100 for small samples
+  const weight = Math.min(pa / WRC_FULL_PA, 1.0);
+  return Math.round(raw * weight + 100 * (1 - weight));
 }
 
-function calcOWAR(wRC_plus, pa, pos_adj) {
-  if (!wRC_plus || pa < 15) return null;
-  const replacementRuns = -20;
-  const runsAboveAvg = ((wRC_plus - 100) / 100) * (pa / 600) * 57;
-  const runsAboveReplacement = runsAboveAvg - replacementRuns * (pa / 600);
-  return Math.round((runsAboveReplacement / 10) * 10) / 10;
+function calcOWAR(wRC_plus, pa) {
+  if (wRC_plus === null || pa < 15) return null;
+  // Scale by regression weight too — full trust only at WAR_FULL_PA
+  const weight = Math.min(pa / WAR_FULL_PA, 1.0);
+  const raa = ((wRC_plus - 100) / 100) * (pa / 600) * RAA_PER_600;
+  const rar = raa - REPL_RUNS_600 * (pa / 600);
+  const raw = rar / RUNS_PER_WIN;
+  return Math.round(raw * weight * 10) / 10;
 }
 
 function calcKper9(k, ip) {
@@ -266,16 +394,22 @@ function calcKBB(k, bb) {
   return bb > 0 ? Math.round((k / bb) * 100) / 100 : null;
 }
 
-function calcERA_plus(era) {
-  return era > 0 ? Math.round((LEAGUE_AVG_ERA / era) * 100) : null;
+function calcERA_plus(era, ip) {
+  if (!era || era <= 0 || !ip) return null;
+  const raw = (LG_ERA / era) * 100;
+  // Regress toward 100 for small IP samples
+  const weight = Math.min(ip / ERA_FULL_IP, 1.0);
+  return Math.round(raw * weight + 100 * (1 - weight));
 }
 
 function calcPWAR(era, ip) {
   if (ip < 5) return null;
-  const lgERA = LEAGUE_AVG_ERA;
-  const runsAboveAvg = (lgERA - era) / 9 * ip;
-  const replacement = 0.03 * ip; // replacement level ~1 run per 30 IP above replacement
-  return Math.round(((runsAboveAvg + replacement) / 10) * 10) / 10;
+  const raa = (LG_ERA - era) / 9 * ip;
+  const rar = raa + (0.03 * ip); // replacement bump
+  const raw = rar / RUNS_PER_WIN;
+  // Regress toward 0 for small samples
+  const weight = Math.min(ip / WAR_FULL_IP, 1.0);
+  return Math.round(raw * weight * 10) / 10;
 }
 
 function calcBBK(bb, k) {
@@ -557,9 +691,13 @@ function buildBatter(team, name, year, gp, avg, pa, ab, r, h, rbi, doubles, trip
 function buildPitcher(team, name, year, era, w, l, ip, h, r, er, bb, k, app) {
   const k9 = calcKper9(k, ip);
   const kbb = calcKBB(k, bb);
-  const era_plus = calcERA_plus(era);
+  const era_plus = calcERA_plus(era, ip);
   const pwar = calcPWAR(era, ip);
-  return { team, name, year, era, w, l, ip, h, r, er, bb, k, app, k9, kbb, era_plus, pwar };
+  // K% = K / estimated batters faced (K + (IP*~4.3 batters/inn approx))
+  // Better: use actual BF proxy = AB_faced ≈ IP*3 + H + BB
+  const bf_est = ip > 0 ? (ip * 3 + h + bb) : null;
+  const kpct = bf_est && bf_est > 0 ? (k / bf_est) * 100 : null;
+  return { team, name, year, era, w, l, ip, h, r, er, bb, k, app, k9, kbb, era_plus, pwar, kpct };
 }
 
 const batters = [
@@ -882,10 +1020,50 @@ function render(){
   document.getElementById('b-ps').innerHTML=P.map((p,i)=>`<tr><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.app}</td><td>${p.w}</td><td>${p.l}</td><td>${cv(p.era,2.5,4.5,v=>v.toFixed(2),true)}</td><td>${p.ip}</td><td>${p.h}</td><td>${p.er}</td><td>${p.bb}</td><td>${p.k}</td></tr>`).join('');
 
   document.getElementById('b-pa').innerHTML=P.map((p,i)=>{
-    const kp=p.k&&p.ip?(p.k/(p.ip*4.3)*100):null;
-    return `<tr><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.ip}</td><td>${p.app}</td><td>${cv(p.era,2.5,4.5,v=>v.toFixed(2),true)}</td><td class="vadv">${cv(p.k9,6,9,v=>f1(v))}</td><td class="vadv">${cv(kp,20,30,v=>v.toFixed(1)+'%')}</td><td class="vadv">${cv(p.pwar,0,1,v=>(v>0?'+':'')+v)}</td><td class="vadv">${cv(p.kbb,1.5,3,v=>f2(v))}</td><td class="vadv">${cv(p.era_plus,80,120,v=>v.toString())}</td></tr>`;
+    return `<tr><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.ip}</td><td>${p.app}</td><td>${cv(p.era,2.5,4.5,v=>v.toFixed(2),true)}</td><td class="vadv">${cv(p.k9,6,9,v=>f1(v))}</td><td class="vadv">${cv(p.kpct,20,30,v=>v.toFixed(1)+'%')}</td><td class="vadv">${cv(p.pwar,0,1,v=>(v>0?'+':'')+v)}</td><td class="vadv">${cv(p.kbb,1.5,3,v=>f2(v))}</td><td class="vadv">${cv(p.era_plus,80,120,v=>v.toString())}</td></tr>`;
   }).join('');
 }
 render();
+
+function downloadCSV() {
+  const isHitting = curTab === 'hitting';
+  const teamF = document.getElementById('teamSel').value;
+  const mPA = parseInt(document.getElementById('minPA').value)||0;
+  const mIP = parseFloat(document.getElementById('minIP').value)||0;
+
+  let rows, headers;
+  if (isHitting) {
+    const H = batters.filter(b=>(!teamF||b.team===teamF)&&(curLeague==='all'||TL[b.team]===curLeague)&&b.pa>=mPA);
+    H.sort((a,b)=>{ let va=a[curCol]??(curSortAsc?Infinity:-Infinity),vb=b[curCol]??(curSortAsc?Infinity:-Infinity); return typeof va==='string'?va.localeCompare(vb):curAsc?va-vb:vb-va; });
+    headers = ['Player','Team','Yr','GP','AVG','PA','AB','R','H','2B','3B','HR','RBI','BB','K','OBP','SLG','OPS','wOBA','wRC+','oWAR','BB/K'];
+    rows = H.map(p => [
+      p.name, p.team, p.year, p.gp,
+      p.avg?.toFixed(3)||'', p.pa, p.ab, p.r, p.h,
+      p.doubles, p.triples, p.hr, p.rbi, p.bb, p.k,
+      p.obp?.toFixed(3)||'', p.slg?.toFixed(3)||'', p.ops?.toFixed(3)||'',
+      p.woba?.toFixed(3)||'', p.wrc_plus??'', p.owar??'',
+      p.bbk?.toFixed(2)||''
+    ]);
+  } else {
+    const P = pitchers.filter(p=>(!teamF||p.team===teamF)&&(curLeague==='all'||TL[p.team]===curLeague)&&p.ip>=mIP);
+    P.sort((a,b)=>{ let va=a[curCol]??(curAsc?Infinity:-Infinity),vb=b[curCol]??(curAsc?Infinity:-Infinity); return curAsc?va-vb:vb-va; });
+    headers = ['Player','Team','Yr','APP','W','L','ERA','IP','H','ER','BB','K','K/9','K%','K/BB','ERA+','pWAR'];
+    rows = P.map(p => [
+      p.name, p.team, p.year, p.app, p.w, p.l,
+      p.era?.toFixed(2)||'', p.ip, p.h, p.er, p.bb, p.k,
+      p.k9?.toFixed(1)||'', p.kpct?.toFixed(1)||'', p.kbb?.toFixed(2)||'',
+      p.era_plus??'', p.pwar??''
+    ]);
+  }
+
+  const csv = [headers, ...rows].map(r => r.map(v => `"${v}"`).join(',')).join('\n');
+  const blob = new Blob([csv], {type:'text/csv'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `CCAA_Baseball_2026_${isHitting?'Hitting':'Pitching'}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
 </script>
 </body></html>
