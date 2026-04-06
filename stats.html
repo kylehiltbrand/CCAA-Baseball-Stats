@@ -1098,7 +1098,7 @@ function render(){
   P.sort((a,b)=>{
     let va=curCol==='year'?(YEAR_ORDER[a.year]||9):(a[curCol]??(curAsc?Infinity:-Infinity));
     let vb=curCol==='year'?(YEAR_ORDER[b.year]||9):(b[curCol]??(curAsc?Infinity:-Infinity));
-    const primary = curAsc?va-vb:vb-va;
+    const primary = typeof va==='string'?va.localeCompare(vb):curAsc?va-vb:vb-va;
     if(primary !== 0) return primary;
     const teamCmp = a.team.localeCompare(b.team);
     if(teamCmp !== 0) return teamCmp;
