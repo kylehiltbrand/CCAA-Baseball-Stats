@@ -335,9 +335,9 @@ function toggleGloss(btn){btn.classList.toggle('open');btn.nextElementSibling.cl
 </div>
 </main>
 <footer>CCAA Baseball · Spring 2026 · Central Coast Athletic Association, CA · Stats: <a href="standings.html">Mountain</a> · <a href="standings.html">Sunset</a> · <a href="standings.html">Ocean</a></footer>
-<script src="data.js"></script>
-
-
+<script src="data.js" defer></script>
+<script>
+window.addEventListener("load", function() {
 const TL={"St. Joseph":"mountain","Arroyo Grande":"mountain","Righetti":"mountain","Morro Bay":"mountain","Mission College Prep":"mountain","Lompoc":"mountain","Paso Robles":"sunset","San Luis Obispo":"sunset","Atascadero":"sunset","Templeton":"sunset","Cabrillo":"sunset","Nipomo":"ocean","Pioneer Valley":"ocean","Santa Ynez":"ocean","Santa Maria":"ocean"};
 const TC={"St. Joseph":{bg:"#2d4a1e",fg:"#a8d5a2",a:"SJ"},"Arroyo Grande":{bg:"#3a3010",fg:"#f0d080",a:"AG"},"Righetti":{bg:"#2d1a4a",fg:"#c4a0f0",a:"RHS"},"Morro Bay":{bg:"#0f2a40",fg:"#80c8f0",a:"MB"},"Mission College Prep":{bg:"#1a2040",fg:"#90a8e0",a:"MP"},"Lompoc":{bg:"#1a1a2e",fg:"#90a8e0",a:"LOM"},"Paso Robles":{bg:"#2a1010",fg:"#e08080",a:"PAS"},"San Luis Obispo":{bg:"#1a1a2e",fg:"#c8b060",a:"SLO"},"Atascadero":{bg:"#2a1810",fg:"#e09060",a:"ATA"},"Templeton":{bg:"#1a2a1a",fg:"#90c890",a:"TMP"},"Cabrillo":{bg:"#1a1a1a",fg:"#c8b060",a:"CAB"},"Nipomo":{bg:"#1a1a2a",fg:"#a0a0c8",a:"NIP"},"Pioneer Valley":{bg:"#0f2a2a",fg:"#80c8c8",a:"PV"},"Santa Ynez":{bg:"#2a1a10",fg:"#e0a060",a:"SY"},"Santa Maria":{bg:"#2a0f0f",fg:"#e08080",a:"SM"}};
 
@@ -440,5 +440,6 @@ function downloadCSV() {
   a.click();
   URL.revokeObjectURL(url);
 }
+});
 </script>
 </body></html>
