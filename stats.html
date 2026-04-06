@@ -355,10 +355,10 @@ function toggleGloss(btn){btn.classList.toggle('open');btn.nextElementSibling.cl
 const wBB = 0.69, wHBP = 0.72, w1B = 0.88, w2B = 1.24, w3B = 1.56, wHR = 2.00;
 
 // ── CCAA League Constants (derived from 13-team 2025-26 data) ──
-const LG_WOBA       = 0.361;  // CCAA league avg wOBA
-const WOBA_SCALE    = 0.882;  // wOBA/lgOBP ratio for this run environment
-const LG_R_PA       = 0.192;  // runs per PA (CCAA avg; MLB≈0.115)
-const LG_ERA        = 4.61;   // CCAA league ERA
+const LG_WOBA       = 0.360;  // CCAA league avg wOBA
+const WOBA_SCALE    = 0.884;  // wOBA/lgOBP ratio for this run environment
+const LG_R_PA       = 0.190;  // runs per PA (CCAA avg; MLB≈0.115)
+const LG_ERA        = 4.81;   // CCAA league ERA
 const RUNS_PER_WIN  = 6.0;    // scaled for HS run environment — produces meaningful WAR per short season
 const REPL_RUNS_600 = -33.4;  // replacement-level runs per 600 PA (scaled)
 const RAA_PER_600   = 95.1;   // runs above avg per 600 PA swing
@@ -860,6 +860,25 @@ const batters = [
   buildBatter("Templeton","N. Capaci","Jr",14,.258,38,31,4,8,3,1,0,0,5,15,1,1,.368,.290,.658),
   buildBatter("Templeton","R. Garcia","Jr",13,.240,27,25,4,6,3,0,1,1,2,8,0,0,.296,.440,.736),
   buildBatter("Templeton","C. Hamilton","So",14,.207,40,29,3,6,6,1,0,0,8,14,2,1,.400,.241,.641),
+
+  // MISSION COLLEGE PREP
+  buildBatter("Mission College Prep","A. Johnson","Jr",9,0.520,31,25,5,13,8,3,0,0,4,0,0,1,0.567,0.640,1.207),
+  buildBatter("Mission College Prep","R. Engle","So",12,0.400,47,40,10,16,9,4,0,2,4,10,1,0,0.467,0.650,1.117),
+  buildBatter("Mission College Prep","H. Drake","Sr",12,0.381,50,42,9,16,3,2,0,0,8,4,0,0,0.480,0.429,0.909),
+  buildBatter("Mission College Prep","J. Villa","Sr",12,0.375,52,48,12,18,5,2,0,0,2,5,1,1,0.404,0.417,0.821),
+  buildBatter("Mission College Prep","B. Augustine","Jr",7,0.333,9,9,0,3,2,0,1,0,0,2,0,0,0.333,0.556,0.889),
+  buildBatter("Mission College Prep","N. Bender","So",2,0.333,3,3,1,1,4,0,0,1,0,0,0,0,0.333,1.333,1.667),
+  buildBatter("Mission College Prep","T. Bernal","Jr",6,0.316,21,19,4,6,5,0,0,1,2,3,0,0,0.381,0.474,0.855),
+  buildBatter("Mission College Prep","C. Mott","Jr",11,0.269,33,26,5,7,1,3,0,0,5,4,0,0,0.387,0.385,0.772),
+  buildBatter("Mission College Prep","J. Esparza","Jr",12,0.268,46,41,6,11,10,2,0,0,3,3,0,0,0.318,0.317,0.635),
+  buildBatter("Mission College Prep","B. May","Jr",10,0.238,26,21,3,5,2,1,0,1,4,8,1,0,0.385,0.429,0.813),
+  buildBatter("Mission College Prep","J. Cortez","Sr",11,0.226,39,31,4,7,2,1,0,0,7,14,1,0,0.385,0.258,0.643),
+  buildBatter("Mission College Prep","B. Orfila","Jr",10,0.208,29,24,3,5,5,2,0,1,4,6,0,0,0.321,0.417,0.738),
+  buildBatter("Mission College Prep","C. Treanor","Jr",4,0.000,8,7,2,0,0,0,0,0,1,1,0,0,0.125,0.000,0.125),
+  buildBatter("Mission College Prep","B. Burt","Jr",4,0.000,4,4,0,0,0,0,0,0,0,2,0,0,0.000,0.000,0.000),
+  buildBatter("Mission College Prep","J. Marsalek","So",2,0.000,5,5,0,0,0,0,0,0,0,3,0,0,0.000,0.000,0.000),
+  buildBatter("Mission College Prep","R. Cordova","So",1,0.000,1,1,0,0,0,0,0,0,0,1,0,0,0.000,0.000,0.000),
+  buildBatter("Mission College Prep","E. Engle","Jr",6,0.000,5,4,2,0,0,0,0,0,1,1,0,0,0.200,0.000,0.200),
 ];
 
 const pitchers = [
@@ -972,6 +991,18 @@ const pitchers = [
   buildPitcher("Templeton","R. Garcia","Jr",4.85,0,0,13,17,10,9,6,7,6),
   buildPitcher("Templeton","N. Argain","Sr",7.69,1,1,23.2,35,40,26,21,16,8),
   buildPitcher("Templeton","C. Sims","Jr",4.67,0,0,3,5,2,2,0,0,2),
+
+  // MISSION COLLEGE PREP
+  buildPitcher("Mission College Prep","H. Drake","Sr",4.38,2,1,8.0,6,0,5,7,4,5),
+  buildPitcher("Mission College Prep","B. Augustine","Jr",1.97,2,1,10.2,13,0,3,6,8,5),
+  buildPitcher("Mission College Prep","N. Bender","So",11.12,0,0,5.2,10,0,9,3,5,2),
+  buildPitcher("Mission College Prep","T. Bernal","Jr",5.38,0,0,13.0,18,0,10,6,12,4),
+  buildPitcher("Mission College Prep","C. Mott","Jr",10.50,0,0,2.0,3,0,3,1,1,1),
+  buildPitcher("Mission College Prep","B. May","Jr",4.04,0,0,8.2,7,0,5,8,7,7),
+  buildPitcher("Mission College Prep","J. Cortez","Sr",0.00,0,0,1.0,1,0,0,0,0,1),
+  buildPitcher("Mission College Prep","B. Orfila","Jr",5.92,1,3,26.0,41,0,22,10,15,7),
+  buildPitcher("Mission College Prep","C. Treanor","Jr",9.54,0,1,3.2,6,0,5,3,2,3),
+  buildPitcher("Mission College Prep","B. Burt","Jr",16.80,0,1,3.1,8,0,8,4,1,2),
 ];
 
 // ============================================================
@@ -1004,7 +1035,7 @@ const standingsData = {
 </script>
 <script>
 const TL={"St. Joseph":"mountain","Arroyo Grande":"mountain","Righetti":"mountain","Morro Bay":"mountain","Mission College Prep":"mountain","Lompoc":"mountain","Paso Robles":"sunset","San Luis Obispo":"sunset","Atascadero":"sunset","Templeton":"sunset","Cabrillo":"sunset","Nipomo":"ocean","Pioneer Valley":"ocean","Santa Ynez":"ocean","Santa Maria":"ocean"};
-const TC={"St. Joseph":{bg:"#2d4a1e",fg:"#a8d5a2",a:"SJ"},"Arroyo Grande":{bg:"#3a3010",fg:"#f0d080",a:"AG"},"Righetti":{bg:"#2d1a4a",fg:"#c4a0f0",a:"RHS"},"Morro Bay":{bg:"#0f2a40",fg:"#80c8f0",a:"MB"},"Mission College Prep":{bg:"#1a2040",fg:"#90a8e0",a:"MP"},"Lompoc":{bg:"#1a1a2e",fg:"#90a8e0",a:"LOM"},"Paso Robles":{bg:"#2a1010",fg:"#e08080",a:"PAS"},"San Luis Obispo":{bg:"#1a1a2e",fg:"#c8b060",a:"SLO"},"Atascadero":{bg:"#2a1810",fg:"#e09060",a:"ATA"},"Templeton":{bg:"#1a2a1a",fg:"#90c890",a:"TMP"},"Cabrillo":{bg:"#1a1a1a",fg:"#c8b060",a:"CAB"},"Nipomo":{bg:"#1a1a2a",fg:"#a0a0c8",a:"NIP"},"Pioneer Valley":{bg:"#0f2a2a",fg:"#80c8c8",a:"PV"},"Santa Ynez":{bg:"#2a1a10",fg:"#e0a060",a:"SY"},"Santa Maria":{bg:"#2a0f0f",fg:"#e08080",a:"SM"}};
+const TC={"St. Joseph":{bg:"#2d4a1e",fg:"#a8d5a2",a:"SJ"},"Arroyo Grande":{bg:"#3a3010",fg:"#f0d080",a:"AG"},"Righetti":{bg:"#2d1a4a",fg:"#c4a0f0",a:"RHS"},"Morro Bay":{bg:"#0f2a40",fg:"#80c8f0",a:"MB"},"Mission College Prep":{bg:"#0e2d5e",fg:"#6bb8ff",a:"MP"},"Lompoc":{bg:"#1a1a2e",fg:"#90a8e0",a:"LOM"},"Paso Robles":{bg:"#2a1010",fg:"#e08080",a:"PAS"},"San Luis Obispo":{bg:"#1a1a2e",fg:"#c8b060",a:"SLO"},"Atascadero":{bg:"#2a1810",fg:"#e09060",a:"ATA"},"Templeton":{bg:"#1a2a1a",fg:"#90c890",a:"TMP"},"Cabrillo":{bg:"#1a1a1a",fg:"#c8b060",a:"CAB"},"Nipomo":{bg:"#1a1a2a",fg:"#a0a0c8",a:"NIP"},"Pioneer Valley":{bg:"#0f2a2a",fg:"#80c8c8",a:"PV"},"Santa Ynez":{bg:"#2a1a10",fg:"#e0a060",a:"SY"},"Santa Maria":{bg:"#2a0f0f",fg:"#e08080",a:"SM"}};
 
 function tbadge(t){const c=TC[t]||{bg:"#222",fg:"#aaa",a:t.slice(0,3)};return `<span class="tbadge" style="background:${c.bg};color:${c.fg}">${c.a}</span>`;}
 
