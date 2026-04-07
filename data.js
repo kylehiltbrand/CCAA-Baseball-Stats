@@ -20,7 +20,7 @@ const wBB = 0.69, wHBP = 0.72, w1B = 0.88, w2B = 1.24, w3B = 1.56, wHR = 2.00;
 const LG_WOBA       = 0.360;  // CCAA league avg wOBA
 const WOBA_SCALE    = 0.884;  // wOBA/lgOBP ratio for this run environment
 const LG_R_PA       = 0.190;  // runs per PA (CCAA avg; MLB≈0.115)
-const LG_ERA        = 4.81;   // CCAA league ERA
+const LG_ERA        = 4.80;   // CCAA league ERA
 const RUNS_PER_WIN  = 6.0;    // scaled for HS run environment — produces meaningful WAR per short season
 const REPL_RUNS_600 = -33.4;  // replacement-level runs per 600 PA (scaled)
 const RAA_PER_600   = 95.1;   // runs above avg per 600 PA swing
@@ -121,7 +121,7 @@ const teams = [
     leagueRecord: "5-2",
     wins: 11, losses: 4, ties: 0,
     leagueWins: 5, leagueLosses: 2,
-    caRank: 63,
+    caRank: 57,
     gp: 15,
     teamBavg: .355, teamOBP: .437, teamSLG: .508,
     teamERA: 1.97, teamIP: 96
@@ -151,14 +151,14 @@ const teams = [
     coach: "Cody Smith",
     colors: "Teal, Black",
     league: "CCAA - Ocean",
-    overall: "10-4",
+    overall: "10-5",
     leagueRecord: "4-1",
-    wins: 10, losses: 4, ties: 0,
+    wins: 10, losses: 5, ties: 0,
     leagueWins: 4, leagueLosses: 1,
     caRank: 313,
     gp: 13,
-    teamBavg: .263, teamOBP: .391, teamSLG: .322,
-    teamERA: 2.74, teamIP: 87
+    teamBavg: .281, teamOBP: .400, teamSLG: .348,
+    teamERA: 2.61, teamIP: 94
   },
   {
     id: "nipomo",
@@ -168,14 +168,14 @@ const teams = [
     coach: "Caleb Buendia",
     colors: "Black, Cardinal, Silver",
     league: "CCAA - Ocean",
-    overall: "9-5",
+    overall: "9-6",
     leagueRecord: "2-1",
-    wins: 9, losses: 5, ties: 0,
+    wins: 9, losses: 6, ties: 0,
     leagueWins: 2, leagueLosses: 1,
-    caRank: 272,
+    caRank: 288,
     gp: 14,
     teamBavg: .316, teamOBP: .399, teamSLG: .366,
-    teamERA: 4.18, teamIP: 87
+    teamERA: 4.22, teamIP: 93
   },
   {
     id: "paso-robles",
@@ -426,13 +426,13 @@ const batters = [
 
   // NIPOMO
   buildBatter("Nipomo","J. Anderson","Sr",5,.667,3,3,1,2,0,0,0,0,0,1,0,0,.667,.667,1.334),
-  buildBatter("Nipomo","B. Hageman","So",13,.558,53,43,16,24,7,1,0,0,4,2,2,1,.600,.581,1.181),
-  buildBatter("Nipomo","E. Silveira","Sr",13,.375,50,40,6,15,12,2,0,0,6,6,4,0,.500,.425,.925),
+  buildBatter("Nipomo","B. Hageman","So",14,.543,57,46,17,25,7,1,0,0,4,2,2,1,.585,.565,1.150),
+  buildBatter("Nipomo","E. Silveira","Sr",14,.341,54,44,6,15,12,2,0,0,6,6,4,0,.463,.386,.849),
   buildBatter("Nipomo","G. Groshart","Sr",13,.333,53,48,5,16,23,7,0,0,3,4,1,1,.377,.479,.856),
-  buildBatter("Nipomo","L. Hobbs","Sr",13,.349,53,43,21,15,4,1,0,0,3,2,6,1,.453,.372,.825),
-  buildBatter("Nipomo","L. Hobbs","Fr",13,.257,43,35,4,9,6,2,0,0,6,4,1,0,.381,.314,.695),
-  buildBatter("Nipomo","C. Moulden","So",13,.318,48,44,8,14,12,4,0,0,3,7,1,0,.375,.409,.784),
-  buildBatter("Nipomo","E. Silveira","Sr",13,.278,38,36,4,10,5,1,0,0,1,5,0,1,.289,.306,.595),
+  buildBatter("Nipomo","L. Hobbs","Sr",14,.340,57,47,21,16,4,1,0,0,3,2,6,1,.439,.362,.801),
+  buildBatter("Nipomo","L. Hobbs","Fr",14,.289,47,38,5,11,8,2,0,0,7,4,1,0,.413,.342,.755),
+  buildBatter("Nipomo","C. Moulden","So",14,.340,52,47,10,16,13,4,0,0,3,7,2,0,.404,.426,.830),
+  buildBatter("Nipomo","E. Silveira","Sr",14,.275,42,40,6,11,5,1,0,0,1,5,0,1,.286,.300,.586),
   buildBatter("Nipomo","T. Oxley","Sr",12,.160,34,25,6,4,1,1,0,0,8,14,1,0,.382,.200,.582),
 
   // PASO ROBLES
@@ -448,15 +448,15 @@ const batters = [
   buildBatter("Paso Robles","G. Berlingeri","Sr",2,.600,5,5,2,3,0,0,0,0,0,1,0,0,.600,.600,1.200),
 
   // PIONEER VALLEY
-  buildBatter("Pioneer Valley","I. Enriquez","Jr",12,.485,44,33,10,16,14,1,0,1,7,3,3,1,.591,.606,1.197),
-  buildBatter("Pioneer Valley","K. Milner","Jr",10,.448,36,29,4,13,10,4,0,0,6,5,1,0,.556,.586,1.142),
+  buildBatter("Pioneer Valley","I. Enriquez","Jr",13,.514,49,37,13,19,15,2,0,1,8,3,3,1,.612,.649,1.261),
+  buildBatter("Pioneer Valley","K. Milner","Jr",11,.515,41,33,6,17,14,5,0,1,7,5,1,0,.610,.758,1.368),
   buildBatter("Pioneer Valley","L. Dreier","Jr",8,.375,12,8,4,3,1,0,0,0,3,1,1,0,.583,.375,.958),
-  buildBatter("Pioneer Valley","D. Cortez","So",13,.317,51,41,12,13,7,6,0,0,10,7,0,0,.451,.463,.914),
-  buildBatter("Pioneer Valley","M. Rosas","Sr",11,.286,35,28,7,8,2,1,0,0,3,8,3,1,.412,.321,.733),
+  buildBatter("Pioneer Valley","D. Cortez","So",14,.311,55,45,12,14,7,6,0,0,10,9,0,0,.436,.444,.880),
+  buildBatter("Pioneer Valley","M. Rosas","Sr",12,.323,39,31,7,10,3,1,0,0,4,8,3,1,.447,.355,.802),
   buildBatter("Pioneer Valley","I. Martinez","Sr",8,.222,13,9,1,2,2,0,0,0,4,0,0,0,.462,.222,.684),
   buildBatter("Pioneer Valley","I. Garcia","Jr",6,.250,4,4,1,1,0,0,0,0,0,0,0,0,.250,.250,.500),
-  buildBatter("Pioneer Valley","U. Ponce","Jr",12,.219,35,32,6,7,4,1,0,0,1,14,1,1,.265,.250,.515),
-  buildBatter("Pioneer Valley","E. Ponce","Sr",13,.244,52,41,16,10,1,1,0,1,6,5,4,1,.392,.293,.685),
+  buildBatter("Pioneer Valley","U. Ponce","Jr",13,.200,38,35,6,7,4,1,0,0,1,16,1,1,.243,.229,.472),
+  buildBatter("Pioneer Valley","E. Ponce","Sr",14,.267,57,45,19,12,1,1,0,1,7,5,4,1,.411,.311,.722),
 
   // RIGHETTI
   buildBatter("Righetti","K. Walker","Jr",13,.585,48,41,17,24,15,8,0,3,6,1,0,1,.625,1.000,1.625),
@@ -579,7 +579,7 @@ const pitchers = [
   buildPitcher("Morro Bay","Q. Crotts","Sr",0.00,0,0,2,0,0,0,0,3,1),
 
   // NIPOMO
-  buildPitcher("Nipomo","E. Silveira","Sr",2.78,5,1,27.2,15,13,11,17,30,7),
+  buildPitcher("Nipomo","E. Silveira","Sr",2.79,5,2,32.2,23,22,13,20,34,8),
   buildPitcher("Nipomo","E. Silveira","Sr",4.82,2,1,20.1,21,23,14,18,25,7),
   buildPitcher("Nipomo","A. Mendoza","Jr",3.97,0,0,12.1,12,7,7,9,10,6),
   buildPitcher("Nipomo","G. Groshart","Sr",4.74,0,1,10.1,10,12,7,11,11,4),
@@ -596,10 +596,10 @@ const pitchers = [
 
   // PIONEER VALLEY
   buildPitcher("Pioneer Valley","I. Garcia","Jr",0.54,2,0,13,7,2,1,3,8,4),
-  buildPitcher("Pioneer Valley","J. Valdez","Jr",1.34,2,0,15.2,15,7,3,6,16,5),
+  buildPitcher("Pioneer Valley","J. Valdez","Jr",1.53,2,0,18.1,16,8,4,7,20,6),
   buildPitcher("Pioneer Valley","K. Owen","Sr",1.27,1,0,11,10,7,2,6,10,3),
-  buildPitcher("Pioneer Valley","D. Cortez","So",2.21,1,0,6.1,6,2,2,3,6,5),
-  buildPitcher("Pioneer Valley","J. Beltran","Jr",3.29,2,1,17,17,10,8,6,14,6),
+  buildPitcher("Pioneer Valley","D. Cortez","So",1.91,1,0,7.1,8,5,2,4,7,6),
+  buildPitcher("Pioneer Valley","J. Beltran","Jr",2.75,3,1,20.1,22,12,8,7,15,7),
   buildPitcher("Pioneer Valley","J. Rojas","Sr",3.65,1,1,15.1,12,9,8,5,12,5),
 
   // RIGHETTI
@@ -687,8 +687,8 @@ const standingsData = {
     { abbr:"CAB", name:"Cabrillo",        lw:1, ll:5, ow:2,  ol:13, ot:0, str:"L2" },
   ],
   ocean: [
-    { abbr:"PV",  name:"Pioneer Valley", lw:4, ll:1, ow:10, ol:4,  ot:0, str:"W5" },
-    { abbr:"NIP", name:"Nipomo",         lw:2, ll:1, ow:9,  ol:5,  ot:0, str:"L2" },
+    { abbr:"PV",  name:"Pioneer Valley", lw:4, ll:1, ow:10, ol:5,  ot:0, str:"L1" },
+    { abbr:"NIP", name:"Nipomo",         lw:2, ll:1, ow:9,  ol:6,  ot:0, str:"L2" },
     { abbr:"SY",  name:"Santa Ynez",    lw:2, ll:1, ow:11, ol:3,  ot:0, str:"W1" },
     { abbr:"SM",  name:"Santa Maria",   lw:0, ll:5, ow:4,  ol:7,  ot:0, str:"L2" },
   ]
