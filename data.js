@@ -26,7 +26,7 @@ const REPL_RUNS_600 = -33.4;  // replacement-level runs per 600 PA (scaled)
 const RAA_PER_600   = 95.1;   // runs above avg per 600 PA swing
 // Regression anchors — full credibility at these thresholds
 const WRC_FULL_PA   = 80;     // PA for full wRC+ credibility
-const ERA_FULL_IP   = 40;     // IP for full ERA+ credibility
+const ERA_FULL_IP   = 25;     // IP for full ERA+ credibility (realistic for HS season)
 const REPL_WRC      = 65;     // wRC+ at replacement level — below this = negative oWAR
 const WAR_FULL_PA   = 80;     // PA for full oWAR credibility
 const WAR_FULL_IP   = 30;     // IP for full pWAR credibility
@@ -68,7 +68,7 @@ function calcKBB(k, bb) {
 
 function calcERA_plus(era, ip) {
   if (!era || era <= 0 || !ip) return null;
-  const raw = (LG_ERA / era) * 100;
+  const raw = Math.min((LG_ERA / era) * 100, 250); // cap at 250 — prevents absurd values for tiny samples
   const weight = Math.min(ip / ERA_FULL_IP, 1.0);
   return Math.round(raw * weight + 100 * (1 - weight));
 }
