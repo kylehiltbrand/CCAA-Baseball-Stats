@@ -198,14 +198,14 @@ const teams = [
     coach: "Sean Gabriel",
     colors: "Black, Gold",
     league: "CCAA - Sunset",
-    overall: "10-8",
+    overall: "11-8",
     leagueRecord: "5-1",
-    wins: 10, losses: 8, ties: 0,
+    wins: 11, losses: 8, ties: 0,
     leagueWins: 5, leagueLosses: 1,
     caRank: 270,
-    gp: 18,
-    teamBavg: .300, teamOBP: .404, teamSLG: .388,
-    teamERA: 4.04, teamIP: 123
+    gp: 19,
+    teamBavg: .308, teamOBP: .409, teamSLG: .394,
+    teamERA: 3.88, teamIP: 130
   },
   {
     id: "righetti",
@@ -482,16 +482,21 @@ const batters = [
   buildBatter("Righetti","M. Andersen","Jr",11,.267,18,15,2,4,6,2,0,0,1,3,0,1,.294,.400,.694),
 
   // SAN LUIS OBISPO
-  buildBatter("San Luis Obispo","J. Riley","Jr",18,.444,69,54,8,24,12,3,0,0,13,8,1,1,.551,.500,1.051),
-  buildBatter("San Luis Obispo","J. Goodwin","Sr",18,.327,59,49,10,16,12,1,0,0,5,14,4,0,.431,.347,.778),
-  buildBatter("San Luis Obispo","J. Taylor","Sr",17,.289,44,38,7,11,11,2,0,3,6,12,0,0,.386,.579,.965),
-  buildBatter("San Luis Obispo","L. Drenckpohl","Sr",18,.312,70,64,13,20,10,3,1,0,5,11,0,0,.362,.391,.753),
-  buildBatter("San Luis Obispo","C. Stephens","Jr",18,.321,65,56,12,18,12,3,1,0,9,11,0,0,.415,.411,.826),
-  buildBatter("San Luis Obispo","T. Blaney","So",18,.300,52,40,13,12,5,2,0,1,12,9,0,0,.462,.425,.887),
+  buildBatter("San Luis Obispo","P. Wyatt","Jr",19,.288,72,59,13,17,14,1,0,0,6,4,3,1,.377,.305,.682),
   buildBatter("San Luis Obispo","G. Bramble","Sr",15,.263,62,57,13,15,9,5,0,1,5,11,0,0,.323,.404,.727),
-  buildBatter("San Luis Obispo","P. Wyatt","Jr",18,.273,68,55,13,15,12,1,0,0,6,4,3,1,.369,.291,.660),
-  buildBatter("San Luis Obispo","F. Avrett","Jr",12,.333,13,12,1,4,5,2,0,0,0,7,0,1,.308,.500,.808),
-  buildBatter("San Luis Obispo","B. Schafer","Jr",16,.179,46,28,8,5,2,3,0,0,13,4,1,0,.452,.286,.738),
+  buildBatter("San Luis Obispo","N. Soderin","Sr",18,.200,20,15,8,3,1,0,0,0,4,7,1,0,.400,.200,.600),
+  buildBatter("San Luis Obispo","B. Schafer","Jr",17,.200,50,30,10,6,2,3,0,0,14,4,1,0,.467,.300,.767),
+  buildBatter("San Luis Obispo","D. Wilson","Jr",16,.300,11,10,1,3,3,0,0,0,1,1,0,0,.364,.300,.664),
+  buildBatter("San Luis Obispo","L. Drenckpohl","Sr",19,.304,75,69,14,21,10,3,1,0,5,11,0,0,.351,.377,.728),
+  buildBatter("San Luis Obispo","J. Goodwin","Sr",19,.358,63,53,13,19,15,2,0,0,5,14,4,0,.452,.396,.848),
+  buildBatter("San Luis Obispo","C. Stephens","Jr",19,.328,69,58,14,19,12,3,1,0,11,11,0,0,.435,.414,.849),
+  buildBatter("San Luis Obispo","J. Isaman","Sr",7,.231,14,13,3,3,1,0,0,0,0,2,0,1,.214,.231,.445),
+  buildBatter("San Luis Obispo","N. Bennetti","Jr",2,.000,2,1,0,0,0,0,0,0,1,1,0,0,.500,.000,.500),
+  buildBatter("San Luis Obispo","T. Blaney","So",19,.273,56,44,13,12,5,2,0,1,12,10,0,0,.429,.386,.815),
+  buildBatter("San Luis Obispo","J. Riley","Jr",19,.456,73,57,8,26,13,3,0,0,14,8,1,1,.562,.509,1.071),
+  buildBatter("San Luis Obispo","J. Taylor","Sr",18,.310,48,42,8,13,11,2,0,3,6,12,0,0,.396,.571,.967),
+  buildBatter("San Luis Obispo","Z. Wallace","Jr",5,.000,6,6,0,0,0,0,0,0,0,4,0,0,.000,.000,.000),
+  buildBatter("San Luis Obispo","F. Avrett","Jr",13,.375,17,16,2,6,8,3,0,0,0,8,0,1,.353,.563,.916),
 
   // SANTA MARIA
   buildBatter("Santa Maria","O. Sedano","So",3,.667,5,3,1,2,3,0,0,0,2,0,0,0,.800,.667,1.467),
@@ -645,12 +650,14 @@ const pitchers = [
   buildPitcher("Righetti","A. Stevens","Fr",0.00,0,0,3,2,0,0,2,4,1),
 
   // SAN LUIS OBISPO
-  buildPitcher("San Luis Obispo","J. Riley","Jr",2.58,1,1,19,15,10,7,7,15,6),
   buildPitcher("San Luis Obispo","G. Bramble","Sr",3.54,5,1,29.2,29,18,15,10,19,6),
-  buildPitcher("San Luis Obispo","J. Taylor","Sr",2.87,3,4,39,44,24,16,16,46,8),
-  buildPitcher("San Luis Obispo","F. Avrett","Jr",4.28,1,1,18,25,21,11,10,18,7),
   buildPitcher("San Luis Obispo","D. Wilson","Jr",13.12,0,0,5.1,11,11,10,3,4,5),
-  buildPitcher("San Luis Obispo","J. Giordano","Jr",2.33,0,0,6,8,6,2,3,3,6),
+  buildPitcher("San Luis Obispo","L. Drenckpohl","Sr",18.00,0,0,2.1,2,6,6,6,1,1),
+  buildPitcher("San Luis Obispo","T. Blaney","So",3.00,1,0,7.0,11,6,3,2,1,3),
+  buildPitcher("San Luis Obispo","J. Riley","Jr",2.58,1,1,19.0,15,10,7,7,15,6),
+  buildPitcher("San Luis Obispo","J. Taylor","Sr",2.87,3,4,39.0,44,24,16,16,46,8),
+  buildPitcher("San Luis Obispo","J. Giordano","Jr",2.33,0,0,6.0,8,6,2,3,3,6),
+  buildPitcher("San Luis Obispo","F. Avrett","Jr",4.28,1,1,18.0,25,21,11,10,18,7),
 
   // SANTA MARIA
   buildPitcher("Santa Maria","B. Alejo","Jr",0.54,0,0,13,4,1,1,1,7,4),
@@ -713,7 +720,7 @@ const standingsData = {
     { abbr:"LOM", name:"Lompoc",               lw:1, ll:6, ow:9,  ol:10, ot:0 },
   ],
   sunset: [
-    { abbr:"SLO", name:"San Luis Obispo", lw:5, ll:1, ow:10, ol:8,  ot:0 },
+    { abbr:"SLO", name:"San Luis Obispo", lw:5, ll:1, ow:11, ol:8,  ot:0 },
     { abbr:"PAS", name:"Paso Robles",     lw:5, ll:1, ow:10, ol:8,  ot:1 },
     { abbr:"ATA", name:"Atascadero",      lw:2, ll:4, ow:5,  ol:12, ot:0 },
     { abbr:"TMP", name:"Templeton",       lw:1, ll:3, ow:8,  ol:11, ot:0 },
