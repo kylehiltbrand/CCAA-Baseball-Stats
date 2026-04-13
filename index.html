@@ -97,10 +97,36 @@ tbody td:first-child{text-align:left;padding-left:1rem;color:var(--text);font-we
 footer{text-align:center;padding:1.5rem;border-top:1px solid var(--bdr);font-size:.65rem;color:var(--dim)}
 footer a{color:var(--sub)}
 footer a:hover{color:var(--text)}
+
+/* ── MOBILE ───────────────────────────────────────────────── */
+@media(max-width:640px){
+  html{font-size:13px}
+  main{padding:1rem 1rem 5.5rem}
+  .hdr{padding:0 1rem;height:50px}
+  .bsub{display:none}
+  .brand{margin-right:1rem}
+  .sp26{display:none}
+  nav a{padding:0 .65rem;font-size:.7rem}
+  .fbar-inner{padding:0 .75rem;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .fbar-inner::-webkit-scrollbar{display:none}
+  .fbtn{padding:0 .85rem;font-size:.65rem;flex-shrink:0}
+  .sgrid{grid-template-columns:1fr!important}
+  .tgrid{grid-template-columns:repeat(2,1fr)!important}
+  .srow{padding:.5rem .75rem}
+  .stm{font-size:.75rem}
+  .sovr{font-size:.68rem}
+}
+.mob-nav{display:none}
+@media(max-width:640px){
+  .mob-nav{display:flex;position:fixed;bottom:0;left:0;right:0;background:var(--bg2);border-top:1px solid var(--bdr);z-index:200;height:54px}
+  .mob-nav a{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.2rem;font-size:.55rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--sub);transition:color .15s}
+  .mob-nav a.on{color:var(--gold)}
+  .mob-nav a .mn-ic{font-size:1.1rem;line-height:1}
+}
 </style>
 
 <style>
-.home{min-height:calc(100vh - 56px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:3rem 2rem}
+.home{min-height:calc(100vh - 56px - 54px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:3rem 2rem}
 .htitle{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:clamp(2.8rem,8vw,6rem);line-height:1;color:var(--text)}
 .htitle span{color:var(--gold)}
 .hsub{font-size:.8rem;color:var(--sub);letter-spacing:.12em;text-transform:uppercase;margin:1rem 0 2.5rem}
@@ -124,6 +150,12 @@ footer a:hover{color:var(--text)}
   <div class="sbadge"><span class="sp26">Spring 2026</span></div>
 </div></header>
 <div class="home">
+<nav class="mob-nav">
+  <a href="index.html" class="on"><span class="mn-ic">🏠</span>Home</a>
+  <a href="standings.html"><span class="mn-ic">🏆</span>Standings</a>
+  <a href="stats.html"><span class="mn-ic">📊</span>Stats</a>
+  <a href="teams.html"><span class="mn-ic">⚾</span>Teams</a>
+</nav>
   <div class="htitle">CCAA <span>Baseball</span></div>
   <p class="hsub">2025–2026 Season · Central Section</p>
   <div class="hnav">

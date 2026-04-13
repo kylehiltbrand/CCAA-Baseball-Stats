@@ -97,6 +97,72 @@ tbody td:first-child{text-align:left;padding-left:1rem;color:var(--text);font-we
 footer{text-align:center;padding:1.5rem;border-top:1px solid var(--bdr);font-size:.65rem;color:var(--dim)}
 footer a{color:var(--sub)}
 footer a:hover{color:var(--text)}
+
+/* ── MOBILE ───────────────────────────────────────────────── */
+@media(max-width:640px){
+  html{font-size:13px}
+  main{padding:1rem 1rem 5.5rem}
+  .hdr{padding:0 1rem;height:50px}
+  .bsub{display:none}
+  .brand{margin-right:1rem}
+  .sp26{display:none}
+  nav a{padding:0 .65rem;font-size:.7rem}
+  .fbar-inner{padding:0 .75rem;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .fbar-inner::-webkit-scrollbar{display:none}
+  .fbtn{padding:0 .85rem;font-size:.65rem;flex-shrink:0}
+  .sgrid{grid-template-columns:1fr!important}
+  .tgrid{grid-template-columns:repeat(2,1fr)!important}
+  .srow{padding:.5rem .75rem}
+  .stm{font-size:.75rem}
+  .sovr{font-size:.68rem}
+}
+.mob-nav{display:none}
+@media(max-width:640px){
+  .mob-nav{display:flex;position:fixed;bottom:0;left:0;right:0;background:var(--bg2);border-top:1px solid var(--bdr);z-index:200;height:54px}
+  .mob-nav a{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.2rem;font-size:.55rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--sub);transition:color .15s}
+  .mob-nav a.on{color:var(--gold)}
+  .mob-nav a .mn-ic{font-size:1.1rem;line-height:1}
+}
+
+/* ── STATS MOBILE EXTRAS ──────────────────────────────────── */
+@media(max-width:640px){
+  .ctrl{gap:.5rem}
+  .tgroup{width:100%}
+  .tbtn{flex:1;padding:.5rem .5rem;font-size:.7rem}
+  .vgroup{width:100%}
+  .vbtn{flex:1;padding:.45rem .5rem;font-size:.7rem;text-align:center}
+  .selm{flex:1;min-width:0;font-size:.72rem;padding:.45rem .5rem}
+  #minPA,#minIP{width:calc(50% - .25rem)}
+  .dl-btn{width:100%;justify-content:center;padding:.5rem;margin-left:0}
+  .ib{font-size:.65rem;padding:.55rem .75rem}
+  .desktop-table{display:none!important}
+  .gloss-grid{grid-template-columns:1fr!important}
+}
+.mob-cards{display:none}
+@media(max-width:640px){
+  .mob-cards{display:block}
+  .mob-cards-inner{display:grid;grid-template-columns:1fr 1fr;gap:.55rem}
+}
+.mob-card{background:var(--bg2);border:1px solid var(--bdr);border-radius:8px;padding:.75rem;position:relative;overflow:hidden}
+.mob-card-header{display:flex;align-items:center;gap:.5rem;margin-bottom:.6rem}
+.mob-rank{color:var(--dim);font-size:.65rem;flex-shrink:0;width:14px}
+.mob-name{font-weight:600;font-size:.75rem;color:var(--text);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mob-year{font-size:.6rem;color:var(--sub);flex-shrink:0}
+.mob-stats{display:grid;grid-template-columns:1fr 1fr;gap:.3rem .5rem}
+.mob-stat{display:flex;flex-direction:column;gap:.08rem}
+.mob-stat-label{font-size:.55rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--dim)}
+.mob-stat-val{font-size:.8rem;font-weight:600}
+.mob-stat-val.vhi{color:#68d391}.mob-stat-val.vmd{color:var(--sky)}.mob-stat-val.vlo{color:#fc8181}
+.mob-stat-val.vbold{color:var(--text)}.mob-stat-val.vadv{color:var(--gold)}.mob-stat-val.vna{color:var(--dim);font-style:italic;font-weight:400}
+.mob-team-strip{display:flex;align-items:center;gap:.4rem;margin-top:.6rem;padding-top:.5rem;border-top:1px solid var(--bdr)}
+.mob-team-name{font-size:.62rem;color:var(--sub);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mob-sort-bar{display:none}
+@media(max-width:640px){
+  .mob-sort-bar{display:flex;gap:.3rem;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin-bottom:.75rem;padding-bottom:.1rem}
+  .mob-sort-bar::-webkit-scrollbar{display:none}
+}
+.mob-sort-pill{flex-shrink:0;padding:.3rem .65rem;background:var(--bg3);border:1px solid var(--bdr);border-radius:20px;font-size:.62rem;font-weight:600;color:var(--sub);cursor:pointer;transition:all .15s;white-space:nowrap}
+.mob-sort-pill.on{background:var(--gold);border-color:var(--gold);color:#0d1117}
 </style>
 
 </head>
@@ -112,6 +178,12 @@ footer a:hover{color:var(--text)}
   <button class="fbtn" onclick="setLeague('sunset',this)"><span class="dot ds"></span>Sunset</button>
   <button class="fbtn" onclick="setLeague('ocean',this)"><span class="dot do"></span>Ocean</button>
 </div></div>
+<nav class="mob-nav">
+  <a href="index.html"><span class="mn-ic">🏠</span>Home</a>
+  <a href="standings.html"><span class="mn-ic">🏆</span>Standings</a>
+  <a href="stats.html" class="on"><span class="mn-ic">📊</span>Stats</a>
+  <a href="teams.html"><span class="mn-ic">⚾</span>Teams</a>
+</nav>
 
 <style id="glossary-css">
 .gloss-wrap{background:var(--bg2);border:1px solid var(--bdr);border-radius:8px;overflow:hidden;margin-bottom:1rem}
@@ -254,7 +326,7 @@ function toggleGloss(btn){btn.classList.toggle('open');btn.nextElementSibling.cl
   <button class="dl-btn" onclick="downloadCSV()">⬇ Download CSV</button>
 </div>
 
-<div id="p-hs" class="card">
+<div id="p-hs" class="card desktop-table">
   <div class="card-hdr"><div class="card-title">Batting — Standard</div></div>
   <div class="tw"><table>
     <thead><tr>
@@ -280,7 +352,7 @@ function toggleGloss(btn){btn.classList.toggle('open');btn.nextElementSibling.cl
   </table></div>
 </div>
 
-<div id="p-ha" class="card" style="display:none">
+<div id="p-ha" class="card desktop-table" style="display:none">
   <div class="card-hdr"><div class="card-title">Batting — Advanced <span class="advb">ADV</span></div></div>
   <div class="tw"><table>
     <thead><tr>
@@ -299,7 +371,7 @@ function toggleGloss(btn){btn.classList.toggle('open');btn.nextElementSibling.cl
   </table></div>
 </div>
 
-<div id="p-ps" class="card" style="display:none">
+<div id="p-ps" class="card desktop-table" style="display:none">
   <div class="card-hdr"><div class="card-title">Pitching — Standard</div></div>
   <div class="tw"><table>
     <thead><tr>
@@ -318,7 +390,7 @@ function toggleGloss(btn){btn.classList.toggle('open');btn.nextElementSibling.cl
   </table></div>
 </div>
 
-<div id="p-pa" class="card" style="display:none">
+<div id="p-pa" class="card desktop-table" style="display:none">
   <div class="card-hdr"><div class="card-title">Pitching — Advanced <span class="advb">ADV</span></div></div>
   <div class="tw"><table>
     <thead><tr>
@@ -335,7 +407,7 @@ function toggleGloss(btn){btn.classList.toggle('open');btn.nextElementSibling.cl
     <tbody id="b-pa"></tbody>
   </table></div>
 </div>
-<div id="p-tw" class="card" style="display:none">
+<div id="p-tw" class="card desktop-table" style="display:none">
   <div class="card-hdr"><div class="card-title">Two-Way Players — Total WAR <span class="advb">ADV</span></div></div>
   <div class="tw"><table>
     <thead><tr>
@@ -354,6 +426,12 @@ function toggleGloss(btn){btn.classList.toggle('open');btn.nextElementSibling.cl
   </table></div>
 </div>
 </main>
+<div class="mob-cards" id="mob-section">
+  <div style="max-width:1280px;margin:0 auto;padding:0 1rem">
+    <div class="mob-sort-bar" id="mob-sort-bar"></div>
+    <div class="mob-cards-inner" id="mob-cards-inner"></div>
+  </div>
+</div>
 <footer>CCAA Baseball · Spring 2026 · Central Coast Athletic Association, CA · Stats: <a href="standings.html">Mountain</a> · <a href="standings.html">Sunset</a> · <a href="standings.html">Ocean</a></footer>
 <script src="data.js"></script>
 <script>
@@ -475,6 +553,132 @@ function render(){
 
 render();
 
+// ── MOBILE CARD RENDER ──────────────────────────────────────
+const MOB_HITTING_SORTS = [
+  {key:'avg',label:'AVG',asc:false},{key:'ops',label:'OPS',asc:false},
+  {key:'obp',label:'OBP',asc:false},{key:'slg',label:'SLG',asc:false},
+  {key:'wrc_plus',label:'wRC+',asc:false},{key:'woba',label:'wOBA',asc:false},
+  {key:'owar',label:'oWAR',asc:false},{key:'rbi',label:'RBI',asc:false},
+  {key:'hr',label:'HR',asc:false},{key:'bbk',label:'BB/K',asc:false},
+  {key:'h',label:'H',asc:false},{key:'r',label:'R',asc:false},
+];
+const MOB_PITCHING_SORTS = [
+  {key:'era',label:'ERA',asc:true},{key:'k9',label:'K/9',asc:false},
+  {key:'era_plus',label:'ERA+',asc:false},{key:'pwar',label:'pWAR',asc:false},
+  {key:'kbb',label:'K/BB',asc:false},{key:'ip',label:'IP',asc:false},
+  {key:'k',label:'K',asc:false},{key:'w',label:'W',asc:false},
+];
+let mobSortKey='avg',mobSortAsc=false;
+
+function fmtMobVal(key,p,isHitting){
+  if(isHitting){
+    const map={
+      avg:[p.avg,v=>f3(v)||'—','vbold',.270,.350],
+      ops:[p.ops,v=>f3(v)||'—','',.700,.900],
+      obp:[p.obp,v=>f3(v)||'—','',.300,.380],
+      slg:[p.slg,v=>f3(v)||'—','',.350,.500],
+      woba:[p.woba,v=>f3(v)||'—','vadv',.320,.400],
+      wrc_plus:[p.wrc_plus,v=>v+'','vadv',90,130],
+      owar:[p.owar,v=>(v>0?'+':'')+v,'vadv',0,1],
+      rbi:[p.rbi,v=>v+'','',10,20],
+      hr:[p.hr,v=>v+'','',2,5],
+      bbk:[p.bbk,v=>f2(v)||'—','vadv',.25,.5],
+      h:[p.h,v=>v+'','',10,20],
+      r:[p.r,v=>v+'','',5,12],
+    };
+    const[val,fmt,baseCls,lo,hi]=map[key]||[null,v=>v+'','',0,1];
+    if(val===null||val===undefined)return{val:'—',cls:'vna'};
+    const cls=baseCls||(val>=hi?'vhi':val>=lo?'vmd':'vlo');
+    return{val:fmt(val),cls};
+  }else{
+    const map={
+      era:[p.era,v=>v.toFixed(2),'',4.5,2.5,true],
+      k9:[p.k9,v=>f1(v)||'—','vadv',6,9,false],
+      era_plus:[p.era_plus,v=>v+'','vadv',80,120,false],
+      pwar:[p.pwar,v=>(v>0?'+':'')+v,'vadv',0,1,false],
+      kbb:[p.kbb,v=>f2(v)||'—','vadv',1.5,3,false],
+      ip:[p.ip,v=>v+'','',10,25,false],
+      k:[p.k,v=>v+'','',10,25,false],
+      w:[p.w,v=>v+'','',3,6,false],
+    };
+    const[val,fmt,baseCls,lo,hi,rev]=map[key]||[null,v=>v+'','',0,1,false];
+    if(val===null||val===undefined)return{val:'—',cls:'vna'};
+    const cls=baseCls||(rev?(val<=lo?'vhi':val<=hi?'vmd':'vlo'):(val>=hi?'vhi':val>=lo?'vmd':'vlo'));
+    return{val:fmt(val),cls};
+  }
+}
+
+function renderMob(){
+  if(window.innerWidth>640)return;
+  const teamF=document.getElementById('teamSel').value;
+  const mPA=parseInt(document.getElementById('minPA').value)||0;
+  const mIP=parseFloat(document.getElementById('minIP').value)||0;
+  const isHitting=curTab!=='pitching';
+  const sorts=isHitting?MOB_HITTING_SORTS:MOB_PITCHING_SORTS;
+
+  const sortBar=document.getElementById('mob-sort-bar');
+  sortBar.innerHTML=sorts.map(s=>`<button class="mob-sort-pill${mobSortKey===s.key?' on':''}" onclick="mobSort('${s.key}',${s.asc})">${s.label}</button>`).join('');
+
+  let data;
+  if(isHitting){
+    data=batters.filter(b=>(!teamF||b.team===teamF)&&(curLeague==='all'||TL[b.team]===curLeague)&&b.pa>=mPA);
+  }else{
+    data=pitchers.filter(p=>(!teamF||p.team===teamF)&&(curLeague==='all'||TL[p.team]===curLeague)&&p.ip>=mIP);
+  }
+  data.sort((a,b)=>{
+    const va=a[mobSortKey]??(mobSortAsc?Infinity:-Infinity);
+    const vb=b[mobSortKey]??(mobSortAsc?Infinity:-Infinity);
+    return mobSortAsc?va-vb:vb-va;
+  });
+
+  const statKeys=isHitting
+    ?[mobSortKey,...['avg','ops','wrc_plus','rbi','hr','obp','woba','owar','bbk'].filter(k=>k!==mobSortKey)].slice(0,4)
+    :[mobSortKey,...['era','k9','ip','pwar','era_plus','kbb','k'].filter(k=>k!==mobSortKey)].slice(0,4);
+  const statLabels={avg:'AVG',ops:'OPS',obp:'OBP',slg:'SLG',woba:'wOBA',wrc_plus:'wRC+',owar:'oWAR',rbi:'RBI',hr:'HR',bbk:'BB/K',h:'H',r:'R',pa:'PA',era:'ERA',k9:'K/9',era_plus:'ERA+',pwar:'pWAR',kbb:'K/BB',ip:'IP',k:'K',w:'W'};
+
+  const container=document.getElementById('mob-cards-inner');
+  container.innerHTML=data.map((p,i)=>{
+    const c=TC[p.team]||{bg:'#222',fg:'#aaa',a:p.team.slice(0,3)};
+    const statsHtml=statKeys.map(k=>{
+      const{val,cls}=fmtMobVal(k,p,isHitting);
+      return `<div class="mob-stat"><span class="mob-stat-label">${statLabels[k]||k}</span><span class="mob-stat-val ${cls}">${val}</span></div>`;
+    }).join('');
+    return `<div class="mob-card">
+      <div class="mob-card-header">
+        <span class="mob-rank">${i+1}</span>
+        <span class="mob-name">${p.name}</span>
+        <span class="mob-year">${p.year}</span>
+      </div>
+      <div class="mob-stats">${statsHtml}</div>
+      <div class="mob-team-strip">
+        <span class="tbadge" style="background:${c.bg};color:${c.fg};width:24px;height:24px;font-size:.55rem">${c.a}</span>
+        <span class="mob-team-name">${p.team}</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function mobSort(key,defaultAsc){
+  if(mobSortKey===key){mobSortAsc=!mobSortAsc;}
+  else{mobSortKey=key;mobSortAsc=defaultAsc;}
+  renderMob();
+}
+
+// Wrap setTab to reset mob sort
+const _origSetTab=window.setTab;
+window.setTab=function(t,btn){
+  mobSortKey=t==='pitching'?'era':'avg';
+  mobSortAsc=t==='pitching';
+  _origSetTab(t,btn);
+  renderMob();
+};
+
+// Wrap render to also trigger mob render
+const _origRender=window.render;
+window.render=function(){_origRender();renderMob();};
+
+renderMob();
+window.addEventListener('resize',renderMob);
 
 function downloadCSV() {
   const isHitting = curTab === 'hitting';
