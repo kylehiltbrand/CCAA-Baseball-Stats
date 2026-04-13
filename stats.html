@@ -110,11 +110,6 @@ footer a:hover{color:var(--text)}
   .fbar-inner{padding:0 .75rem;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
   .fbar-inner::-webkit-scrollbar{display:none}
   .fbtn{padding:0 .85rem;font-size:.65rem;flex-shrink:0}
-  .sgrid{grid-template-columns:1fr!important}
-  .tgrid{grid-template-columns:repeat(2,1fr)!important}
-  .srow{padding:.5rem .75rem}
-  .stm{font-size:.75rem}
-  .sovr{font-size:.68rem}
 }
 .mob-nav{display:none}
 @media(max-width:640px){
@@ -426,12 +421,7 @@ function toggleGloss(btn){btn.classList.toggle('open');btn.nextElementSibling.cl
   </table></div>
 </div>
 </main>
-<div class="mob-cards" id="mob-section">
-  <div style="max-width:1280px;margin:0 auto;padding:0 1rem">
-    <div class="mob-sort-bar" id="mob-sort-bar"></div>
-    <div class="mob-cards-inner" id="mob-cards-inner"></div>
-  </div>
-</div>
+<div class="mob-cards" id="mob-section"><div style="max-width:1280px;margin:0 auto;padding:0 1rem"><div class="mob-sort-bar" id="mob-sort-bar"></div><div class="mob-cards-inner" id="mob-cards-inner"></div></div></div>
 <footer>CCAA Baseball · Spring 2026 · Central Coast Athletic Association, CA · Stats: <a href="standings.html">Mountain</a> · <a href="standings.html">Sunset</a> · <a href="standings.html">Ocean</a></footer>
 <script src="data.js"></script>
 <script>
@@ -568,44 +558,87 @@ const MOB_PITCHING_SORTS = [
   {key:'kbb',label:'K/BB',asc:false},{key:'ip',label:'IP',asc:false},
   {key:'k',label:'K',asc:false},{key:'w',label:'W',asc:false},
 ];
+const MOB_TWOWAY_SORTS = [
+  {key:'twar',label:'tWAR',asc:false},{key:'owar',label:'oWAR',asc:false},
+  {key:'pwar',label:'pWAR',asc:false},{key:'wrc_plus',label:'wRC+',asc:false},
+  {key:'era',label:'ERA',asc:true},{key:'avg',label:'AVG',asc:false},
+  {key:'pa',label:'PA',asc:false},{key:'ip',label:'IP',asc:false},
+];
 let mobSortKey='avg',mobSortAsc=false;
 
-function fmtMobVal(key,p,isHitting){
-  if(isHitting){
-    const map={
-      avg:[p.avg,v=>f3(v)||'—','vbold',.270,.350],
-      ops:[p.ops,v=>f3(v)||'—','',.700,.900],
-      obp:[p.obp,v=>f3(v)||'—','',.300,.380],
-      slg:[p.slg,v=>f3(v)||'—','',.350,.500],
-      woba:[p.woba,v=>f3(v)||'—','vadv',.320,.400],
-      wrc_plus:[p.wrc_plus,v=>v+'','vadv',90,130],
-      owar:[p.owar,v=>(v>0?'+':'')+v,'vadv',0,1],
-      rbi:[p.rbi,v=>v+'','',10,20],
-      hr:[p.hr,v=>v+'','',2,5],
-      bbk:[p.bbk,v=>f2(v)||'—','vadv',.25,.5],
-      h:[p.h,v=>v+'','',10,20],
-      r:[p.r,v=>v+'','',5,12],
-    };
-    const[val,fmt,baseCls,lo,hi]=map[key]||[null,v=>v+'','',0,1];
-    if(val===null||val===undefined)return{val:'—',cls:'vna'};
-    const cls=baseCls||(val>=hi?'vhi':val>=lo?'vmd':'vlo');
-    return{val:fmt(val),cls};
-  }else{
-    const map={
-      era:[p.era,v=>v.toFixed(2),'',4.5,2.5,true],
-      k9:[p.k9,v=>f1(v)||'—','vadv',6,9,false],
-      era_plus:[p.era_plus,v=>v+'','vadv',80,120,false],
-      pwar:[p.pwar,v=>(v>0?'+':'')+v,'vadv',0,1,false],
-      kbb:[p.kbb,v=>f2(v)||'—','vadv',1.5,3,false],
-      ip:[p.ip,v=>v+'','',10,25,false],
-      k:[p.k,v=>v+'','',10,25,false],
-      w:[p.w,v=>v+'','',3,6,false],
-    };
-    const[val,fmt,baseCls,lo,hi,rev]=map[key]||[null,v=>v+'','',0,1,false];
-    if(val===null||val===undefined)return{val:'—',cls:'vna'};
-    const cls=baseCls||(rev?(val<=lo?'vhi':val<=hi?'vmd':'vlo'):(val>=hi?'vhi':val>=lo?'vmd':'vlo'));
-    return{val:fmt(val),cls};
+function fmtMobVal(key,p){
+  const map={
+    avg:[p.avg,v=>f3(v)||'—','vbold',.270,.350,false],
+    ops:[p.ops,v=>f3(v)||'—','',.700,.900,false],
+    obp:[p.obp,v=>f3(v)||'—','',.300,.380,false],
+    slg:[p.slg,v=>f3(v)||'—','',.350,.500,false],
+    woba:[p.woba,v=>f3(v)||'—','vadv',.320,.400,false],
+    wrc_plus:[p.wrc_plus,v=>v+'','vadv',90,130,false],
+    owar:[p.owar,v=>(v>0?'+':'')+v,'vadv',0,1,false],
+    pwar:[p.pwar,v=>(v>0?'+':'')+v,'vadv',0,1,false],
+    twar:[p.twar,v=>(v>0?'+':'')+v,'vadv',1,2,false],
+    rbi:[p.rbi,v=>v+'','',10,20,false],
+    hr:[p.hr,v=>v+'','',2,5,false],
+    bbk:[p.bbk,v=>f2(v)||'—','vadv',.25,.5,false],
+    h:[p.h,v=>v+'','',10,20,false],
+    r:[p.r,v=>v+'','',5,12,false],
+    pa:[p.pa,v=>v+'','',20,40,false],
+    era:[p.era,v=>v.toFixed(2),'',4.5,2.5,true],
+    k9:[p.k9,v=>f1(v)||'—','vadv',6,9,false],
+    era_plus:[p.era_plus,v=>v+'','vadv',80,120,false],
+    kbb:[p.kbb,v=>f2(v)||'—','vadv',1.5,3,false],
+    ip:[p.ip,v=>v+'','',10,25,false],
+    k:[p.k,v=>v+'','',10,25,false],
+    w:[p.w,v=>v+'','',3,6,false],
+  };
+  const[val,fmt,baseCls,lo,hi,rev]=map[key]||[null,v=>v+'','',0,1,false];
+  if(val===null||val===undefined)return{val:'—',cls:'vna'};
+  const cls=baseCls||(rev?(val<=lo?'vhi':val<=hi?'vmd':'vlo'):(val>=hi?'vhi':val>=lo?'vmd':'vlo'));
+  return{val:fmt(val),cls};
+}
+
+function getMobSorts(){
+  if(curTab==='twoway')return MOB_TWOWAY_SORTS;
+  if(curTab==='pitching')return MOB_PITCHING_SORTS;
+  return MOB_HITTING_SORTS;
+}
+
+function getMobStatKeys(){
+  if(curTab==='twoway'){
+    // tWAR always first, then ERA, oWAR, wRC+
+    const extras=['era','owar','wrc_plus'].filter(k=>k!==mobSortKey);
+    return[mobSortKey,...extras].slice(0,4);
   }
+  if(curTab==='pitching'){
+    return[mobSortKey,...['era','k9','ip','pwar','era_plus','kbb','k'].filter(k=>k!==mobSortKey)].slice(0,4);
+  }
+  return[mobSortKey,...['avg','ops','wrc_plus','rbi','hr','obp','woba','owar','bbk'].filter(k=>k!==mobSortKey)].slice(0,4);
+}
+
+function getMobData(teamF,mPA,mIP){
+  if(curTab==='twoway'){
+    const pitcherMap={};
+    pitchers.forEach(p=>{
+      const key=p.name+'|'+p.team;
+      if(!pitcherMap[key]||p.ip>pitcherMap[key].ip) pitcherMap[key]=p;
+    });
+    let TW=[];
+    batters.forEach(b=>{
+      if(teamF&&b.team!==teamF)return;
+      if(curLeague!=='all'&&TL[b.team]!==curLeague)return;
+      const key=b.name+'|'+b.team;
+      const p=pitcherMap[key];
+      if(!p||p.ip<mIP||b.pa<mPA)return;
+      if(b.owar===null||p.pwar===null)return;
+      const twar=Math.round((b.owar+p.pwar)*10)/10;
+      TW.push({...b,ip:p.ip,era:p.era,pwar:p.pwar,twar});
+    });
+    return TW;
+  }
+  if(curTab==='pitching'){
+    return pitchers.filter(p=>(!teamF||p.team===teamF)&&(curLeague==='all'||TL[p.team]===curLeague)&&p.ip>=mIP);
+  }
+  return batters.filter(b=>(!teamF||b.team===teamF)&&(curLeague==='all'||TL[b.team]===curLeague)&&b.pa>=mPA);
 }
 
 function renderMob(){
@@ -613,34 +646,26 @@ function renderMob(){
   const teamF=document.getElementById('teamSel').value;
   const mPA=parseInt(document.getElementById('minPA').value)||0;
   const mIP=parseFloat(document.getElementById('minIP').value)||0;
-  const isHitting=curTab!=='pitching';
-  const sorts=isHitting?MOB_HITTING_SORTS:MOB_PITCHING_SORTS;
+  const sorts=getMobSorts();
 
   const sortBar=document.getElementById('mob-sort-bar');
   sortBar.innerHTML=sorts.map(s=>`<button class="mob-sort-pill${mobSortKey===s.key?' on':''}" onclick="mobSort('${s.key}',${s.asc})">${s.label}</button>`).join('');
 
-  let data;
-  if(isHitting){
-    data=batters.filter(b=>(!teamF||b.team===teamF)&&(curLeague==='all'||TL[b.team]===curLeague)&&b.pa>=mPA);
-  }else{
-    data=pitchers.filter(p=>(!teamF||p.team===teamF)&&(curLeague==='all'||TL[p.team]===curLeague)&&p.ip>=mIP);
-  }
+  let data=getMobData(teamF,mPA,mIP);
   data.sort((a,b)=>{
     const va=a[mobSortKey]??(mobSortAsc?Infinity:-Infinity);
     const vb=b[mobSortKey]??(mobSortAsc?Infinity:-Infinity);
     return mobSortAsc?va-vb:vb-va;
   });
 
-  const statKeys=isHitting
-    ?[mobSortKey,...['avg','ops','wrc_plus','rbi','hr','obp','woba','owar','bbk'].filter(k=>k!==mobSortKey)].slice(0,4)
-    :[mobSortKey,...['era','k9','ip','pwar','era_plus','kbb','k'].filter(k=>k!==mobSortKey)].slice(0,4);
-  const statLabels={avg:'AVG',ops:'OPS',obp:'OBP',slg:'SLG',woba:'wOBA',wrc_plus:'wRC+',owar:'oWAR',rbi:'RBI',hr:'HR',bbk:'BB/K',h:'H',r:'R',pa:'PA',era:'ERA',k9:'K/9',era_plus:'ERA+',pwar:'pWAR',kbb:'K/BB',ip:'IP',k:'K',w:'W'};
+  const statKeys=getMobStatKeys();
+  const statLabels={avg:'AVG',ops:'OPS',obp:'OBP',slg:'SLG',woba:'wOBA',wrc_plus:'wRC+',owar:'oWAR',pwar:'pWAR',twar:'tWAR',rbi:'RBI',hr:'HR',bbk:'BB/K',h:'H',r:'R',pa:'PA',era:'ERA',k9:'K/9',era_plus:'ERA+',kbb:'K/BB',ip:'IP',k:'K',w:'W'};
 
   const container=document.getElementById('mob-cards-inner');
   container.innerHTML=data.map((p,i)=>{
     const c=TC[p.team]||{bg:'#222',fg:'#aaa',a:p.team.slice(0,3)};
     const statsHtml=statKeys.map(k=>{
-      const{val,cls}=fmtMobVal(k,p,isHitting);
+      const{val,cls}=fmtMobVal(k,p);
       return `<div class="mob-stat"><span class="mob-stat-label">${statLabels[k]||k}</span><span class="mob-stat-val ${cls}">${val}</span></div>`;
     }).join('');
     return `<div class="mob-card">
@@ -664,16 +689,15 @@ function mobSort(key,defaultAsc){
   renderMob();
 }
 
-// Wrap setTab to reset mob sort
 const _origSetTab=window.setTab;
 window.setTab=function(t,btn){
-  mobSortKey=t==='pitching'?'era':'avg';
-  mobSortAsc=t==='pitching';
+  if(t==='twoway'){mobSortKey='twar';mobSortAsc=false;}
+  else if(t==='pitching'){mobSortKey='era';mobSortAsc=true;}
+  else{mobSortKey='avg';mobSortAsc=false;}
   _origSetTab(t,btn);
   renderMob();
 };
 
-// Wrap render to also trigger mob render
 const _origRender=window.render;
 window.render=function(){_origRender();renderMob();};
 
