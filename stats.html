@@ -125,6 +125,30 @@ footer a:hover{color:var(--text)}
   .mob-nav a .mn-ic{font-size:1.1rem;line-height:1}
 }
 
+/* ── PLAYER PROFILE MODAL ─────────────────────────────────── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:500;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:opacity .2s}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal{background:var(--bg2);border:1px solid var(--bdr2);border-radius:10px;width:100%;max-width:560px;max-height:90vh;overflow-y:auto;position:relative}
+.modal-hdr{padding:1.1rem 1.25rem .8rem;border-bottom:1px solid var(--bdr);display:flex;align-items:flex-start;gap:.85rem}
+.modal-badge{display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:7px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.7rem;flex-shrink:0}
+.modal-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.3rem;color:var(--text);line-height:1.1}
+.modal-meta{font-size:.65rem;color:var(--sub);margin-top:.2rem;display:flex;gap:.6rem;flex-wrap:wrap}
+.modal-meta span{display:flex;align-items:center;gap:.25rem}
+.modal-close{margin-left:auto;background:none;border:none;color:var(--sub);font-size:1.2rem;cursor:pointer;padding:.2rem .4rem;line-height:1;border-radius:4px;transition:color .15s,background .15s;flex-shrink:0}
+.modal-close:hover{color:var(--text);background:var(--bg3)}
+.modal-body{padding:1rem 1.25rem 1.25rem}
+.modal-section{margin-bottom:1.1rem}
+.modal-section-title{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--sub);margin-bottom:.55rem;padding-bottom:.3rem;border-bottom:1px solid var(--bdr)}
+.stat-pills{display:flex;flex-wrap:wrap;gap:.4rem}
+.stat-pill{background:var(--bg3);border:1px solid var(--bdr);border-radius:6px;padding:.45rem .7rem;min-width:70px}
+.sp-label{font-size:.55rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--dim);display:block;margin-bottom:.2rem}
+.sp-val{font-size:.92rem;font-weight:600;display:block}
+.sp-val.vhi{color:#68d391}.sp-val.vmd{color:var(--sky)}.sp-val.vlo{color:#fc8181}
+.sp-val.vadv{color:var(--gold)}.sp-val.vbold{color:var(--text)}.sp-val.vna{color:var(--dim);font-style:italic}
+/* ── SEARCH INPUT ─────────────────────────────────────────── */
+.search-wrap{position:relative;display:flex;align-items:center}
+.search-wrap svg{position:absolute;left:.55rem;color:var(--dim);pointer-events:none;width:13px;height:13px}
+#playerSearch{padding:.38rem .65rem .38rem 1.75rem;min-width:150px}
 /* ── STATS MOBILE EXTRAS ──────────────────────────────────── */
 @media(max-width:640px){
   .ctrl{gap:.5rem}
@@ -314,6 +338,10 @@ function toggleGloss(btn){btn.classList.toggle('open');btn.nextElementSibling.cl
     <button class="vbtn" onclick="setView('advanced',this)">Advanced</button>
   </div>
   <select class="selm" id="teamSel" onchange="render()"><option value="">All Teams</option></select>
+  <div class="search-wrap">
+    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M14.5 14.5l3 3"/></svg>
+    <input class="selm" id="playerSearch" type="text" placeholder="Search player…" oninput="render()">
+  </div>
   <select class="selm" id="minPA" onchange="render()">
     <option value="0">Any PA</option><option value="10">10+ PA</option>
     <option value="20">20+ PA</option><option value="30" selected>30+ PA</option>
@@ -429,6 +457,19 @@ function toggleGloss(btn){btn.classList.toggle('open');btn.nextElementSibling.cl
 </main>
 <div class="mob-cards" id="mob-section"><div style="max-width:1280px;margin:0 auto;padding:0 1rem"><div class="mob-sort-bar" id="mob-sort-bar"></div><div class="mob-cards-inner" id="mob-cards-inner"></div></div></div>
 <footer>CCAA Baseball · Spring 2026 · Central Coast Athletic Association, CA · Stats: <a href="standings.html">Mountain</a> · <a href="standings.html">Sunset</a> · <a href="standings.html">Ocean</a></footer>
+<div class="modal-overlay" id="profileModal" onclick="closeProfile(event)">
+  <div class="modal" id="profileBox">
+    <div class="modal-hdr">
+      <div class="modal-badge" id="pm-badge"></div>
+      <div>
+        <div class="modal-name" id="pm-name"></div>
+        <div class="modal-meta" id="pm-meta"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="pm-body"></div>
+  </div>
+</div>
 <script src="data.js"></script>
 <script>
 const TL={"St. Joseph":"mountain","Arroyo Grande":"mountain","Righetti":"mountain","Morro Bay":"mountain","Mission College Prep":"mountain","Lompoc":"mountain","Paso Robles":"sunset","San Luis Obispo":"sunset","Atascadero":"sunset","Templeton":"sunset","Cabrillo":"sunset","Nipomo":"ocean","Pioneer Valley":"ocean","Santa Ynez":"ocean","Santa Maria":"ocean"};
@@ -445,7 +486,7 @@ const sel=document.getElementById('teamSel');
 
 const YEAR_ORDER = {"Fr":1,"So":2,"Jr":3,"Sr":4,"??":5};
 function setLeague(l,btn){curLeague=l;document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');render()}
-function setTab(t,btn){curTab=t;document.querySelectorAll('.tbtn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');curCol=t==='pitching'?'era':t==='twoway'?'twar':'avg';curAsc=t==='pitching';document.querySelector('.vgroup').style.display=t==='twoway'?'none':'';render()}
+function setTab(t,btn){curTab=t;document.querySelectorAll('.tbtn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');curCol=t==='pitching'?'era':t==='twoway'?'twar':'avg';curAsc=t==='pitching';document.querySelector('.vgroup').style.display=t==='twoway'?'none':'';document.getElementById('playerSearch').value='';render()}
 function setView(v,btn){curView=v;document.querySelectorAll('.vbtn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');render()}
 function srt(col,asc){curCol===col?curAsc=!curAsc:(curCol=col,curAsc=asc);render()}
 
@@ -462,6 +503,7 @@ function render(){
   const teamF=document.getElementById('teamSel').value;
   const mPA=parseInt(document.getElementById('minPA').value)||0;
   const mIP=parseFloat(document.getElementById('minIP').value)||0;
+  const srch=(document.getElementById('playerSearch').value||'').toLowerCase().trim();
 
   ['p-hs','p-ha','p-ps','p-pa','p-tw'].forEach(id=>document.getElementById(id).style.display='none');
   if(curTab==='hitting'){
@@ -474,7 +516,7 @@ function render(){
     document.getElementById('p-tw').style.display='';
   }
 
-  let H=batters.filter(b=>(!teamF||b.team===teamF)&&(curLeague==='all'||TL[b.team]===curLeague)&&b.pa>=mPA);
+  let H=batters.filter(b=>(!teamF||b.team===teamF)&&(curLeague==='all'||TL[b.team]===curLeague)&&b.pa>=mPA&&(!srch||b.name.toLowerCase().includes(srch)));
   H.sort((a,b)=>{
     let va=curCol==='year'?(YEAR_ORDER[a.year]||9):(a[curCol]??(curAsc?Infinity:-Infinity));
     let vb=curCol==='year'?(YEAR_ORDER[b.year]||9):(b[curCol]??(curAsc?Infinity:-Infinity));
@@ -485,16 +527,16 @@ function render(){
     return a.name.localeCompare(b.name);
   });
 
-  document.getElementById('b-hs').innerHTML=H.map((p,i)=>`<tr><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.gp}</td><td class="vbold">${f3(p.avg)||'—'}</td><td>${p.pa}</td><td>${p.ab}</td><td>${p.r}</td><td>${p.h}</td><td>${p.doubles}</td><td>${p.triples}</td><td>${p.hr}</td><td>${p.rbi}</td><td>${p.bb}</td><td>${p.k}</td><td>${cv(p.obp,.300,.380,v=>f3(v))}</td><td>${cv(p.slg,.350,.500,v=>f3(v))}</td><td>${cv(p.ops,.700,.900,v=>f3(v))}</td></tr>`).join('');
+  document.getElementById('b-hs').innerHTML=H.map((p,i)=>`<tr style="cursor:pointer" onclick="openProfile('${p.name.replace(/'/g,"\\'")}','${p.team}','hitting')"><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.gp}</td><td class="vbold">${f3(p.avg)||'—'}</td><td>${p.pa}</td><td>${p.ab}</td><td>${p.r}</td><td>${p.h}</td><td>${p.doubles}</td><td>${p.triples}</td><td>${p.hr}</td><td>${p.rbi}</td><td>${p.bb}</td><td>${p.k}</td><td>${cv(p.obp,.300,.380,v=>f3(v))}</td><td>${cv(p.slg,.350,.500,v=>f3(v))}</td><td>${cv(p.ops,.700,.900,v=>f3(v))}</td></tr>`).join('');
 
   document.getElementById('b-ha').innerHTML=H.map((p,i)=>{
     const wc=p.wrc_plus,wcCls=wc===null?'vna':wc>=130?'vhi':wc>=90?'vmd':'vlo';
     const oc=p.owar===null?'vna':p.owar>=1?'vhi':p.owar>=0?'vmd':'vlo';
     const bc=p.bbk===null?'vna':p.bbk>=0.5?'vhi':p.bbk>=0.25?'vmd':'vlo';
-    return `<tr><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.pa}</td><td>${f3(p.avg)||'—'}</td><td>${cv(p.obp,.300,.380,v=>f3(v))}</td><td>${cv(p.slg,.350,.500,v=>f3(v))}</td><td class="vadv">${f3(p.woba)||'—'}</td><td><span class="${wcCls}">${wc!==null?wc:'—'}</span></td><td><span class="${oc}">${p.owar!==null?(p.owar>0?'+':'')+p.owar:'—'}</span></td><td><span class="${bc}">${p.bbk!==null?f2(p.bbk):'—'}</span></td></tr>`;
+    return `<tr style="cursor:pointer" onclick="openProfile('${p.name.replace(/'/g,"\\'")}','${p.team}','hitting')"><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.pa}</td><td>${f3(p.avg)||'—'}</td><td>${cv(p.obp,.300,.380,v=>f3(v))}</td><td>${cv(p.slg,.350,.500,v=>f3(v))}</td><td class="vadv">${f3(p.woba)||'—'}</td><td><span class="${wcCls}">${wc!==null?wc:'—'}</span></td><td><span class="${oc}">${p.owar!==null?(p.owar>0?'+':'')+p.owar:'—'}</span></td><td><span class="${bc}">${p.bbk!==null?f2(p.bbk):'—'}</span></td></tr>`;
   }).join('');
 
-  let P=pitchers.filter(p=>(!teamF||p.team===teamF)&&(curLeague==='all'||TL[p.team]===curLeague)&&p.ip>=mIP);
+  let P=pitchers.filter(p=>(!teamF||p.team===teamF)&&(curLeague==='all'||TL[p.team]===curLeague)&&p.ip>=mIP&&(!srch||p.name.toLowerCase().includes(srch)));
   P.sort((a,b)=>{
     let va=curCol==='year'?(YEAR_ORDER[a.year]||9):(a[curCol]??(curAsc?Infinity:-Infinity));
     let vb=curCol==='year'?(YEAR_ORDER[b.year]||9):(b[curCol]??(curAsc?Infinity:-Infinity));
@@ -505,10 +547,10 @@ function render(){
     return a.name.localeCompare(b.name);
   });
 
-  document.getElementById('b-ps').innerHTML=P.map((p,i)=>`<tr><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.app}</td><td>${p.w}</td><td>${p.l}</td><td>${cv(p.era,2.5,4.5,v=>v.toFixed(2),true)}</td><td>${p.ip}</td><td>${p.h}</td><td>${p.er}</td><td>${p.bb}</td><td>${p.k}</td></tr>`).join('');
+  document.getElementById('b-ps').innerHTML=P.map((p,i)=>`<tr style="cursor:pointer" onclick="openProfile('${p.name.replace(/'/g,"\\'")}','${p.team}','pitching')"><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.app}</td><td>${p.w}</td><td>${p.l}</td><td>${cv(p.era,2.5,4.5,v=>v.toFixed(2),true)}</td><td>${p.ip}</td><td>${p.h}</td><td>${p.er}</td><td>${p.bb}</td><td>${p.k}</td></tr>`).join('');
 
   document.getElementById('b-pa').innerHTML=P.map((p,i)=>{
-    return `<tr><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.ip}</td><td>${cv(p.era,2.5,4.5,v=>v.toFixed(2),true)}</td><td class="vadv">${cv(p.k9,6,9,v=>f1(v))}</td><td class="vadv">${cv(p.kpct,20,30,v=>v.toFixed(1)+'%')}</td><td class="vadv">${cv(p.pwar,0,1,v=>(v>0?'+':'')+v)}</td><td class="vadv">${cv(p.kbb,1.5,3,v=>f2(v))}</td><td class="vadv">${cv(p.era_plus,80,120,v=>v.toString())}</td></tr>`;
+    return `<tr style="cursor:pointer" onclick="openProfile('${p.name.replace(/'/g,"\\'")}','${p.team}','pitching')"><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.ip}</td><td>${cv(p.era,2.5,4.5,v=>v.toFixed(2),true)}</td><td class="vadv">${cv(p.k9,6,9,v=>f1(v))}</td><td class="vadv">${cv(p.kpct,20,30,v=>v.toFixed(1)+'%')}</td><td class="vadv">${cv(p.pwar,0,1,v=>(v>0?'+':'')+v)}</td><td class="vadv">${cv(p.kbb,1.5,3,v=>f2(v))}</td><td class="vadv">${cv(p.era_plus,80,120,v=>v.toString())}</td></tr>`;
   }).join('');
 
   // Two-Way: match batters with pitchers by name+team, require both owar and pwar
@@ -542,7 +584,7 @@ function render(){
       const pc=p.pwar>=1?'vhi':p.pwar>=0?'vmd':'vlo';
       const tc=p.twar>=2?'vhi':p.twar>=1?'vmd':'vlo';
       const wc=p.wrc_plus===null?'vna':p.wrc_plus>=130?'vhi':p.wrc_plus>=90?'vmd':'vlo';
-      return `<tr><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.pa}</td><td>${p.ip}</td><td class="vbold">${f3(p.avg)||'—'}</td><td><span class="${wc}">${p.wrc_plus!==null?p.wrc_plus:'—'}</span></td><td>${cv(p.era,2.5,4.5,v=>v.toFixed(2),true)}</td><td class="vadv"><span class="${oc}">${p.owar!==null?(p.owar>0?'+':'')+p.owar:'—'}</span></td><td class="vadv"><span class="${pc}">${p.pwar!==null?(p.pwar>0?'+':'')+p.pwar:'—'}</span></td><td class="vadv"><span class="${tc}">${(p.twar>0?'+':'')+p.twar}</span></td></tr>`;
+      return `<tr style="cursor:pointer" onclick="openProfile('${p.name.replace(/'/g,"\\'")}','${p.team}','twoway')"><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.pa}</td><td>${p.ip}</td><td class="vbold">${f3(p.avg)||'—'}</td><td><span class="${wc}">${p.wrc_plus!==null?p.wrc_plus:'—'}</span></td><td>${cv(p.era,2.5,4.5,v=>v.toFixed(2),true)}</td><td class="vadv"><span class="${oc}">${p.owar!==null?(p.owar>0?'+':'')+p.owar:'—'}</span></td><td class="vadv"><span class="${pc}">${p.pwar!==null?(p.pwar>0?'+':'')+p.pwar:'—'}</span></td><td class="vadv"><span class="${tc}">${(p.twar>0?'+':'')+p.twar}</span></td></tr>`;
     }).join('');
   }
 }
@@ -701,7 +743,7 @@ window.setTab=function(t,btn){
   if(t==='twoway'){mobSortKey='twar';mobSortAsc=false;}
   else if(t==='pitching'){mobSortKey='era';mobSortAsc=true;}
   else{mobSortKey='avg';mobSortAsc=false;}
-  _origSetTab(t,btn);
+  _origSetTab(t,btn); // already clears search + calls render
   renderMob();
 };
 
@@ -710,6 +752,104 @@ window.render=function(){_origRender();renderMob();};
 
 renderMob();
 window.addEventListener('resize',renderMob);
+
+// ── PLAYER PROFILE MODAL ──────────────────────────────────
+function pill(label,val,cls){
+  return `<div class="stat-pill"><span class="sp-label">${label}</span><span class="sp-val ${cls||''}">${val}</span></div>`;
+}
+function pillCV(label,v,lo,hi,fmt,rev){
+  if(v===null||v===undefined||isNaN(v))return pill(label,'—','vna');
+  const cls=rev?(v<=lo?'vhi':v<=hi?'vmd':'vlo'):(v>=hi?'vhi':v>=lo?'vmd':'vlo');
+  return pill(label,fmt(v),cls);
+}
+
+function openProfile(name,team,tab){
+  const c=TC[team]||{bg:'#222',fg:'#aaa',a:team.slice(0,3)};
+  document.getElementById('pm-badge').style.cssText=`background:${c.bg};color:${c.fg}`;
+  document.getElementById('pm-badge').textContent=c.a;
+  document.getElementById('pm-name').textContent=name;
+
+  const b=batters.find(x=>x.name===name&&x.team===team);
+  const p=pitchers.find(x=>x.name===name&&x.team===team);
+  const league=TL[team]||'';
+  const leagueDot=league==='mountain'?'<span class="dot dm" style="display:inline-block;margin-right:.3rem"></span>Mountain':league==='sunset'?'<span class="dot ds" style="display:inline-block;margin-right:.3rem"></span>Sunset':'<span class="dot do" style="display:inline-block;margin-right:.3rem"></span>Ocean';
+
+  document.getElementById('pm-meta').innerHTML=`
+    <span>${tbadge(team)} ${team}</span>
+    <span>· ${(b||p)?.year||'—'}</span>
+    <span>· ${leagueDot}</span>
+  `;
+
+  let html='';
+  if(b){
+    html+=`<div class="modal-section">
+      <div class="modal-section-title">Hitting — Standard</div>
+      <div class="stat-pills">
+        ${pillCV('AVG',b.avg,.270,.350,v=>f3(v))}
+        ${pillCV('OBP',b.obp,.300,.380,v=>f3(v))}
+        ${pillCV('SLG',b.slg,.350,.500,v=>f3(v))}
+        ${pillCV('OPS',b.ops,.700,.900,v=>f3(v))}
+        ${pill('PA',b.pa,'vbold')}
+        ${pill('AB',b.ab,'')}
+        ${pill('GP',b.gp,'')}
+        ${pill('H',b.h,'')}
+        ${pill('2B',b.doubles,'')}
+        ${pill('3B',b.triples,'')}
+        ${pill('HR',b.hr,'')}
+        ${pill('RBI',b.rbi,'')}
+        ${pill('R',b.r,'')}
+        ${pill('BB',b.bb,'')}
+        ${pill('K',b.k,'')}
+      </div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section-title">Hitting — Advanced</div>
+      <div class="stat-pills">
+        ${pill('wOBA',b.woba!==null?f3(b.woba):'—','vadv')}
+        ${b.wrc_plus!==null?pill('wRC+',b.wrc_plus,b.wrc_plus>=130?'vhi':b.wrc_plus>=90?'vmd':'vlo'):''}
+        ${b.owar!==null?pill('oWAR',(b.owar>0?'+':'')+b.owar,b.owar>=1?'vhi':b.owar>=0?'vmd':'vlo'):''}
+        ${b.bbk!==null?pillCV('BB/K',b.bbk,.25,.5,v=>f2(v)):''}
+      </div>
+    </div>`;
+  }
+  if(p){
+    html+=`<div class="modal-section">
+      <div class="modal-section-title">Pitching — Standard</div>
+      <div class="stat-pills">
+        ${pillCV('ERA',p.era,2.5,4.5,v=>v.toFixed(2),true)}
+        ${pill('IP',p.ip,'vbold')}
+        ${pill('APP',p.app,'')}
+        ${pill('W',p.w,'')}
+        ${pill('L',p.l,'')}
+        ${pill('H',p.h,'')}
+        ${pill('ER',p.er,'')}
+        ${pill('BB',p.bb,'')}
+        ${pill('K',p.k,'')}
+      </div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section-title">Pitching — Advanced</div>
+      <div class="stat-pills">
+        ${pillCV('K/9',p.k9,6,9,v=>f1(v))}
+        ${pillCV('K/BB',p.kbb,1.5,3,v=>f2(v))}
+        ${p.kpct!==null?pill('K%',p.kpct.toFixed(1)+'%','vadv'):''}
+        ${p.era_plus!==null?pill('ERA+',p.era_plus,p.era_plus>=120?'vhi':p.era_plus>=80?'vmd':'vlo'):''}
+        ${p.pwar!==null?pill('pWAR',(p.pwar>0?'+':'')+p.pwar,p.pwar>=1?'vhi':p.pwar>=0?'vmd':'vlo'):''}
+      </div>
+    </div>`;
+  }
+  if(!b&&!p) html='<p style="color:var(--sub);font-size:.75rem">No stats available.</p>';
+
+  document.getElementById('pm-body').innerHTML=html;
+  document.getElementById('profileModal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){
+  document.getElementById('profileModal').classList.remove('open');
+  document.body.style.overflow='';
+}
+function closeProfile(e){if(e.target===document.getElementById('profileModal'))closeModal();}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
 
 function downloadCSV() {
   const isHitting = curTab === 'hitting';
