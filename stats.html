@@ -479,7 +479,7 @@ const LOGOS={"Arroyo Grande":"logos/ag.png"};
 function tbadge(t){
   const c=TC[t]||{bg:"#222",fg:"#aaa",a:t.slice(0,3)};
   const badge=`<span class="tbadge" style="background:${c.bg};color:${c.fg}">${c.a}</span>`;
-  if(LOGOS[t]) return `<span style="display:inline-flex;align-items:center;gap:.3rem"><img src="${LOGOS[t]}" style="width:20px;height:20px;object-fit:contain;flex-shrink:0" alt="">${badge}</span>`;
+  if(LOGOS[t]) return `<span style="display:inline-flex;align-items:center;gap:.3rem"><img src="${LOGOS[t]}" style="width:22px;height:22px;object-fit:contain;flex-shrink:0;background:transparent" alt="">${badge}</span>`;
   return badge;
 }
 
