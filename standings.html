@@ -102,6 +102,7 @@ footer a:hover{color:var(--text)}
   .sovr{font-size:.68rem}
   .srpi{display:none}
   .sth-rpi{display:none}
+  #rpi-explainer-inner{grid-template-columns:1fr!important}
 }
 .mob-nav{display:none}
 @media(max-width:640px){
@@ -133,8 +134,10 @@ footer a:hover{color:var(--text)}
 </nav>
 <div style="display:flex;align-items:center;gap:.35rem;font-size:.65rem;color:var(--sub);margin-bottom:.75rem;padding-left:.1rem"><span class="updated-dot"></span><span id="last-updated">—</span></div>
 
+<div class="sgrid" id="root"></div>
+
 <!-- RPI Rankings card (cross-league) -->
-<div class="card" id="rpi-card" style="margin-bottom:1.5rem">
+<div class="card" id="rpi-card" style="margin-top:1.5rem">
   <div class="card-hdr">
     <div>
       <div class="card-title">CCAA RPI Rankings</div>
@@ -147,7 +150,79 @@ footer a:hover{color:var(--text)}
   <table class="rpi-table" id="rpi-rankings"></table>
 </div>
 
-<div class="sgrid" id="root"></div>
+<!-- RPI Explainer -->
+<div class="card" id="rpi-explainer" style="margin-top:1rem">
+  <div class="card-hdr">
+    <div>
+      <div class="card-title">How RPI Is Calculated</div>
+      <div class="card-sub">Methodology · CCAA Baseball 2025-26</div>
+    </div>
+  </div>
+  <div style="padding:1.25rem 1.25rem 1.5rem;display:grid;grid-template-columns:1fr 1fr;gap:1.5rem 2rem" id="rpi-explainer-inner">
+
+    <!-- Formula block -->
+    <div style="grid-column:1/-1">
+      <div style="background:var(--bg3);border:1px solid var(--bdr2);border-radius:6px;padding:.9rem 1.2rem;font-family:'Rajdhani',sans-serif;font-size:1.05rem;font-weight:600;letter-spacing:.04em;text-align:center;color:var(--text)">
+        RPI &nbsp;=&nbsp; <span style="color:#68d391">0.25 × WP</span> &nbsp;+&nbsp; <span style="color:var(--sky)">0.50 × OWP</span> &nbsp;+&nbsp; <span style="color:var(--gold)">0.25 × OOWP</span>
+      </div>
+    </div>
+
+    <!-- WP -->
+    <div>
+      <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.45rem">
+        <span style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.95rem;color:#68d391">WP — Winning Percentage</span>
+        <span style="font-size:.6rem;font-weight:700;color:#68d391;background:rgba(56,161,105,.12);padding:.1rem .35rem;border-radius:3px">25%</span>
+      </div>
+      <p style="font-size:.73rem;color:var(--sub);line-height:1.65">
+        The simplest component: a team's wins divided by total completed games (ties excluded). A team that goes 14-4 has a WP of .778. WP carries the smallest weight in the formula — the intent is to reward <em>who</em> you beat, not just that you won.
+      </p>
+    </div>
+
+    <!-- OWP -->
+    <div>
+      <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.45rem">
+        <span style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.95rem;color:var(--sky)">OWP — Opponents' Winning Percentage</span>
+        <span style="font-size:.6rem;font-weight:700;color:var(--sky);background:rgba(99,179,237,.12);padding:.1rem .35rem;border-radius:3px">50%</span>
+      </div>
+      <p style="font-size:.73rem;color:var(--sub);line-height:1.65">
+        The heaviest component. For each CCAA opponent a team faced, their WP is calculated <em>excluding</em> games against that team (to avoid circular inflation). Those individual WPs are then averaged. A high OWP means you played a gauntlet — teams that were beating everyone else on their schedule too.
+      </p>
+    </div>
+
+    <!-- OOWP -->
+    <div>
+      <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.45rem">
+        <span style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.95rem;color:var(--gold)">OOWP — Opponents' Opponents' WP</span>
+        <span style="font-size:.6rem;font-weight:700;color:var(--gold);background:rgba(240,165,0,.1);padding:.1rem .35rem;border-radius:3px">25%</span>
+      </div>
+      <p style="font-size:.73rem;color:var(--sub);line-height:1.65">
+        One more degree of separation. OOWP is the average OWP of your CCAA opponents — essentially asking "how strong were the schedules of the teams you played?" It smooths out the noise from a single dominant or weak opponent and gives a fuller picture of league context.
+      </p>
+    </div>
+
+    <!-- What counts -->
+    <div>
+      <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.45rem">
+        <span style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.95rem;color:var(--text)">What Games Count</span>
+      </div>
+      <p style="font-size:.73rem;color:var(--sub);line-height:1.65">
+        All completed games count toward a team's own WP. However, OWP and OOWP only use games against other CCAA opponents — non-league opponents (tournaments, scrimmages, out-of-conference opponents) are excluded from the schedule-strength components. Ties are excluded from all calculations.
+      </p>
+    </div>
+
+    <!-- Divider -->
+    <div style="grid-column:1/-1;border-top:1px solid var(--bdr);margin:.25rem 0"></div>
+
+    <!-- Why it matters -->
+    <div style="grid-column:1/-1">
+      <div style="margin-bottom:.5rem;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.9rem;color:var(--text)">Why It Matters in the CCAA</div>
+      <p style="font-size:.73rem;color:var(--sub);line-height:1.7">
+        The three CCAA leagues — Mountain, Sunset, and Ocean — don't play a shared schedule, which means a league record alone can't tell you how a Mountain team stacks up against an Ocean team. RPI solves that by weighting schedule strength alongside results. This is why a team like <strong style="color:var(--text)">Lompoc</strong> (.474 WP, 1-6 league) ranks 8th overall — they played the hardest schedule in the conference, going up against St. Joseph and Morro Bay repeatedly. Conversely, <strong style="color:var(--text)">Paso Robles</strong> (.556 WP, 5-1 in league) ranks 11th because the Sunset division's opponents aren't beating their out-of-league schedule, pulling OWP down to .389. RPI is not the only measure of a team's quality, but it is the most cross-league-comparable one available.
+      </p>
+    </div>
+
+  </div>
+</div>
 </main>
 
 <script src="data.js"></script>
@@ -275,9 +350,10 @@ Object.entries(D).forEach(([k,v])=>{root.innerHTML+=build(k,v)});
 function filt(d,btn){
   document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
-  // RPI card: always visible on 'all', hidden on league filter
-  document.getElementById('rpi-card').style.display = (d==='all') ? '' : 'none';
-  document.querySelectorAll('[data-d]').forEach(el=>el.style.display=(d==='all'||el.dataset.d===d)?'':'none');
+  const isAll = d === 'all';
+  document.getElementById('rpi-card').style.display = isAll ? '' : 'none';
+  document.getElementById('rpi-explainer').style.display = isAll ? '' : 'none';
+  document.querySelectorAll('[data-d]').forEach(el=>el.style.display=(isAll||el.dataset.d===d)?'':'none');
 }
 </script>
 <footer>CCAA Baseball · Spring 2026 · Central Coast Athletic Association, CA · Stats: <a href="standings.html">Mountain</a> · <a href="standings.html">Sunset</a> · <a href="standings.html">Ocean</a></footer>
