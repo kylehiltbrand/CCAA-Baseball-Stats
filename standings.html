@@ -35,28 +35,6 @@ main{max-width:1280px;margin:0 auto;padding:1.5rem 1.5rem 4rem}
 .card-hdr{padding:.8rem 1rem;border-bottom:1px solid var(--bdr);display:flex;align-items:flex-start;justify-content:space-between}
 .card-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.95rem;letter-spacing:.02em}
 .card-sub{font-size:.62rem;color:var(--sub);text-transform:uppercase;letter-spacing:.07em;margin-top:.1rem}
-.mxlink{font-size:.62rem;color:var(--gold);font-weight:600;white-space:nowrap;margin-top:.1rem}
-.tw{overflow-x:auto}
-table{width:100%;border-collapse:collapse;font-size:.78rem}
-thead th{padding:.5rem .7rem;text-align:center;font-size:.62rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--sub);border-bottom:1px solid var(--bdr);white-space:nowrap;cursor:pointer;user-select:none}
-thead th:first-child{text-align:left;padding-left:1rem}
-thead th:hover{color:var(--text)}
-thead th.sa{color:var(--gold)}
-thead th.sa::after{content:' ↓'}
-thead th.sa.asc::after{content:' ↑'}
-tbody tr{border-bottom:1px solid var(--bdr);transition:background .1s}
-tbody tr:last-child{border-bottom:none}
-tbody tr:hover{background:rgba(255,255,255,.025)}
-tbody td{padding:.55rem .7rem;text-align:center;color:var(--sub);white-space:nowrap}
-tbody td:first-child{text-align:left;padding-left:1rem;color:var(--text);font-weight:500}
-.rn{color:var(--dim);font-size:.68rem;margin-right:.4rem}
-.vhi{color:#68d391!important;font-weight:600}.vmd{color:var(--sky)!important}.vlo{color:#fc8181!important}
-.vna{color:var(--dim)!important;font-style:italic}.vbold{color:var(--text)!important;font-weight:600}.vadv{color:var(--gold)!important;font-weight:600}
-.sk{display:inline-flex;align-items:center;justify-content:center;min-width:30px;padding:.12rem .35rem;border-radius:3px;font-size:.65rem;font-weight:700}
-.skw{background:rgba(56,161,105,.15);color:#68d391}.skl{background:rgba(229,62,62,.12);color:#fc8181}
-.tbadge{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:5px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.6rem;flex-shrink:0}
-.llabel{display:flex;align-items:center;gap:.45rem;font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin:1.5rem 0 .65rem;color:var(--sub)}
-.llabel .dot{width:8px;height:8px;border-radius:2px}
 .sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;align-items:start}
 @media(max-width:900px){.sgrid{grid-template-columns:1fr}}
 .sth{display:flex;align-items:center;gap:.4rem;padding:.38rem 1rem;border-bottom:1px solid var(--bdr);font-size:.6rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);background:rgba(0,0,0,.15)}
@@ -70,37 +48,43 @@ tbody td:first-child{text-align:left;padding-left:1rem;color:var(--text);font-we
 .sl{width:22px;text-align:center;font-weight:700;color:#fc8181;font-size:.8rem}
 .spct{width:38px;text-align:center;color:var(--text);font-size:.78rem}
 .sgb{width:26px;text-align:center;color:var(--sub);font-size:.75rem}
-.sovr{width:60px;text-align:right;color:var(--sub);font-size:.7rem}
-.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem}
-@media(max-width:900px){.tgrid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:580px){.tgrid{grid-template-columns:1fr}}
-.tcard{background:var(--bg2);border:1px solid var(--bdr);border-radius:8px;padding:.8rem 1rem;display:flex;align-items:center;gap:.8rem;transition:border-color .15s,background .15s}
-.tcard:hover{border-color:var(--bdr2);background:var(--bg3)}
-.tcname{font-weight:600;font-size:.82rem;color:var(--text)}
-.tcsub{font-size:.65rem;color:var(--sub);margin-top:.1rem}
-.ctrl{display:flex;align-items:center;gap:.65rem;margin-bottom:1rem;flex-wrap:wrap}
-.tgroup{display:flex;background:var(--bg3);border:1px solid var(--bdr);border-radius:6px;overflow:hidden}
-.tbtn{padding:.42rem 1rem;background:none;border:none;font-family:'Inter',sans-serif;font-size:.72rem;font-weight:600;color:var(--sub);cursor:pointer;transition:all .15s;white-space:nowrap}
-.tbtn.on{background:var(--gold);color:#0d1117}
-.tbtn:hover:not(.on){color:var(--text)}
-.vgroup{display:flex;gap:.3rem}
-.vbtn{padding:.38rem .75rem;background:var(--bg3);border:1px solid var(--bdr);border-radius:5px;font-family:'Inter',sans-serif;font-size:.7rem;font-weight:600;color:var(--sub);cursor:pointer;transition:all .15s}
-.vbtn.on{background:var(--gold);border-color:var(--gold);color:#0d1117}
-.vbtn:hover:not(.on){color:var(--text)}
-.selm{background:var(--bg3);border:1px solid var(--bdr);color:var(--text);padding:.38rem .65rem;border-radius:5px;font-family:'Inter',sans-serif;font-size:.72rem;outline:none}
-.selm option{background:var(--bg2)}
-.advb{font-size:.52rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.08rem .28rem;border-radius:2px;background:rgba(29,111,164,.3);color:var(--sky);vertical-align:middle;margin-left:.2rem}
-.ib{display:flex;align-items:flex-start;gap:.6rem;background:rgba(99,179,237,.06);border:1px solid rgba(99,179,237,.18);border-radius:6px;padding:.7rem 1rem;font-size:.7rem;color:var(--sub);margin-bottom:.75rem;line-height:1.5}
+.sovr{width:44px;text-align:right;color:var(--sub);font-size:.7rem}
+.srpi{width:44px;text-align:right;font-size:.72rem;font-weight:600;cursor:default}
+.rpi-hi{color:#68d391}
+.rpi-md{color:var(--sky)}
+.rpi-lo{color:#fc8181}
+
+/* RPI Rankings card */
+.rpi-table{width:100%;border-collapse:collapse}
+.rpi-table th{padding:.45rem .8rem;text-align:left;font-size:.6rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);border-bottom:1px solid var(--bdr);background:rgba(0,0,0,.15)}
+.rpi-table th.r{text-align:right}
+.rpi-table td{padding:.5rem .8rem;font-size:.75rem;border-bottom:1px solid var(--bdr)}
+.rpi-table tr:last-child td{border-bottom:none}
+.rpi-table tr:hover td{background:rgba(255,255,255,.02)}
+.rpi-rank{color:var(--dim);font-size:.68rem;width:20px}
+.rpi-name{font-weight:600;color:var(--text)}
+.rpi-lg{font-size:.62rem;color:var(--sub);margin-left:.3rem}
+.rpi-val{text-align:right;font-weight:700}
+.rpi-sub{text-align:right;font-size:.68rem;color:var(--sub)}
+.rpi-bar-cell{width:90px;padding-right:1rem}
+.rpi-bar-bg{height:5px;border-radius:3px;background:var(--bdr2);overflow:hidden}
+.rpi-bar-fill{height:100%;border-radius:3px;background:var(--gold)}
+.lbadge{display:inline-block;font-size:.55rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.1rem .3rem;border-radius:2px;margin-left:.3rem}
+.lbadge-m{background:rgba(224,123,57,.15);color:var(--mtn)}
+.lbadge-s{background:rgba(155,93,229,.15);color:var(--sun)}
+.lbadge-o{background:rgba(56,189,248,.15);color:var(--ocn)}
+
+/* Tooltip */
 [data-tip]{position:relative}
-[data-tip]::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 5px);left:50%;transform:translateX(-50%);background:var(--bg3);border:1px solid var(--bdr2);color:var(--text);font-size:.62rem;font-weight:400;text-transform:none;letter-spacing:0;padding:.3rem .55rem;border-radius:4px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .15s;z-index:50}
+[data-tip]::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 6px);right:0;background:var(--bg3);border:1px solid var(--bdr2);color:var(--text);font-size:.62rem;font-weight:400;text-transform:none;letter-spacing:0;padding:.4rem .65rem;border-radius:4px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .15s;z-index:50;line-height:1.6}
 [data-tip]:hover::after{opacity:1}
+
 footer{text-align:center;padding:1.5rem;border-top:1px solid var(--bdr);font-size:.65rem;color:var(--dim)}
 footer a{color:var(--sub)}
 footer a:hover{color:var(--text)}
 .updated-dot{width:6px;height:6px;border-radius:50%;background:#68d391;flex-shrink:0;animation:pulse 2s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
 
-/* ── MOBILE ───────────────────────────────────────────────── */
 @media(max-width:640px){
   html{font-size:13px}
   main{padding:1rem 1rem 5.5rem}
@@ -113,10 +97,11 @@ footer a:hover{color:var(--text)}
   .fbar-inner::-webkit-scrollbar{display:none}
   .fbtn{padding:0 .85rem;font-size:.65rem;flex-shrink:0}
   .sgrid{grid-template-columns:1fr!important}
-  .tgrid{grid-template-columns:repeat(2,1fr)!important}
   .srow{padding:.5rem .75rem}
   .stm{font-size:.75rem}
   .sovr{font-size:.68rem}
+  .srpi{display:none}
+  .sth-rpi{display:none}
 }
 .mob-nav{display:none}
 @media(max-width:640px){
@@ -126,7 +111,6 @@ footer a:hover{color:var(--text)}
   .mob-nav a .mn-ic{font-size:1.1rem;line-height:1}
 }
 </style>
-
 </head>
 <body>
 <header><div class="hdr">
@@ -148,39 +132,151 @@ footer a:hover{color:var(--text)}
   <a href="teams.html"><span class="mn-ic">⚾</span>Teams</a>
 </nav>
 <div style="display:flex;align-items:center;gap:.35rem;font-size:.65rem;color:var(--sub);margin-bottom:.75rem;padding-left:.1rem"><span class="updated-dot"></span><span id="last-updated">—</span></div>
-<div class="sgrid" id="root"></div></main>
+
+<!-- RPI Rankings card (cross-league) -->
+<div class="card" id="rpi-card" style="margin-bottom:1.5rem">
+  <div class="card-hdr">
+    <div>
+      <div class="card-title">CCAA RPI Rankings</div>
+      <div class="card-sub">All leagues · Ratings Percentage Index</div>
+    </div>
+    <div style="font-size:.62rem;color:var(--sub);text-align:right;line-height:1.6;max-width:220px">
+      RPI = 25% WP + 50% OWP + 25% OOWP<br>Based on completed games only
+    </div>
+  </div>
+  <table class="rpi-table" id="rpi-rankings"></table>
+</div>
+
+<div class="sgrid" id="root"></div>
+</main>
+
 <script src="data.js"></script>
 <script>
+// ── RPI DATA (computed from all 15 MaxPreps schedules, 4/15/26) ──
+const rpiData = {
+  "St. Joseph":           { rpi: 0.6819, wp: 0.778, owp: 0.649, oowp: 0.653, rank: 1 },
+  "Arroyo Grande":        { rpi: 0.6725, wp: 0.737, owp: 0.650, oowp: 0.652, rank: 2 },
+  "Righetti":             { rpi: 0.6522, wp: 0.647, owp: 0.655, oowp: 0.651, rank: 3 },
+  "Morro Bay":            { rpi: 0.6512, wp: 0.667, owp: 0.642, oowp: 0.654, rank: 4 },
+  "Santa Ynez":           { rpi: 0.6353, wp: 0.800, owp: 0.557, oowp: 0.627, rank: 5 },
+  "Pioneer Valley":       { rpi: 0.6252, wp: 0.647, owp: 0.625, oowp: 0.604, rank: 6 },
+  "Mission College Prep": { rpi: 0.6238, wp: 0.533, owp: 0.655, oowp: 0.651, rank: 7 },
+  "Lompoc":               { rpi: 0.6109, wp: 0.474, owp: 0.660, oowp: 0.650, rank: 8 },
+  "Nipomo":               { rpi: 0.6058, wp: 0.556, owp: 0.633, oowp: 0.602, rank: 9 },
+  "Santa Maria":          { rpi: 0.5591, wp: 0.385, owp: 0.623, oowp: 0.605, rank: 10 },
+  "Paso Robles":          { rpi: 0.4347, wp: 0.556, owp: 0.389, oowp: 0.406, rank: 11 },
+  "San Luis Obispo":      { rpi: 0.4308, wp: 0.550, owp: 0.383, oowp: 0.407, rank: 12 },
+  "Templeton":            { rpi: 0.4085, wp: 0.450, owp: 0.389, oowp: 0.405, rank: 13 },
+  "Atascadero":           { rpi: 0.3764, wp: 0.263, owp: 0.423, oowp: 0.397, rank: 14 },
+  "Cabrillo":             { rpi: 0.3720, wp: 0.238, owp: 0.427, oowp: 0.396, rank: 15 },
+};
+
+const LEAGUE_OF = {
+  "St. Joseph":"mountain","Arroyo Grande":"mountain","Righetti":"mountain",
+  "Morro Bay":"mountain","Mission College Prep":"mountain","Lompoc":"mountain",
+  "San Luis Obispo":"sunset","Paso Robles":"sunset","Atascadero":"sunset",
+  "Templeton":"sunset","Cabrillo":"sunset",
+  "Nipomo":"ocean","Pioneer Valley":"ocean","Santa Ynez":"ocean","Santa Maria":"ocean"
+};
+const LEAGUE_LABEL = { mountain:"MTN", sunset:"SUN", ocean:"OCN" };
+const LEAGUE_CLS   = { mountain:"lbadge-m", sunset:"lbadge-s", ocean:"lbadge-o" };
+
 const LOGOS={"Arroyo Grande":"ag.png","Atascadero":"ata.png","Cabrillo":"cabrillo.png","Lompoc":"lompoc.png","Mission College Prep":"mp.png","St. Joseph":"sj.png","Morro Bay":"mb.png","Nipomo":"nipomo.png","Paso Robles":"paso.png","Pioneer Valley":"pv.png","Righetti":"righetti.png","San Luis Obispo":"slo.png","Santa Maria":"santa_maria.png","Santa Ynez":"santa_ynez.png","Templeton":"templeton.png"};
+
 function teamDisplay(name){
   const logo=LOGOS[name]?`<img src="${LOGOS[name]}" style="width:18px;height:18px;object-fit:contain;vertical-align:middle;margin-right:.35rem;flex-shrink:0" alt="">`:'';
   return `${logo}${name}`;
 }
-// Standings data loaded from data.js (standingsData)
+
+function rpiColor(v) {
+  if (v >= 0.62) return 'rpi-hi';
+  if (v >= 0.50) return 'rpi-md';
+  return 'rpi-lo';
+}
+
+// ── Build cross-league RPI table ──
+(function(){
+  const sorted = Object.entries(rpiData).sort((a,b)=>b[1].rpi-a[1].rpi);
+  const maxRpi = sorted[0][1].rpi;
+  const tbl = document.getElementById('rpi-rankings');
+  tbl.innerHTML = `<thead><tr>
+    <th style="width:24px">#</th>
+    <th>Team</th>
+    <th class="r">RPI</th>
+    <th class="r" style="padding-right:.8rem">WP</th>
+    <th class="r" style="padding-right:.8rem">OWP</th>
+    <th class="r" style="padding-right:.8rem">OOWP</th>
+    <th style="width:100px"></th>
+  </tr></thead><tbody>` +
+  sorted.map(([name, d], i) => {
+    const lg = LEAGUE_OF[name];
+    const pct = ((d.rpi / maxRpi) * 100).toFixed(1);
+    const cls = rpiColor(d.rpi);
+    return `<tr>
+      <td class="rpi-rank">${i+1}</td>
+      <td class="rpi-name">${teamDisplay(name)}<span class="lbadge ${LEAGUE_CLS[lg]}">${LEAGUE_LABEL[lg]}</span></td>
+      <td class="rpi-val ${cls}" data-tip="WP: ${d.wp.toFixed(3)} · OWP: ${d.owp.toFixed(3)} · OOWP: ${d.oowp.toFixed(3)}">${d.rpi.toFixed(4)}</td>
+      <td class="rpi-sub">${d.wp.toFixed(3)}</td>
+      <td class="rpi-sub">${d.owp.toFixed(3)}</td>
+      <td class="rpi-sub">${d.oowp.toFixed(3)}</td>
+      <td class="rpi-bar-cell"><div class="rpi-bar-bg"><div class="rpi-bar-fill" style="width:${pct}%"></div></div></td>
+    </tr>`;
+  }).join('') + '</tbody>';
+})();
+
+// ── League standings data ──
 const D={
   mountain:{label:"Mountain League",sub:"CCAA — Mountain",teams:standingsData.mountain},
   sunset:  {label:"Sunset League",  sub:"CCAA — Sunset",  teams:standingsData.sunset},
   ocean:   {label:"Ocean League",   sub:"CCAA — Ocean",   teams:standingsData.ocean}
 };
+
 function pct(w,l){const t=w+l;return t>0?(w/t).toFixed(3).replace(/^0/,''):'.000'}
 function gb(lw,ll,w,l){const g=((lw-w)+(l-ll))/2;return g<=0?'—':g%1===0?g:g.toFixed(1)}
+
 function build(key,data){
   const s=[...data.teams].sort((a,b)=>b.lw-a.lw||a.ll-b.ll);
   const L=s[0];
   return `<div class="card" data-d="${key}">
     <div class="card-hdr"><div><div class="card-title">${data.label}</div><div class="card-sub">${data.sub}</div></div></div>
-    <div class="sth"><span class="srk">#</span><span class="stm">Team</span><span class="sw">W</span><span class="sl">L</span><span class="spct">PCT</span><span class="sgb">GB</span><span class="sovr">Overall</span></div>
+    <div class="sth">
+      <span class="srk">#</span>
+      <span class="stm">Team</span>
+      <span class="sw">W</span>
+      <span class="sl">L</span>
+      <span class="spct">PCT</span>
+      <span class="sgb">GB</span>
+      <span class="sovr">OVR</span>
+      <span class="srpi sth-rpi" style="color:var(--dim);font-size:.6rem;font-weight:600;letter-spacing:.08em" data-tip="Ratings Percentage Index&#10;25% WP + 50% OWP + 25% OOWP">RPI ⓘ</span>
+    </div>
     ${s.map((t,i)=>{
       const ovr=t.ot>0?`${t.ow}-${t.ol}-${t.ot}`:`${t.ow}-${t.ol}`;
-      return `<div class="srow${i===0?' lead':''}"><span class="srk">${i+1}</span><span class="stm">${teamDisplay(t.name)}</span><span class="sw">${t.lw}</span><span class="sl">${t.ll}</span><span class="spct">${pct(t.lw,t.ll)}</span><span class="sgb">${i===0?'—':gb(L.lw,L.ll,t.lw,t.ll)}</span><span class="sovr">${ovr}</span></div>`;
+      const rd = rpiData[t.name];
+      const rpiDisp = rd ? rd.rpi.toFixed(4) : '—';
+      const rpiCls  = rd ? rpiColor(rd.rpi) : '';
+      const rpiTip  = rd ? `RPI #${rd.rank} overall&#10;WP: ${rd.wp.toFixed(3)} · OWP: ${rd.owp.toFixed(3)} · OOWP: ${rd.oowp.toFixed(3)}` : '';
+      return `<div class="srow${i===0?' lead':''}">
+        <span class="srk">${i+1}</span>
+        <span class="stm">${teamDisplay(t.name)}</span>
+        <span class="sw">${t.lw}</span>
+        <span class="sl">${t.ll}</span>
+        <span class="spct">${pct(t.lw,t.ll)}</span>
+        <span class="sgb">${i===0?'—':gb(L.lw,L.ll,t.lw,t.ll)}</span>
+        <span class="sovr">${ovr}</span>
+        <span class="srpi ${rpiCls}" data-tip="${rpiTip}">${rpiDisp}</span>
+      </div>`;
     }).join('')}
   </div>`;
 }
+
 const root=document.getElementById('root');
 Object.entries(D).forEach(([k,v])=>{root.innerHTML+=build(k,v)});
+
 function filt(d,btn){
   document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
+  // RPI card: always visible on 'all', hidden on league filter
+  document.getElementById('rpi-card').style.display = (d==='all') ? '' : 'none';
   document.querySelectorAll('[data-d]').forEach(el=>el.style.display=(d==='all'||el.dataset.d===d)?'':'none');
 }
 </script>
