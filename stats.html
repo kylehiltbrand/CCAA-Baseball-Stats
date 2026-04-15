@@ -98,7 +98,6 @@ tbody td:first-child{text-align:left;padding-left:1rem;color:var(--text);font-we
 footer{text-align:center;padding:1.5rem;border-top:1px solid var(--bdr);font-size:.65rem;color:var(--dim)}
 footer a{color:var(--sub)}
 footer a:hover{color:var(--text)}
-.fbar-updated{margin-left:auto;display:flex;align-items:center;gap:.35rem;font-size:.62rem;color:var(--sub);padding-right:.5rem;white-space:nowrap}
 .updated-dot{width:6px;height:6px;border-radius:50%;background:#68d391;flex-shrink:0;animation:pulse 2s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
 
@@ -114,7 +113,6 @@ footer a:hover{color:var(--text)}
   .fbar-inner{padding:0 .75rem;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
   .fbar-inner::-webkit-scrollbar{display:none}
   .fbtn{padding:0 .85rem;font-size:.65rem;flex-shrink:0}
-  .fbar-updated{font-size:.6rem;padding-right:.25rem}
   .sgrid{grid-template-columns:1fr!important}
   .tgrid{grid-template-columns:repeat(2,1fr)!important}
   .srow{padding:.5rem .75rem}
@@ -206,7 +204,6 @@ footer a:hover{color:var(--text)}
   <button class="fbtn" onclick="setLeague('mountain',this)"><span class="dot dm"></span>Mountain</button>
   <button class="fbtn" onclick="setLeague('sunset',this)"><span class="dot ds"></span>Sunset</button>
   <button class="fbtn" onclick="setLeague('ocean',this)"><span class="dot do"></span>Ocean</button>
-  <span class="fbar-updated"><span class="updated-dot"></span><span id="last-updated">—</span></span>
 </div></div>
 <nav class="mob-nav">
   <a href="index.html"><span class="mn-ic">🏠</span>Home</a>
@@ -332,6 +329,7 @@ function toggleGloss(btn){btn.classList.toggle('open');btn.nextElementSibling.cl
 </script>
 <div class="ib">📊 Stats computed from MaxPreps exports. Advanced metrics (wOBA, wRC+, oWAR, K/9, K/BB, ERA+, pWAR) calculated from raw counting stats across all 13 teams with data.</div>
 <div class="ib">🏅 Leaderboard qualifiers: min 30 PA (hitters) · min 15 IP (pitchers) — based on CCAA-wide average at ~18 GP</div>
+<div style="display:flex;align-items:center;gap:.35rem;font-size:.65rem;color:var(--sub);margin-bottom:.75rem;padding-left:.1rem"><span class="updated-dot"></span><span id="last-updated">—</span></div>
 <div class="ctrl">
   <div class="tgroup">
     <button class="tbtn on" onclick="setTab('hitting',this)">⚾ Hitting</button>
