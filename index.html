@@ -218,6 +218,13 @@ footer a:hover{color:var(--text)}
 <script src="data.js"></script>
 <script>
 (function() {
+  // ── Team Logos ───────────────────────────────────────────────
+  const LOGOS={"Arroyo Grande":"ag.png","Atascadero":"ata.png","Cabrillo":"cabrillo.png","Lompoc":"lompoc.png","Mission College Prep":"mp.png","St. Joseph":"sj.png","Morro Bay":"mb.png","Nipomo":"nipomo.png","Paso Robles":"paso.png","Pioneer Valley":"pv.png","Righetti":"righetti.png","San Luis Obispo":"slo.png","Santa Maria":"santa_maria.png","Santa Ynez":"santa_ynez.png","Templeton":"templeton.png"};
+  function teamLogo(teamName){
+    if(!LOGOS[teamName]) return '';
+    return `<img src="${LOGOS[teamName]}" style="width:22px;height:22px;object-fit:contain;flex-shrink:0;vertical-align:middle;margin-right:2px" alt="">`;
+  }
+
   // ── Quick Stats ──────────────────────────────────────────────
   const ranked = teams.filter(t => t.caRank).sort((a,b) => a.caRank - b.caRank);
   if (ranked.length) {
@@ -251,6 +258,7 @@ footer a:hover{color:var(--text)}
       const shortTeam = b.team.replace('Mission College Prep','MP').replace('Pioneer Valley','PV').replace('San Luis Obispo','SLO').replace('Arroyo Grande','AG').replace('Santa Maria','SM').replace('Santa Ynez','SY').replace('Paso Robles','Paso').replace('Morro Bay','MB').replace('Templeton','TMP').replace('Atascadero','ATA').replace('Cabrillo','CAB').replace('Righetti','RHS').replace('Nipomo','NIP').replace('Lompoc','LOM').replace('St. Joseph','SJ');
       return `<div class="lb-row">
         <span class="lb-rank${i===0?' top':''}">${i===0?'★':i+1}</span>
+        ${teamLogo(b.team)}
         <div style="flex:1;min-width:0"><div class="lb-name">${b.name}</div><div class="lb-team">${shortTeam} · ${b.avg.toFixed(3).replace(/^0/,'')} AVG</div></div>
         <span class="lb-val">${b.wrc_plus}</span>
       </div>`;
@@ -271,6 +279,7 @@ footer a:hover{color:var(--text)}
       const shortTeam = p.team.replace('Mission College Prep','MP').replace('Pioneer Valley','PV').replace('San Luis Obispo','SLO').replace('Arroyo Grande','AG').replace('Santa Maria','SM').replace('Santa Ynez','SY').replace('Paso Robles','Paso').replace('Morro Bay','MB').replace('Templeton','TMP').replace('Atascadero','ATA').replace('Cabrillo','CAB').replace('Righetti','RHS').replace('Nipomo','NIP').replace('Lompoc','LOM').replace('St. Joseph','SJ');
       return `<div class="lb-row">
         <span class="lb-rank${i===0?' top':''}">${i===0?'★':i+1}</span>
+        ${teamLogo(p.team)}
         <div style="flex:1;min-width:0"><div class="lb-name">${p.name}</div><div class="lb-team">${shortTeam} · ${p.era.toFixed(2)} ERA</div></div>
         <span class="lb-val good">${p.era_plus}</span>
       </div>`;

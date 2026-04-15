@@ -734,6 +734,7 @@ function renderMob(){
       </div>
       <div class="mob-stats">${statsHtml}</div>
       <div class="mob-team-strip">
+        ${LOGOS[p.team]?`<img src="${LOGOS[p.team]}" style="width:22px;height:22px;object-fit:contain;flex-shrink:0" alt="">`:""}
         <span class="tbadge" style="background:${c.bg};color:${c.fg};width:24px;height:24px;font-size:.55rem">${c.a}</span>
         <span class="mob-team-name">${p.team}</span>
       </div>
