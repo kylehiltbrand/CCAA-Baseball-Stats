@@ -97,7 +97,6 @@ tbody td:first-child{text-align:left;padding-left:1rem;color:var(--text);font-we
 footer{text-align:center;padding:1.5rem;border-top:1px solid var(--bdr);font-size:.65rem;color:var(--dim)}
 footer a{color:var(--sub)}
 footer a:hover{color:var(--text)}
-.fbar-updated{margin-left:auto;display:flex;align-items:center;gap:.35rem;font-size:.62rem;color:var(--sub);padding-right:.5rem;white-space:nowrap}
 .updated-dot{width:6px;height:6px;border-radius:50%;background:#68d391;flex-shrink:0;animation:pulse 2s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
 
@@ -113,7 +112,6 @@ footer a:hover{color:var(--text)}
   .fbar-inner{padding:0 .75rem;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
   .fbar-inner::-webkit-scrollbar{display:none}
   .fbtn{padding:0 .85rem;font-size:.65rem;flex-shrink:0}
-  .fbar-updated{font-size:.6rem;padding-right:.25rem}
   .sgrid{grid-template-columns:1fr!important}
   .tgrid{grid-template-columns:repeat(2,1fr)!important}
   .srow{padding:.5rem .75rem}
@@ -141,7 +139,6 @@ footer a:hover{color:var(--text)}
   <button class="fbtn" onclick="filt('mountain',this)"><span class="dot dm"></span>Mountain</button>
   <button class="fbtn" onclick="filt('sunset',this)"><span class="dot ds"></span>Sunset</button>
   <button class="fbtn" onclick="filt('ocean',this)"><span class="dot do"></span>Ocean</button>
-  <span class="fbar-updated"><span class="updated-dot"></span><span id="last-updated">—</span></span>
 </div></div>
 <main>
 <nav class="mob-nav">
@@ -149,7 +146,9 @@ footer a:hover{color:var(--text)}
   <a href="standings.html" class="on"><span class="mn-ic">🏆</span>Standings</a>
   <a href="stats.html"><span class="mn-ic">📊</span>Stats</a>
   <a href="teams.html"><span class="mn-ic">⚾</span>Teams</a>
-</nav><div class="sgrid" id="root"></div></main>
+</nav>
+<div style="display:flex;align-items:center;gap:.35rem;font-size:.65rem;color:var(--sub);margin-bottom:.75rem;padding-left:.1rem"><span class="updated-dot"></span><span id="last-updated">—</span></div>
+<div class="sgrid" id="root"></div></main>
 <script src="data.js"></script>
 <script>
 const LOGOS={"Arroyo Grande":"ag.png","Atascadero":"ata.png","Cabrillo":"cabrillo.png","Lompoc":"lompoc.png","Mission College Prep":"mp.png","St. Joseph":"sj.png","Morro Bay":"mb.png","Nipomo":"nipomo.png","Paso Robles":"paso.png","Pioneer Valley":"pv.png","Righetti":"righetti.png","San Luis Obispo":"slo.png","Santa Maria":"santa_maria.png","Santa Ynez":"santa_ynez.png","Templeton":"templeton.png"};
