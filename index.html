@@ -251,7 +251,7 @@ footer a:hover{color:var(--text)}
       const shortTeam = b.team.replace('Mission College Prep','MP').replace('Pioneer Valley','PV').replace('San Luis Obispo','SLO').replace('Arroyo Grande','AG').replace('Santa Maria','SM').replace('Santa Ynez','SY').replace('Paso Robles','Paso').replace('Morro Bay','MB').replace('Templeton','TMP').replace('Atascadero','ATA').replace('Cabrillo','CAB').replace('Righetti','RHS').replace('Nipomo','NIP').replace('Lompoc','LOM').replace('St. Joseph','SJ');
       return `<div class="lb-row">
         <span class="lb-rank${i===0?' top':''}">${i===0?'★':i+1}</span>
-        <div style="flex:1;min-width:0"><div class="lb-name">${b.name}</div><div class="lb-team">${shortTeam} · ${b.avg.toFixed(3).replace(/^0/,'')}</div></div>
+        <div style="flex:1;min-width:0"><div class="lb-name">${b.name}</div><div class="lb-team">${shortTeam} · ${b.avg.toFixed(3).replace(/^0/,'')} AVG</div></div>
         <span class="lb-val">${b.wrc_plus}</span>
       </div>`;
     }).join('');
