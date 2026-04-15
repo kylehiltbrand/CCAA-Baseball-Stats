@@ -95,10 +95,10 @@ tbody td:first-child{text-align:left;padding-left:1rem;color:var(--text);font-we
 [data-tip]{position:relative}
 [data-tip]::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 5px);left:50%;transform:translateX(-50%);background:var(--bg3);border:1px solid var(--bdr2);color:var(--text);font-size:.62rem;font-weight:400;text-transform:none;letter-spacing:0;padding:.3rem .55rem;border-radius:4px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .15s;z-index:50}
 [data-tip]:hover::after{opacity:1}
-footer{text-align:center;padding:1rem 1.5rem .6rem;border-top:1px solid var(--bdr);font-size:.65rem;color:var(--dim)}
+footer{text-align:center;padding:1.5rem;border-top:1px solid var(--bdr);font-size:.65rem;color:var(--dim)}
 footer a{color:var(--sub)}
 footer a:hover{color:var(--text)}
-.updated-tag{display:inline-flex;align-items:center;gap:.35rem;font-size:.62rem;color:var(--sub);margin:.45rem 0 .75rem;padding:.3rem .65rem;background:var(--bg2);border:1px solid var(--bdr);border-radius:20px}
+.fbar-updated{margin-left:auto;display:flex;align-items:center;gap:.35rem;font-size:.62rem;color:var(--sub);padding-right:.5rem;white-space:nowrap}
 .updated-dot{width:6px;height:6px;border-radius:50%;background:#68d391;flex-shrink:0;animation:pulse 2s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
 
@@ -114,6 +114,7 @@ footer a:hover{color:var(--text)}
   .fbar-inner{padding:0 .75rem;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
   .fbar-inner::-webkit-scrollbar{display:none}
   .fbtn{padding:0 .85rem;font-size:.65rem;flex-shrink:0}
+  .fbar-updated{font-size:.6rem;padding-right:.25rem}
   .sgrid{grid-template-columns:1fr!important}
   .tgrid{grid-template-columns:repeat(2,1fr)!important}
   .srow{padding:.5rem .75rem}
@@ -205,6 +206,7 @@ footer a:hover{color:var(--text)}
   <button class="fbtn" onclick="setLeague('mountain',this)"><span class="dot dm"></span>Mountain</button>
   <button class="fbtn" onclick="setLeague('sunset',this)"><span class="dot ds"></span>Sunset</button>
   <button class="fbtn" onclick="setLeague('ocean',this)"><span class="dot do"></span>Ocean</button>
+  <span class="fbar-updated"><span class="updated-dot"></span><span id="last-updated">—</span></span>
 </div></div>
 <nav class="mob-nav">
   <a href="index.html"><span class="mn-ic">🏠</span>Home</a>
@@ -459,10 +461,7 @@ function toggleGloss(btn){btn.classList.toggle('open');btn.nextElementSibling.cl
 </div>
 </main>
 <div class="mob-cards" id="mob-section"><div style="max-width:1280px;margin:0 auto;padding:0 1rem"><div class="mob-sort-bar" id="mob-sort-bar"></div><div class="mob-cards-inner" id="mob-cards-inner"></div></div></div>
-<footer>
-  CCAA Baseball · Spring 2026 · Central Coast Athletic Association, CA · Stats: <a href="standings.html">Mountain</a> · <a href="standings.html">Sunset</a> · <a href="standings.html">Ocean</a><br>
-  <span class="updated-tag"><span class="updated-dot"></span><span id="last-updated">—</span></span>
-</footer>
+<footer>CCAA Baseball · Spring 2026 · Central Coast Athletic Association, CA · Stats: <a href="standings.html">Mountain</a> · <a href="standings.html">Sunset</a> · <a href="standings.html">Ocean</a></footer>
 <div class="modal-overlay" id="profileModal" onclick="closeProfile(event)">
   <div class="modal" id="profileBox">
     <div class="modal-hdr">
