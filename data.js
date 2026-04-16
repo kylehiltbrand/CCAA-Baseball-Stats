@@ -20,11 +20,25 @@ const DATA_UPDATED = "2026-04-16"; // YYYY-MM-DD — stats through April 15
 // wOBA weights (standard)
 const wBB = 0.69, wHBP = 0.72, w1B = 0.88, w2B = 1.24, w3B = 1.56, wHR = 2.00;
 
-// ── CCAA League Constants (derived from 13-team 2025-26 data) ──
-const LG_WOBA       = 0.358;  // CCAA league avg wOBA
-const WOBA_SCALE    = 0.892;  // wOBA/lgOBP ratio for this run environment
-const LG_R_PA       = 0.193;  // runs per PA (CCAA avg; MLB≈0.115)
-const LG_ERA        = 4.83;   // CCAA league ERA
+// ── CCAA League Constants ──
+// These are seeded with current-data values and AUTO-RECALIBRATED at the bottom
+// of this file from the actual batters/pitchers arrays. Do not hand-edit unless
+// you're changing season-start defaults.
+let LG_AVG         = 0.312;  // CCAA league avg AVG
+let LG_OBP         = 0.411;  // CCAA league avg OBP
+let LG_WOBA        = 0.363;  // CCAA league avg wOBA
+let WOBA_SCALE     = 0.883;  // wOBA/lgOBP-style scaling factor
+let LG_R_PA        = 0.193;  // runs per PA (CCAA avg; MLB≈0.115)
+let LG_BABIP       = 0.368;  // CCAA league avg BABIP — used for color thresholds
+let LG_ERA         = 4.83;   // CCAA league ERA
+let LG_K9          = 8.0;    // CCAA league avg K/9
+let LG_BB9         = 4.9;    // CCAA league avg BB/9
+let LG_WHIP        = 1.57;   // CCAA league avg WHIP — used for color thresholds
+// Dynamic color thresholds derived from league averages (auto-set by recalcLeagueAvgs)
+let BABIP_LO       = 0.313;  // .15 below lgBABIP
+let BABIP_HI       = 0.423;  // .15 above lgBABIP
+let WHIP_LO        = 1.33;   // .15 below lgWHIP (elite)
+let WHIP_HI        = 1.81;   // .15 above lgWHIP (rough)
 const RUNS_PER_WIN  = 6.0;    // scaled for HS run environment — produces meaningful WAR per short season
 const REPL_RUNS_600 = -33.4;  // replacement-level runs per 600 PA (scaled)
 const RAA_PER_600   = 95.1;   // runs above avg per 600 PA swing
@@ -759,3 +773,88 @@ const standingsData = {
     { abbr:"SM",  name:"Santa Maria",    lw:0, ll:6, ow:5,  ol:8,  ot:0 },
   ]
 };
+
+// ============================================================
+// AUTO-RECALIBRATION
+// Recompute league averages from the actual batters/pitchers data
+// every time this file loads, then re-run the derived stats so
+// wRC+, ERA+, oWAR, pWAR, BABIP/WHIP color thresholds, etc. all
+// reflect the CURRENT season's true CCAA baseline.
+// ============================================================
+function ipToFloat(ip) {
+  // Baseball convention: '38.1' = 38⅓, '38.2' = 38⅔
+  if (ip === null || ip === undefined) return 0;
+  const s = ip.toString();
+  if (!s.includes('.')) return parseFloat(s) || 0;
+  const [whole, frac] = s.split('.');
+  const w = parseInt(whole) || 0;
+  if (frac === '1') return w + 1/3;
+  if (frac === '2') return w + 2/3;
+  return parseFloat(s) || 0;
+}
+
+function recalcLeagueAvgs() {
+  // ── HITTING ──
+  let tBB=0, tHBP=0, t1B=0, t2B=0, t3B=0, tHR=0, tAB=0, tSF=0, tH=0, tK=0, tPA=0, tR=0;
+  batters.forEach(b => {
+    tBB += b.bb||0; tHBP += b.hbp||0; tHR += b.hr||0; tAB += b.ab||0; tSF += b.sf||0;
+    t2B += b.doubles||0; t3B += b.triples||0; tH += b.h||0; tK += b.k||0;
+    tPA += b.pa||0; tR += b.r||0;
+    t1B += (b.h||0) - (b.doubles||0) - (b.triples||0) - (b.hr||0);
+  });
+
+  const wobaNum = wBB*tBB + wHBP*tHBP + w1B*t1B + w2B*t2B + w3B*t3B + wHR*tHR;
+  const wobaDen = tAB + tBB + tSF + tHBP;
+  const newWOBA = wobaDen > 0 ? wobaNum / wobaDen : LG_WOBA;
+  const newAVG  = tAB > 0 ? tH / tAB : LG_AVG;
+  const newOBP  = (tAB + tBB + tHBP + tSF) > 0 ? (tH + tBB + tHBP) / (tAB + tBB + tHBP + tSF) : LG_OBP;
+  const newRPA  = tPA > 0 ? tR / tPA : LG_R_PA;
+  const babipDen = tAB - tK - tHR + tSF;
+  const newBABIP = babipDen > 0 ? (tH - tHR) / babipDen : LG_BABIP;
+
+  // ── PITCHING ──
+  let tIP=0, tER=0, tBBp=0, tKp=0, tHp=0;
+  pitchers.forEach(p => {
+    const ip = ipToFloat(p.ip);
+    tIP += ip; tER += p.er||0; tBBp += p.bb||0; tKp += p.k||0; tHp += p.h||0;
+  });
+  const newERA  = tIP > 0 ? (tER * 9) / tIP : LG_ERA;
+  const newK9   = tIP > 0 ? (tKp * 9) / tIP : LG_K9;
+  const newBB9  = tIP > 0 ? (tBBp * 9) / tIP : LG_BB9;
+  const newWHIP = tIP > 0 ? (tBBp + tHp) / tIP : LG_WHIP;
+
+  // ── REASSIGN constants ──
+  LG_AVG    = Math.round(newAVG  * 1000) / 1000;
+  LG_OBP    = Math.round(newOBP  * 1000) / 1000;
+  LG_WOBA   = Math.round(newWOBA * 1000) / 1000;
+  LG_R_PA   = Math.round(newRPA  * 1000) / 1000;
+  LG_BABIP  = Math.round(newBABIP* 1000) / 1000;
+  LG_ERA    = Math.round(newERA  * 100)  / 100;
+  LG_K9     = Math.round(newK9   * 10)   / 10;
+  LG_BB9    = Math.round(newBB9  * 10)   / 10;
+  LG_WHIP   = Math.round(newWHIP * 100)  / 100;
+  WOBA_SCALE = LG_OBP > 0 ? Math.round((LG_WOBA / LG_OBP) * 1000) / 1000 : WOBA_SCALE;
+
+  // ── DYNAMIC COLOR THRESHOLDS ──
+  // ±~15% from league average → "above avg / below avg" coloring on tables
+  BABIP_LO = Math.round(LG_BABIP * 0.85 * 1000) / 1000;
+  BABIP_HI = Math.round(LG_BABIP * 1.15 * 1000) / 1000;
+  WHIP_LO  = Math.round(LG_WHIP  * 0.85 * 100)  / 100;  // lower=better, so this is "elite" line
+  WHIP_HI  = Math.round(LG_WHIP  * 1.15 * 100)  / 100;  // and this is "rough" line
+
+  // ── REBUILD derived stats so wRC+/ERA+/oWAR/pWAR reflect new baseline ──
+  batters.forEach(b => {
+    b.woba = Math.round(calcWOBA(b.bb, b.hbp, b.h, b.doubles, b.triples, b.hr, b.ab, b.sf||0) * 1000) / 1000;
+    b.wrc_plus = calcWRC_plus(b.woba, b.pa);
+    b.owar = calcOWAR(b.wrc_plus, b.pa);
+    b.proj40owar = (b.owar !== null && b.gp && b.gp >= 5) ? Math.round((b.owar / b.gp) * 40 * 10) / 10 : null;
+  });
+  pitchers.forEach(p => {
+    p.era_plus = calcERA_plus(p.era, p.ip);
+    p.pwar = calcPWAR(p.era, p.ip);
+    p.proj40pwar = (p.pwar !== null && p.app && p.app >= 3) ? Math.round((p.pwar / p.app) * 40 * 10) / 10 : null;
+  });
+}
+
+// Run on load
+recalcLeagueAvgs();

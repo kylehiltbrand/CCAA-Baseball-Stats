@@ -259,7 +259,7 @@ footer a:hover{color:var(--text)}
     <span class="chevron">▲</span>
   </button>
   <div class="gloss-body">
-    <p class="gloss-intro">Advanced metrics computed from base stats using sabermetric formulas. Each <span class="advb">ADV</span> stat below includes <em>why it matters</em> — because numbers without context are easy to dismiss. All league constants calibrated to 2025-26 CCAA data (13 teams): lg AVG .305 · lg wOBA .358 · lg ERA 4.83 · lg K/9 7.5 · lg BB/9 5.5.</p>
+    <p class="gloss-intro">Advanced metrics computed from base stats using sabermetric formulas. Each <span class="advb">ADV</span> stat below includes <em>why it matters</em> — because numbers without context are easy to dismiss. All league constants <strong>auto-calibrated</strong> from current CCAA data: <span id="lg-constants-text">loading...</span></p>
 
     <div class="gloss-section-title">HITTING</div>
     <div class="gloss-grid">
@@ -574,7 +574,7 @@ function render(){
     const wc=p.wrc_plus,wcCls=wc===null?'vna':wc>=130?'vhi':wc>=90?'vmd':'vlo';
     const oc=p.owar===null?'vna':p.owar>=1?'vhi':p.owar>=0?'vmd':'vlo';
     const bc=p.bbk===null?'vna':p.bbk>=0.5?'vhi':p.bbk>=0.25?'vmd':'vlo';
-    const babipCls=p.babip===null?'vna':(p.babip>=.340?'vhi':p.babip>=.280?'vmd':'vlo');
+    const babipCls=p.babip===null?'vna':(p.babip>=BABIP_HI?'vhi':p.babip>=BABIP_LO?'vmd':'vlo');
     return `<tr style="cursor:pointer" onclick="openProfile('${p.name.replace(/'/g,"\\'")}','${p.team}','hitting')"><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.pa}</td><td>${f3(p.avg)||'—'}</td><td>${cv(p.obp,.300,.380,v=>f3(v))}</td><td>${cv(p.slg,.350,.500,v=>f3(v))}</td><td class="vadv">${f3(p.woba)||'—'}</td><td><span class="${wcCls}">${wc!==null?wc:'—'}</span></td><td><span class="${oc}">${p.owar!==null?(p.owar>0?'+':'')+p.owar:'—'}</span></td><td class="vadv"><span class="${p.proj40owar===null?'vna':p.proj40owar>=2?'vhi':p.proj40owar>=1?'vmd':'vlo'}">${p.proj40owar!==null?(p.proj40owar>0?'+':'')+p.proj40owar:'—'}</span></td><td><span class="${bc}">${p.bbk!==null?f2(p.bbk):'—'}</span></td><td class="vadv"><span class="${babipCls}">${p.babip!==null?f3(p.babip):'—'}</span></td></tr>`;
   }).join('');
 
@@ -589,10 +589,10 @@ function render(){
     return a.name.localeCompare(b.name);
   });
 
-  document.getElementById('b-ps').innerHTML=P.map((p,i)=>`<tr style="cursor:pointer" onclick="openProfile('${p.name.replace(/'/g,"\\'")}','${p.team}','pitching')"><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.app}</td><td>${p.w}</td><td>${p.l}</td><td>${cv(p.era,2.5,4.5,v=>v.toFixed(2),true)}</td><td>${cv(p.whip,1.20,1.50,v=>f2(v),true)}</td><td>${p.ip}</td><td>${p.h}</td><td>${p.er}</td><td>${p.bb}</td><td>${p.k}</td></tr>`).join('');
+  document.getElementById('b-ps').innerHTML=P.map((p,i)=>`<tr style="cursor:pointer" onclick="openProfile('${p.name.replace(/'/g,"\\'")}','${p.team}','pitching')"><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.app}</td><td>${p.w}</td><td>${p.l}</td><td>${cv(p.era,2.5,4.5,v=>v.toFixed(2),true)}</td><td>${cv(p.whip,WHIP_LO,WHIP_HI,v=>f2(v),true)}</td><td>${p.ip}</td><td>${p.h}</td><td>${p.er}</td><td>${p.bb}</td><td>${p.k}</td></tr>`).join('');
 
   document.getElementById('b-pa').innerHTML=P.map((p,i)=>{
-    return `<tr style="cursor:pointer" onclick="openProfile('${p.name.replace(/'/g,"\\'")}','${p.team}','pitching')"><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.ip}</td><td>${cv(p.era,2.5,4.5,v=>v.toFixed(2),true)}</td><td>${cv(p.whip,1.20,1.50,v=>f2(v),true)}</td><td class="vadv">${cv(p.k9,6,9,v=>f1(v))}</td><td class="vadv">${cv(p.kpct,20,30,v=>v.toFixed(1)+'%')}</td><td class="vadv">${cv(p.pwar,0,1,v=>(v>0?'+':'')+v)}</td><td class="vadv"><span class="${p.proj40pwar===null?'vna':p.proj40pwar>=2?'vhi':p.proj40pwar>=1?'vmd':'vlo'}">${p.proj40pwar!==null?(p.proj40pwar>0?'+':'')+p.proj40pwar:'—'}</span></td><td class="vadv">${cv(p.kbb,1.5,3,v=>f2(v))}</td><td class="vadv">${cv(p.era_plus,80,120,v=>v.toString())}</td></tr>`;
+    return `<tr style="cursor:pointer" onclick="openProfile('${p.name.replace(/'/g,"\\'")}','${p.team}','pitching')"><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.ip}</td><td>${cv(p.era,2.5,4.5,v=>v.toFixed(2),true)}</td><td>${cv(p.whip,WHIP_LO,WHIP_HI,v=>f2(v),true)}</td><td class="vadv">${cv(p.k9,6,9,v=>f1(v))}</td><td class="vadv">${cv(p.kpct,20,30,v=>v.toFixed(1)+'%')}</td><td class="vadv">${cv(p.pwar,0,1,v=>(v>0?'+':'')+v)}</td><td class="vadv"><span class="${p.proj40pwar===null?'vna':p.proj40pwar>=2?'vhi':p.proj40pwar>=1?'vmd':'vlo'}">${p.proj40pwar!==null?(p.proj40pwar>0?'+':'')+p.proj40pwar:'—'}</span></td><td class="vadv">${cv(p.kbb,1.5,3,v=>f2(v))}</td><td class="vadv">${cv(p.era_plus,80,120,v=>v.toString())}</td></tr>`;
   }).join('');
 
   // Two-Way: match batters with pitchers by name+team, require both owar and pwar
@@ -632,6 +632,14 @@ function render(){
 }
 
 render();
+
+// Populate dynamic league constants in glossary intro
+(function populateLgConstants(){
+  const el = document.getElementById('lg-constants-text');
+  if (!el || typeof LG_AVG === 'undefined') return;
+  const fmt3 = v => v.toFixed(3).replace(/^0/, '');
+  el.innerHTML = `lg AVG ${fmt3(LG_AVG)} · lg wOBA ${fmt3(LG_WOBA)} · lg BABIP ${fmt3(LG_BABIP)} · lg ERA ${LG_ERA.toFixed(2)} · lg WHIP ${LG_WHIP.toFixed(2)} · lg K/9 ${LG_K9.toFixed(1)} · lg BB/9 ${LG_BB9.toFixed(1)}`;
+})();
 
 // ── MOBILE CARD RENDER ──────────────────────────────────────
 const MOB_HITTING_SORTS = [
@@ -675,12 +683,12 @@ function fmtMobVal(key,p){
     rbi:[p.rbi,v=>v+'','',10,20,false],
     hr:[p.hr,v=>v+'','',2,5,false],
     bbk:[p.bbk,v=>f2(v)||'—','vadv',.25,.5,false],
-    babip:[p.babip,v=>f3(v)||'—','vadv',.280,.340,false],
+    babip:[p.babip,v=>f3(v)||'—','vadv',BABIP_LO,BABIP_HI,false],
     h:[p.h,v=>v+'','',10,20,false],
     r:[p.r,v=>v+'','',5,12,false],
     pa:[p.pa,v=>v+'','',20,40,false],
     era:[p.era,v=>v.toFixed(2),'',4.5,2.5,true],
-    whip:[p.whip,v=>f2(v)||'—','',1.50,1.20,true],
+    whip:[p.whip,v=>f2(v)||'—','',WHIP_HI,WHIP_LO,true],
     k9:[p.k9,v=>f1(v)||'—','vadv',6,9,false],
     era_plus:[p.era_plus,v=>v+'','vadv',80,120,false],
     kbb:[p.kbb,v=>f2(v)||'—','vadv',1.5,3,false],
@@ -887,7 +895,7 @@ function openProfile(name,team,tab){
         ${b.owar!==null?pill('oWAR',(b.owar>0?'+':'')+b.owar,b.owar>=1?'vhi':b.owar>=0?'vmd':'vlo'):''}
         ${b.proj40owar!==null?pill('Proj40 oWAR',(b.proj40owar>0?'+':'')+b.proj40owar,b.proj40owar>=2?'vhi':b.proj40owar>=1?'vmd':'vlo'):''}
         ${b.bbk!==null?pillCV('BB/K',b.bbk,.25,.5,v=>f2(v)):''}
-        ${b.babip!==null?pillCV('BABIP',b.babip,.280,.340,v=>f3(v)):''}
+        ${b.babip!==null?pillCV('BABIP',b.babip,BABIP_LO,BABIP_HI,v=>f3(v)):''}
       </div>
     </div>`;
   }
@@ -896,7 +904,7 @@ function openProfile(name,team,tab){
       <div class="modal-section-title">Pitching — Standard</div>
       <div class="stat-pills">
         ${pillCV('ERA',p.era,2.5,4.5,v=>v.toFixed(2),true)}
-        ${p.whip!==null?pillCV('WHIP',p.whip,1.20,1.50,v=>f2(v),true):''}
+        ${p.whip!==null?pillCV('WHIP',p.whip,WHIP_LO,WHIP_HI,v=>f2(v),true):''}
         ${pill('IP',p.ip,'vbold')}
         ${pill('APP',p.app,'')}
         ${pill('W',p.w,'')}
