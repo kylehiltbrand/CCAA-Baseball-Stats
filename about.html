@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="favicon.svg"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>About — CCAA Baseball 2025-26</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap');
+:root{--bg:#0d1117;--bg2:#161b22;--bg3:#1c2230;--bdr:#21293a;--bdr2:#2d3748;--gold:#f0a500;--text:#e2e8f0;--sub:#8b9cb5;--dim:#4a5568;--green:#38a169;--red:#e53e3e;--sky:#63b3ed;--mtn:#e07b39;--sun:#9b5de5;--ocn:#38bdf8}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:14px}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.5}
+a{color:inherit;text-decoration:none}
+header{background:var(--bg2);border-bottom:1px solid var(--bdr);position:sticky;top:0;z-index:100}
+.hdr{max-width:1280px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:stretch;height:56px}
+.brand{display:flex;align-items:center;gap:.65rem;margin-right:2rem;flex-shrink:0}
+.logo{width:36px;height:36px;border-radius:8px;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.8rem;color:#0d1117;letter-spacing:-.02em;flex-shrink:0}
+.bname{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.05rem;display:block;color:var(--text)}
+.bsub{font-size:.58rem;color:var(--sub);letter-spacing:.08em;text-transform:uppercase;display:block}
+nav{display:flex;align-items:stretch}
+nav a{display:flex;align-items:center;padding:0 1rem;font-size:.75rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--sub);border-bottom:2px solid transparent;transition:color .15s,border-color .15s}
+nav a:hover{color:var(--text)}
+nav a.on{color:var(--text);border-bottom-color:var(--gold)}
+.sbadge{margin-left:auto;display:flex;align-items:center}
+.sp26{font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.22rem .65rem;border-radius:4px;background:var(--gold);color:#0d1117}
+footer{text-align:center;padding:1.5rem;border-top:1px solid var(--bdr);font-size:.65rem;color:var(--dim)}
+footer a{color:var(--sub)}
+footer a:hover{color:var(--text)}
+
+/* ── MOBILE ── */
+.mob-nav{display:none}
+@media(max-width:640px){
+  html{font-size:13px}
+  main{padding:1rem 1rem 5.5rem}
+  .hdr{padding:0 1rem;height:50px}
+  .bsub{display:none}
+  .brand{margin-right:1rem}
+  .sp26{display:none}
+  nav a{padding:0 .65rem;font-size:.7rem}
+  .mob-nav{display:flex;position:fixed;bottom:0;left:0;right:0;background:var(--bg2);border-top:1px solid var(--bdr);z-index:200;height:54px}
+  .mob-nav a{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.2rem;font-size:.55rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--sub);transition:color .15s}
+  .mob-nav a.on{color:var(--gold)}
+  .mob-nav a .mn-ic{font-size:1.1rem;line-height:1}
+  .two-col{grid-template-columns:1fr!important}
+  .scgrid{grid-template-columns:repeat(2,1fr)!important}
+}
+
+/* ── LAYOUT ── */
+main{max-width:1280px;margin:0 auto;padding:1.5rem 1.5rem 4rem}
+.llabel{display:flex;align-items:center;gap:.45rem;font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin:1.75rem 0 .65rem;color:var(--sub)}
+.llabel .dot{width:8px;height:8px;border-radius:2px}
+.dg{background:var(--gold)}
+.dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+.dm{background:var(--mtn)}.ds{background:var(--sun)}.do{background:var(--ocn)}
+
+/* ── HERO ── */
+.hero{background:var(--bg2);border:1px solid var(--bdr);border-radius:8px;padding:1.75rem 2rem;margin-bottom:1.25rem}
+.hero-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:2.2rem;letter-spacing:.02em;line-height:1.1;margin-bottom:.6rem}
+.hero-title span{color:var(--gold)}
+.hero-sub{font-size:.88rem;color:var(--sub);line-height:1.7;max-width:680px}
+
+/* ── STAT CARDS ── */
+.scgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:.65rem;margin-bottom:1rem}
+@media(max-width:800px){.scgrid{grid-template-columns:repeat(2,1fr)}}
+.sc{background:var(--bg2);border:1px solid var(--bdr);border-radius:8px;padding:1rem 1.1rem}
+.sc-val{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:2rem;color:var(--gold);line-height:1}
+.sc-lbl{font-size:.65rem;color:var(--sub);text-transform:uppercase;letter-spacing:.07em;margin-top:.25rem}
+
+/* ── CARDS ── */
+.card{background:var(--bg2);border:1px solid var(--bdr);border-radius:8px;overflow:hidden;margin-bottom:.75rem}
+.card-hdr{padding:.75rem 1rem;border-bottom:1px solid var(--bdr)}
+.card-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.95rem;letter-spacing:.02em}
+.card-body{padding:1rem}
+.card-body p{font-size:.82rem;color:var(--sub);line-height:1.75}
+.card-body p+p{margin-top:.65rem}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:.65rem}
+
+/* ── DIVISION ROWS ── */
+.div-row{display:flex;align-items:center;gap:.75rem;padding:.75rem 1rem;border-bottom:1px solid var(--bdr)}
+.div-row:last-child{border-bottom:none}
+.div-name{font-weight:600;font-size:.82rem;color:var(--text);min-width:120px}
+.div-desc{font-size:.78rem;color:var(--sub)}
+
+/* ── PILLS ── */
+.pill-row{display:flex;flex-wrap:wrap;gap:.4rem;padding:1rem}
+.pill{background:var(--bg3);border:1px solid var(--bdr2);border-radius:20px;padding:.22rem .75rem;font-size:.7rem;color:var(--sub);letter-spacing:.03em}
+
+/* ── CALLOUT ── */
+.callout{background:rgba(240,165,0,.06);border:1px solid rgba(240,165,0,.2);border-radius:6px;padding:.65rem 1rem;font-size:.75rem;color:var(--sub);line-height:1.6;margin:0 1rem 1rem}
+.callout strong{color:var(--gold)}
+
+/* ── BUILDER ── */
+.builder{display:flex;align-items:flex-start;gap:1rem;padding:1rem}
+.b-avatar{width:42px;height:42px;border-radius:8px;background:var(--bg3);border:1px solid var(--bdr2);display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0}
+.b-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.05rem;letter-spacing:.02em}
+.b-role{font-size:.65rem;color:var(--gold);text-transform:uppercase;letter-spacing:.08em;margin:.15rem 0 .5rem}
+.b-desc{font-size:.8rem;color:var(--sub);line-height:1.7}
+.b-links{display:flex;gap:.4rem;margin-top:.6rem;flex-wrap:wrap}
+.b-links a{font-size:.7rem;color:var(--sky);border:1px solid var(--bdr2);padding:.2rem .6rem;border-radius:5px;transition:border-color .15s}
+.b-links a:hover{border-color:var(--sky)}
+</style>
+</head>
+<body>
+
+<header><div class="hdr">
+  <a href="index.html" class="brand">
+    <div class="logo">CCAA</div>
+    <div><span class="bname">CCAA Baseball</span><span class="bsub">Central Coast Athletic Association</span></div>
+  </a>
+  <nav>
+    <a href="standings.html">Standings</a>
+    <a href="stats.html">Stats</a>
+    <a href="teams.html">Teams</a>
+    <a href="about.html" class="on">About</a>
+  </nav>
+  <div class="sbadge"><span class="sp26">Spring 2026</span></div>
+</div></header>
+
+<main>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-title">CCAA Baseball <span>Stats</span></div>
+    <p class="hero-sub">The only place tracking stats for California's Central Coast Athletic Association — covering 15 high school programs across three divisions on the Central Coast.</p>
+  </div>
+
+  <!-- QUICK NUMBERS -->
+  <div class="scgrid">
+    <div class="sc"><div class="sc-val">15</div><div class="sc-lbl">Programs Tracked</div></div>
+    <div class="sc"><div class="sc-val">3</div><div class="sc-lbl">Divisions</div></div>
+    <div class="sc"><div class="sc-val">2026</div><div class="sc-lbl">Active Season</div></div>
+    <div class="sc"><div class="sc-val">10+</div><div class="sc-lbl">Stats Per Player</div></div>
+  </div>
+
+  <!-- OVERVIEW -->
+  <div class="llabel"><span class="dot dg"></span>Overview</div>
+  <div class="card">
+    <div class="card-hdr"><span class="card-title">What is this site?</span></div>
+    <div class="card-body">
+      <p>CCAA Baseball Stats is an independent tracking project covering the Mountain, Sunset, and Ocean Divisions of the Central Coast Athletic Association in California. The site pulls game data and presents standings, individual player stats, and team stats for all 15 programs in the league.</p>
+      <p>Standard box scores exist everywhere. This site aggregates them in one place — organized by division, updated through the season, and built specifically for the CCAA.</p>
+    </div>
+  </div>
+
+  <!-- DIVISIONS -->
+  <div class="llabel"><span class="dot dg"></span>League Structure</div>
+  <div class="card">
+    <div class="card-hdr"><span class="card-title">Divisions</span></div>
+    <div class="div-row"><span class="dot dm"></span><span class="div-name">Mountain Division</span><span class="div-desc">6 programs — St. Joseph, Arroyo Grande, Righetti, Mission Prep, Lompoc, Morro Bay.</span></div>
+    <div class="div-row"><span class="dot ds"></span><span class="div-name">Sunset Division</span><span class="div-desc">5 programs — San Luis Obispo, Paso Robles, Atascadero, Templeton, Cabrillo.</span></div>
+    <div class="div-row"><span class="dot do"></span><span class="div-name">Ocean Division</span><span class="div-desc">4 programs — Nipomo, Pioneer Valley, Santa Ynez, Santa Maria.</span></div>
+  </div>
+
+  <!-- TECH + BUILDER -->
+  <div class="llabel"><span class="dot dg"></span>Project</div>
+  <div class="two-col">
+    <div class="card">
+      <div class="card-hdr"><span class="card-title">How it's built</span></div>
+      <div class="pill-row">
+        <span class="pill">HTML · CSS · JS</span>
+        <span class="pill">No frameworks</span>
+        <span class="pill">Vercel</span>
+        <span class="pill">GitHub Actions</span>
+        <span class="pill">MaxPreps data</span>
+      </div>
+      <div class="callout"><strong>Data note:</strong> Game logs sourced from MaxPreps. Stats may lag 24–48 hours after games are reported.</div>
+    </div>
+    <div class="card">
+      <div class="card-hdr"><span class="card-title">Built by</span></div>
+      <div class="builder">
+        <div class="b-avatar">⚾</div>
+        <div>
+          <div class="b-name">Kyle Hiltbrand</div>
+          <div class="b-role">Cal Poly SLO · Communications &amp; Statistics</div>
+          <div class="b-desc">Built this site to track CCAA baseball in one place and provide the kind of organized, season-long stat coverage the league doesn't have anywhere else.</div>
+          <div class="b-links">
+            <a href="https://kylehiltbrand.com" target="_blank" rel="noopener">kylehiltbrand.com ↗</a>
+            <a href="https://github.com/kylehiltbrand/CCAA-Baseball-Stats-Spring-Real" target="_blank" rel="noopener">GitHub ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- MOBILE NAV -->
+<nav class="mob-nav">
+  <a href="index.html"><span class="mn-ic">🏠</span>Home</a>
+  <a href="standings.html"><span class="mn-ic">🏆</span>Standings</a>
+  <a href="stats.html"><span class="mn-ic">📊</span>Stats</a>
+  <a href="teams.html"><span class="mn-ic">⚾</span>Teams</a>
+  <a href="about.html" class="on"><span class="mn-ic">ℹ️</span>About</a>
+</nav>
+
+<footer>CCAA Baseball · Spring 2026 · Central Coast Athletic Association, CA · Stats: <a href="standings.html">Mountain</a> · <a href="standings.html">Sunset</a> · <a href="standings.html">Ocean</a></footer>
+</body>
+</html>
