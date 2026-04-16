@@ -2,7 +2,7 @@
 <html lang="en">
 <head><meta charset="UTF-8">
 <link rel="icon" type="image/svg+xml" href="favicon.svg"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Stats — CCAA Baseball 2025-26</title>
+<title>Stats | CCAA Baseball 2025-26</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap');
@@ -259,49 +259,49 @@ footer a:hover{color:var(--text)}
     <span class="chevron">▲</span>
   </button>
   <div class="gloss-body">
-    <p class="gloss-intro">Advanced metrics computed from base stats using sabermetric formulas. Each <span class="advb">ADV</span> stat below includes <em>why it matters</em> — because numbers without context are easy to dismiss. All league constants <strong>auto-calibrated</strong> from current CCAA data: <span id="lg-constants-text">loading...</span></p>
+    <p class="gloss-intro">Advanced metrics computed from base stats using sabermetric formulas. Each <span class="advb">ADV</span> stat below includes <em>why it matters</em>, because numbers without context are easy to dismiss. All league constants <strong>auto-calibrated</strong> from current CCAA data: <span id="lg-constants-text">loading...</span></p>
 
     <div class="gloss-section-title">HITTING</div>
     <div class="gloss-grid">
       <div class="gloss-item">
         <div class="gi-label"><span class="gi-name">AVG</span></div>
-        <div class="gi-def">Batting Average — <code>H / AB</code></div>
+        <div class="gi-def">Batting Average. Formula: <code>H / AB</code></div>
       </div>
       <div class="gloss-item">
         <div class="gi-label"><span class="gi-name">OBP</span></div>
-        <div class="gi-def">On-Base % — <code>(H+BB+HBP) / (AB+BB+HBP+SF)</code></div>
+        <div class="gi-def">On-Base %. Formula: <code>(H+BB+HBP) / (AB+BB+HBP+SF)</code></div>
       </div>
       <div class="gloss-item">
         <div class="gi-label"><span class="gi-name">SLG</span></div>
-        <div class="gi-def">Slugging % — <code>Total Bases / AB</code></div>
+        <div class="gi-def">Slugging %. Formula: <code>Total Bases / AB</code></div>
       </div>
       <div class="gloss-item">
         <div class="gi-label"><span class="gi-name">OPS</span></div>
-        <div class="gi-def">On-Base + Slugging — <code>OBP + SLG</code></div>
+        <div class="gi-def">On-Base + Slugging. Formula: <code>OBP + SLG</code></div>
       </div>
       <div class="gloss-item">
         <div class="gi-label"><span class="gi-name">wOBA</span><span class="advb">ADV</span></div>
-        <div class="gi-def">Weighted On-Base Avg — weights each outcome by run value <code>(BB×.69, 1B×.88, 2B×1.24, 3B×1.56, HR×2.00)</code>. <strong style="color:var(--text)">Why it matters:</strong> OBP treats a walk and a homer the same. wOBA doesn't. It's the single best snapshot of total offensive contribution per plate appearance.</div>
+        <div class="gi-def">Weighted On-Base Avg. Weights each outcome by run value <code>(BB×.69, 1B×.88, 2B×1.24, 3B×1.56, HR×2.00)</code>. <strong style="color:var(--text)">Why it matters:</strong> OBP treats a walk and a homer the same. wOBA doesn't. It's the single best snapshot of total offensive contribution per plate appearance.</div>
       </div>
       <div class="gloss-item">
         <div class="gi-label"><span class="gi-name">wRC+</span><span class="advb">ADV</span></div>
-        <div class="gi-def">Weighted Runs Created+ — league-adjusted wRC, 100 = average, &gt;100 above average. Regressed toward 100 for &lt;150 PA. <strong style="color:var(--text)">Why it matters:</strong> wRC+ of 150 means a hitter created 50% more runs than the average CCAA bat. It cuts through park and league noise — the cleanest one-number rating of offensive value.</div>
+        <div class="gi-def">Weighted Runs Created+. League-adjusted wRC, 100 = average, &gt;100 above average. Regressed toward 100 for &lt;150 PA. <strong style="color:var(--text)">Why it matters:</strong> wRC+ of 150 means a hitter created 50% more runs than the average CCAA bat. It cuts through park and league noise, giving the cleanest one-number rating of offensive value.</div>
       </div>
       <div class="gloss-item">
         <div class="gi-label"><span class="gi-name">oWAR</span><span class="advb">ADV</span></div>
-        <div class="gi-def">Offensive WAR — wins above replacement from batting. Based on CCAA run environment (13.6 runs/win). Regressed for &lt;200 PA. <strong style="color:var(--text)">Why it matters:</strong> Estimates how many wins a hitter actually added vs. a freely-available bench player. The closest thing to a single "total value" number for ranking hitters across roles.</div>
+        <div class="gi-def">Offensive WAR. Wins above replacement from batting. Based on CCAA run environment (13.6 runs/win). Regressed for &lt;200 PA. <strong style="color:var(--text)">Why it matters:</strong> Estimates how many wins a hitter actually added vs. a freely-available bench player. The closest thing to a single "total value" number for ranking hitters across roles.</div>
       </div>
       <div class="gloss-item">
         <div class="gi-label"><span class="gi-name">Proj40 oWAR</span><span class="advb">ADV</span></div>
-        <div class="gi-def">Projected oWAR over a 40-game season — scales current oWAR by <code>(40 / GP)</code>. Min 5 GP required. <strong style="color:var(--text)">Why it matters:</strong> Levels the playing field between players with different game counts. A hitter producing 1.0 oWAR in 12 games is on a much better pace than one with 1.5 oWAR in 28 games.</div>
+        <div class="gi-def">Projected oWAR over a 40-game season. Scales current oWAR by <code>(40 / GP)</code>. Min 5 GP required. <strong style="color:var(--text)">Why it matters:</strong> Levels the playing field between players with different game counts. A hitter producing 1.0 oWAR in 12 games is on a much better pace than one with 1.5 oWAR in 28 games.</div>
       </div>
       <div class="gloss-item">
         <div class="gi-label"><span class="gi-name">BB/K</span><span class="advb">ADV</span></div>
-        <div class="gi-def">Walk-to-Strikeout Ratio — <code>BB / K</code>. Plate discipline metric; higher = better. <strong style="color:var(--text)">Why it matters:</strong> Plate discipline in one number. Hitters with elite BB/K ratios tend to outperform their batting averages because they reach base in ways AVG ignores.</div>
+        <div class="gi-def">Walk-to-Strikeout Ratio. Formula: <code>BB / K</code>. Plate discipline metric; higher = better. <strong style="color:var(--text)">Why it matters:</strong> Plate discipline in one number. Hitters with elite BB/K ratios tend to outperform their batting averages because they reach base in ways AVG ignores.</div>
       </div>
       <div class="gloss-item">
         <div class="gi-label"><span class="gi-name">BABIP</span><span class="advb">ADV</span></div>
-        <div class="gi-def">Batting Avg on Balls in Play — <code>(H - HR) / (AB - K - HR + SF)</code>. Strips out strikeouts and homers. <strong style="color:var(--text)">Why it matters:</strong> Reveals luck vs. skill. A hitter with .380 BABIP is likely getting fortunate bounces; one at .220 is being unlucky. Most hitters regress toward .300 over time, so BABIP outliers often predict who's about to cool off — or break out.</div>
+        <div class="gi-def">Batting Avg on Balls in Play. Formula: <code>(H - HR) / (AB - K - HR + SF)</code>. Strips out strikeouts and homers. <strong style="color:var(--text)">Why it matters:</strong> Reveals luck vs. skill. A hitter with .380 BABIP is likely getting fortunate bounces; one at .220 is being unlucky. Most hitters regress toward .300 over time, so BABIP outliers often predict who's about to cool off, or break out.</div>
       </div>
     </div>
 
@@ -309,39 +309,39 @@ footer a:hover{color:var(--text)}
     <div class="gloss-grid">
       <div class="gloss-item">
         <div class="gi-label"><span class="gi-name">ERA</span></div>
-        <div class="gi-def">Earned Run Average — <code>(ER × 9) / IP</code>. CCAA league avg: 4.83.</div>
+        <div class="gi-def">Earned Run Average. Formula: <code>(ER × 9) / IP</code>. CCAA league avg: 4.83.</div>
       </div>
       <div class="gloss-item">
         <div class="gi-label"><span class="gi-name">WHIP</span></div>
-        <div class="gi-def">Walks + Hits per Inning Pitched — <code>(BB+H) / IP</code>. <strong style="color:var(--text)">Why it matters:</strong> The cleanest measure of how often a pitcher lets baserunners on. Sub-1.20 is excellent, over 1.50 is rough. Tells you whether a low ERA is sustainable — a 2.50 ERA with a 1.60 WHIP means trouble is coming.</div>
+        <div class="gi-def">Walks + Hits per Inning Pitched. Formula: <code>(BB+H) / IP</code>. <strong style="color:var(--text)">Why it matters:</strong> The cleanest measure of how often a pitcher lets baserunners on. Sub-1.20 is excellent, over 1.50 is rough. Tells you whether a low ERA is sustainable. A 2.50 ERA with a 1.60 WHIP means trouble is coming.</div>
       </div>
       <div class="gloss-item">
         <div class="gi-label"><span class="gi-name">K/9</span><span class="advb">ADV</span></div>
-        <div class="gi-def">Strikeouts per 9 innings — <code>(K × 9) / IP</code>. CCAA league avg: 7.5. <strong style="color:var(--text)">Why it matters:</strong> Strikeouts are the only outcome where defense doesn't matter. K/9 isolates raw stuff — high K/9 means a pitcher's stuff plays regardless of who's behind them.</div>
+        <div class="gi-def">Strikeouts per 9 innings. Formula: <code>(K × 9) / IP</code>. CCAA league avg: 7.5. <strong style="color:var(--text)">Why it matters:</strong> Strikeouts are the only outcome where defense doesn't matter. K/9 isolates raw stuff. A high K/9 means a pitcher's stuff plays regardless of who's behind them.</div>
       </div>
       <div class="gloss-item">
         <div class="gi-label"><span class="gi-name">BB/9</span></div>
-        <div class="gi-def">Walks per 9 innings — <code>(BB × 9) / IP</code>. CCAA league avg: 5.5.</div>
+        <div class="gi-def">Walks per 9 innings. Formula: <code>(BB × 9) / IP</code>. CCAA league avg: 5.5.</div>
       </div>
       <div class="gloss-item">
         <div class="gi-label"><span class="gi-name">K/BB</span><span class="advb">ADV</span></div>
-        <div class="gi-def">Strikeout-to-Walk Ratio — <code>K / BB</code>. Command metric; higher = better. <strong style="color:var(--text)">Why it matters:</strong> The cleanest measure of pitcher command. Stable in small samples and predictive of future results — a high K/BB usually means good things are coming even if ERA hasn't caught up yet.</div>
+        <div class="gi-def">Strikeout-to-Walk Ratio. Formula: <code>K / BB</code>. Command metric; higher = better. <strong style="color:var(--text)">Why it matters:</strong> The cleanest measure of pitcher command. Stable in small samples and predictive of future results. A high K/BB usually means good things are coming even if ERA hasn't caught up yet.</div>
       </div>
       <div class="gloss-item">
         <div class="gi-label"><span class="gi-name">K%</span><span class="advb">ADV</span></div>
-        <div class="gi-def">Strikeout Rate — <code>K / Batters Faced</code>. <strong style="color:var(--text)">Why it matters:</strong> More reliable than K/9 for short stints because it's a true rate per opportunity, not per inning. Useful for relievers and pitchers with limited innings.</div>
+        <div class="gi-def">Strikeout Rate. Formula: <code>K / Batters Faced</code>. <strong style="color:var(--text)">Why it matters:</strong> More reliable than K/9 for short stints because it's a true rate per opportunity, not per inning. Useful for relievers and pitchers with limited innings.</div>
       </div>
       <div class="gloss-item">
         <div class="gi-label"><span class="gi-name">ERA+</span><span class="advb">ADV</span></div>
-        <div class="gi-def">ERA adjusted to CCAA average — <code>(lgERA / ERA) × 100</code>. 100 = avg, &gt;100 is better. Regressed for &lt;40 IP. <strong style="color:var(--text)">Why it matters:</strong> Raw ERA is meaningless without context. ERA+ of 130 means a pitcher prevented runs 30% better than league average. The cleanest way to compare pitchers across run environments.</div>
+        <div class="gi-def">ERA adjusted to CCAA average. Formula: <code>(lgERA / ERA) × 100</code>. 100 = avg, &gt;100 is better. Regressed for &lt;40 IP. <strong style="color:var(--text)">Why it matters:</strong> Raw ERA is meaningless without context. ERA+ of 130 means a pitcher prevented runs 30% better than league average. The cleanest way to compare pitchers across run environments.</div>
       </div>
       <div class="gloss-item">
         <div class="gi-label"><span class="gi-name">pWAR</span><span class="advb">ADV</span></div>
-        <div class="gi-def">Pitching WAR — wins above replacement based on ERA vs CCAA average. Regressed for &lt;50 IP. <strong style="color:var(--text)">Why it matters:</strong> Translates run prevention into actual wins, accounting for innings load. A starter with 2.0 pWAR has done meaningfully more for their team's record than a reliever with a flashier ERA in 15 innings.</div>
+        <div class="gi-def">Pitching WAR. Wins above replacement based on ERA vs CCAA average. Regressed for &lt;50 IP. <strong style="color:var(--text)">Why it matters:</strong> Translates run prevention into actual wins, accounting for innings load. A starter with 2.0 pWAR has done meaningfully more for their team's record than a reliever with a flashier ERA in 15 innings.</div>
       </div>
       <div class="gloss-item">
         <div class="gi-label"><span class="gi-name">Proj40 pWAR</span><span class="advb">ADV</span></div>
-        <div class="gi-def">Projected pWAR over a 40-game season — scales current pWAR by <code>(40 / APP)</code>. Min 3 appearances required. <strong style="color:var(--text)">Why it matters:</strong> Lets you compare a starter who has thrown 5 outings to a reliever with 12 on the same scale. Pace, not totals, tells you who's truly performing.</div>
+        <div class="gi-def">Projected pWAR over a 40-game season. Scales current pWAR by <code>(40 / APP)</code>. Min 3 appearances required. <strong style="color:var(--text)">Why it matters:</strong> Lets you compare a starter who has thrown 5 outings to a reliever with 12 on the same scale. Pace, not totals, tells you who's truly performing.</div>
       </div>
     </div>
 
@@ -355,7 +355,7 @@ footer a:hover{color:var(--text)}
 function toggleGloss(btn){btn.classList.toggle('open');btn.nextElementSibling.classList.toggle('open')}
 </script>
 <div class="ib">📊 Stats computed from MaxPreps exports. Advanced metrics (wOBA, wRC+, oWAR, K/9, K/BB, ERA+, pWAR) calculated from raw counting stats across all 13 teams with data.</div>
-<div class="ib">🏅 Leaderboard qualifiers: min 30 PA (hitters) · min 15 IP (pitchers) — based on CCAA-wide average at ~18 GP</div>
+<div class="ib">🏅 Leaderboard qualifiers: min 30 PA (hitters) · min 15 IP (pitchers), based on CCAA-wide average at ~18 GP</div>
 <div style="display:flex;align-items:center;gap:.35rem;font-size:.65rem;color:var(--sub);margin-bottom:.75rem;padding-left:.1rem"><span class="updated-dot"></span><span id="last-updated">—</span></div>
 <div class="ctrl">
   <div class="tgroup">
@@ -386,7 +386,7 @@ function toggleGloss(btn){btn.classList.toggle('open');btn.nextElementSibling.cl
 </div>
 
 <div id="p-hs" class="card desktop-table">
-  <div class="card-hdr"><div class="card-title">Batting — Standard</div></div>
+  <div class="card-hdr"><div class="card-title">Batting · Standard</div></div>
   <div class="tw"><table>
     <thead><tr>
       <th onclick="srt('avg',false)" style="min-width:130px"># Player</th>
@@ -412,7 +412,7 @@ function toggleGloss(btn){btn.classList.toggle('open');btn.nextElementSibling.cl
 </div>
 
 <div id="p-ha" class="card desktop-table" style="display:none">
-  <div class="card-hdr"><div class="card-title">Batting — Advanced <span class="advb">ADV</span></div></div>
+  <div class="card-hdr"><div class="card-title">Batting · Advanced <span class="advb">ADV</span></div></div>
   <div class="tw"><table>
     <thead><tr>
       <th onclick="srt('avg',false)" style="min-width:130px"># Player</th>
@@ -422,7 +422,7 @@ function toggleGloss(btn){btn.classList.toggle('open');btn.nextElementSibling.cl
       <th onclick="srt('obp',false)" data-tip="On-Base %">OBP</th>
       <th onclick="srt('slg',false)" data-tip="Slugging %">SLG</th>
       <th onclick="srt('woba',false)" data-tip="Weighted On-Base Average">wOBA <span class="advb">ADV</span></th>
-      <th onclick="srt('wrc_plus',false)" data-tip="wRC+ — 100=league avg">wRC+ <span class="advb">ADV</span></th>
+      <th onclick="srt('wrc_plus',false)" data-tip="wRC+ where 100 = league avg">wRC+ <span class="advb">ADV</span></th>
       <th onclick="srt('owar',false)" data-tip="Offensive WAR">oWAR <span class="advb">ADV</span></th>
       <th onclick="srt('proj40owar',false)" data-tip="Projected oWAR over 40 games">Proj40 <span class="advb">ADV</span></th>
       <th onclick="srt('bbk',false)" data-tip="Walk-to-Strikeout Ratio">BB/K <span class="advb">ADV</span></th>
@@ -433,7 +433,7 @@ function toggleGloss(btn){btn.classList.toggle('open');btn.nextElementSibling.cl
 </div>
 
 <div id="p-ps" class="card desktop-table" style="display:none">
-  <div class="card-hdr"><div class="card-title">Pitching — Standard</div></div>
+  <div class="card-hdr"><div class="card-title">Pitching · Standard</div></div>
   <div class="tw"><table>
     <thead><tr>
       <th onclick="srt('era',true)" style="min-width:130px"># Player</th>
@@ -453,7 +453,7 @@ function toggleGloss(btn){btn.classList.toggle('open');btn.nextElementSibling.cl
 </div>
 
 <div id="p-pa" class="card desktop-table" style="display:none">
-  <div class="card-hdr"><div class="card-title">Pitching — Advanced <span class="advb">ADV</span></div></div>
+  <div class="card-hdr"><div class="card-title">Pitching · Advanced <span class="advb">ADV</span></div></div>
   <div class="tw"><table>
     <thead><tr>
       <th style="min-width:130px"># Player</th>
@@ -472,7 +472,7 @@ function toggleGloss(btn){btn.classList.toggle('open');btn.nextElementSibling.cl
   </table></div>
 </div>
 <div id="p-tw" class="card desktop-table" style="display:none">
-  <div class="card-hdr"><div class="card-title">Two-Way Players — Total WAR <span class="advb">ADV</span></div></div>
+  <div class="card-hdr"><div class="card-title">Two-Way Players · Total WAR <span class="advb">ADV</span></div></div>
   <div class="tw"><table>
     <thead><tr>
       <th onclick="srt('twar',false)" style="min-width:130px"># Player</th>
@@ -480,7 +480,7 @@ function toggleGloss(btn){btn.classList.toggle('open');btn.nextElementSibling.cl
       <th onclick="srt('pa',false)" data-tip="Plate Appearances">PA</th>
       <th onclick="srt('ip',false)" data-tip="Innings Pitched">IP</th>
       <th onclick="srt('avg',false)" data-tip="Batting Average">AVG</th>
-      <th onclick="srt('wrc_plus',false)" data-tip="wRC+ — 100=league avg">wRC+ <span class="advb">ADV</span></th>
+      <th onclick="srt('wrc_plus',false)" data-tip="wRC+ where 100 = league avg">wRC+ <span class="advb">ADV</span></th>
       <th onclick="srt('era',true)" data-tip="ERA">ERA</th>
       <th onclick="srt('owar',false)" data-tip="Offensive WAR">oWAR <span class="advb">ADV</span></th>
       <th onclick="srt('pwar',false)" data-tip="Pitching WAR">pWAR <span class="advb">ADV</span></th>
@@ -868,7 +868,7 @@ function openProfile(name,team,tab){
   let html='';
   if(b){
     html+=`<div class="modal-section">
-      <div class="modal-section-title">Hitting — Standard</div>
+      <div class="modal-section-title">Hitting · Standard</div>
       <div class="stat-pills">
         ${pillCV('AVG',b.avg,.270,.350,v=>f3(v))}
         ${pillCV('OBP',b.obp,.300,.380,v=>f3(v))}
@@ -888,7 +888,7 @@ function openProfile(name,team,tab){
       </div>
     </div>
     <div class="modal-section">
-      <div class="modal-section-title">Hitting — Advanced</div>
+      <div class="modal-section-title">Hitting · Advanced</div>
       <div class="stat-pills">
         ${pill('wOBA',b.woba!==null?f3(b.woba):'—','vadv')}
         ${b.wrc_plus!==null?pill('wRC+',b.wrc_plus,b.wrc_plus>=130?'vhi':b.wrc_plus>=90?'vmd':'vlo'):''}
@@ -901,7 +901,7 @@ function openProfile(name,team,tab){
   }
   if(p){
     html+=`<div class="modal-section">
-      <div class="modal-section-title">Pitching — Standard</div>
+      <div class="modal-section-title">Pitching · Standard</div>
       <div class="stat-pills">
         ${pillCV('ERA',p.era,2.5,4.5,v=>v.toFixed(2),true)}
         ${p.whip!==null?pillCV('WHIP',p.whip,WHIP_LO,WHIP_HI,v=>f2(v),true):''}
@@ -916,7 +916,7 @@ function openProfile(name,team,tab){
       </div>
     </div>
     <div class="modal-section">
-      <div class="modal-section-title">Pitching — Advanced</div>
+      <div class="modal-section-title">Pitching · Advanced</div>
       <div class="stat-pills">
         ${pillCV('K/9',p.k9,6,9,v=>f1(v))}
         ${pillCV('K/BB',p.kbb,1.5,3,v=>f2(v))}

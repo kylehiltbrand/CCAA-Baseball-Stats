@@ -2,7 +2,7 @@
 <html lang="en">
 <head><meta charset="UTF-8">
 <link rel="icon" type="image/svg+xml" href="favicon.svg"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Standings — CCAA Baseball 2025-26</title>
+<title>Standings | CCAA Baseball 2025-26</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap');
@@ -178,33 +178,33 @@ footer a:hover{color:var(--text)}
     <!-- WP -->
     <div>
       <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.45rem">
-        <span style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.95rem;color:#68d391">WP — Winning Percentage</span>
+        <span style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.95rem;color:#68d391">WP: Winning Percentage</span>
         <span style="font-size:.6rem;font-weight:700;color:#68d391;background:rgba(56,161,105,.12);padding:.1rem .35rem;border-radius:3px">60%</span>
       </div>
       <p style="font-size:.73rem;color:var(--sub);line-height:1.65">
-        The heaviest component. A team's wins divided by total completed games (ties excluded). A team that goes 14-4 has a WP of .778. Standard NCAA RPI uses 25% WP — this site weights it higher because the CCAA's three leagues play almost entirely separate schedules, which makes raw schedule-strength comparisons less reliable. Winning your games still has to mean something.
+        The heaviest component. A team's wins divided by total completed games, with ties counting as half a win and half a loss (NCAA convention). A team that goes 14-4 has a WP of .778. Standard NCAA RPI uses 25% WP, but this site weights it higher because the CCAA's three leagues play almost entirely separate schedules, which makes raw schedule-strength comparisons less reliable. Winning your games still has to mean something.
       </p>
     </div>
 
     <!-- OWP -->
     <div>
       <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.45rem">
-        <span style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.95rem;color:var(--sky)">OWP — Opponents' Winning Percentage</span>
+        <span style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.95rem;color:var(--sky)">OWP: Opponents' Winning Percentage</span>
         <span style="font-size:.6rem;font-weight:700;color:var(--sky);background:rgba(99,179,237,.12);padding:.1rem .35rem;border-radius:3px">25%</span>
       </div>
       <p style="font-size:.73rem;color:var(--sub);line-height:1.65">
-        The schedule-strength component. For each CCAA opponent a team faced, their WP is calculated <em>excluding</em> games against that team (to avoid circular inflation). Those individual WPs are then averaged. A high OWP means you played a gauntlet — teams that were beating everyone else on their schedule too.
+        The schedule-strength component. For each CCAA opponent a team faced, their WP is calculated <em>excluding</em> games against that team (to avoid circular inflation). Those individual WPs are then averaged. A high OWP means you played a gauntlet, with teams that were beating everyone else on their schedule too.
       </p>
     </div>
 
     <!-- OOWP -->
     <div>
       <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.45rem">
-        <span style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.95rem;color:var(--gold)">OOWP — Opponents' Opponents' WP</span>
+        <span style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.95rem;color:var(--gold)">OOWP: Opponents' Opponents' WP</span>
         <span style="font-size:.6rem;font-weight:700;color:var(--gold);background:rgba(240,165,0,.1);padding:.1rem .35rem;border-radius:3px">15%</span>
       </div>
       <p style="font-size:.73rem;color:var(--sub);line-height:1.65">
-        One more degree of separation. OOWP is the average OWP of your CCAA opponents — essentially asking "how strong were the schedules of the teams you played?" It smooths out the noise from a single dominant or weak opponent and gives a fuller picture of league context.
+        One more degree of separation. OOWP is the average OWP of your CCAA opponents, essentially asking "how strong were the schedules of the teams you played?" It smooths out the noise from a single dominant or weak opponent and gives a fuller picture of league context.
       </p>
     </div>
 
@@ -214,7 +214,7 @@ footer a:hover{color:var(--text)}
         <span style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.95rem;color:var(--text)">What Games Count</span>
       </div>
       <p style="font-size:.73rem;color:var(--sub);line-height:1.65">
-        All completed games count toward a team's own WP. However, OWP and OOWP only use games against other CCAA opponents — non-league opponents (tournaments, scrimmages, out-of-conference opponents) are excluded from the schedule-strength components. Ties are excluded from all calculations.
+        All completed games count toward a team's own WP, with ties counting as half a win and half a loss. However, OWP and OOWP only use games against other CCAA opponents. Non-league opponents (tournaments, scrimmages, out-of-conference opponents) are excluded from the schedule-strength components.
       </p>
     </div>
 
@@ -225,7 +225,7 @@ footer a:hover{color:var(--text)}
     <div style="grid-column:1/-1">
       <div style="margin-bottom:.5rem;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.9rem;color:var(--text)">Why It Matters in the CCAA</div>
       <p style="font-size:.73rem;color:var(--sub);line-height:1.7">
-        The three CCAA leagues — Mountain, Sunset, and Ocean — don't play a shared schedule, which means a league record alone can't tell you how a Mountain team stacks up against an Ocean team. RPI solves that by combining results with schedule strength. Standard NCAA RPI weights schedule strength heavily (75% of the formula), but in a conference where leagues barely cross over, that can punish winning teams unfairly. This site uses a <strong style="color:var(--text)">60/25/15</strong> weighting that keeps schedule strength meaningful without letting it overwrite results. That's why <strong style="color:var(--text)">Paso Robles</strong> (.556 WP, 5-1 in league) ranks ahead of <strong style="color:var(--text)">Santa Maria</strong> (.385 WP) — Santa Maria played a tougher schedule, but Paso has actually won more games, and the formula reflects that. Schedule strength still pulls weight at the top: <strong style="color:var(--text)">Lompoc</strong> (.474 WP, 1-6 in league) still climbs to 9th because they played the hardest schedule in the conference, going up against St. Joseph and Morro Bay repeatedly. RPI is not the only measure of a team's quality, but it is the most cross-league-comparable one available.
+        The three CCAA leagues (Mountain, Sunset, and Ocean) don't play a shared schedule, which means a league record alone can't tell you how a Mountain team stacks up against an Ocean team. RPI solves that by combining results with schedule strength. Standard NCAA RPI weights schedule strength heavily (75% of the formula), but in a conference where leagues barely cross over, that can punish winning teams unfairly. This site uses a <strong style="color:var(--text)">60/25/15</strong> weighting that keeps schedule strength meaningful without letting it overwrite results. That's why <strong style="color:var(--text)">Paso Robles</strong> (.553 WP, 5-1 in league) ranks ahead of <strong style="color:var(--text)">Santa Maria</strong> (.385 WP). Santa Maria played a tougher schedule, but Paso has actually won more games, and the formula reflects that. Schedule strength still pulls weight at the top: <strong style="color:var(--text)">Lompoc</strong> (.450 WP, 1-7 in league) still climbs to 9th because they played the hardest schedule in the conference, going up against St. Joseph and Morro Bay repeatedly. RPI is not the only measure of a team's quality, but it is the most cross-league-comparable one available.
       </p>
     </div>
 
@@ -235,19 +235,19 @@ footer a:hover{color:var(--text)}
 
 <script src="data.js"></script>
 <script>
-// ── RPI DATA (computed from all 15 MaxPreps schedules, 4/16/26 — 60/25/15 weighting) ──
+// ── RPI DATA (computed from all 15 MaxPreps schedules, 4/16/26 — 60/25/15 weighting, NCAA half-tie convention) ──
 const rpiData = {
-  "St. Joseph":           { rpi: 0.7339, wp: 0.789, owp: 0.649, oowp: 0.653, rank: 1 },
+  "St. Joseph":           { rpi: 0.7252, wp: 0.775, owp: 0.649, oowp: 0.653, rank: 1 },
   "Santa Ynez":           { rpi: 0.7133, wp: 0.800, owp: 0.557, oowp: 0.627, rank: 2 },
   "Arroyo Grande":        { rpi: 0.6803, wp: 0.700, owp: 0.650, oowp: 0.652, rank: 3 },
   "Righetti":             { rpi: 0.6614, wp: 0.667, owp: 0.655, oowp: 0.651, rank: 4 },
   "Morro Bay":            { rpi: 0.6375, wp: 0.632, owp: 0.642, oowp: 0.654, rank: 5 },
-  "Pioneer Valley":       { rpi: 0.6351, wp: 0.647, owp: 0.625, oowp: 0.604, rank: 6 },
+  "Pioneer Valley":       { rpi: 0.6258, wp: 0.632, owp: 0.625, oowp: 0.604, rank: 6 },
   "Mission College Prep": { rpi: 0.5989, wp: 0.562, owp: 0.655, oowp: 0.651, rank: 7 },
   "Nipomo":               { rpi: 0.5485, wp: 0.500, owp: 0.633, oowp: 0.602, rank: 8 },
   "Lompoc":               { rpi: 0.5325, wp: 0.450, owp: 0.660, oowp: 0.650, rank: 9 },
   "San Luis Obispo":      { rpi: 0.5042, wp: 0.579, owp: 0.383, oowp: 0.407, rank: 10 },
-  "Paso Robles":          { rpi: 0.4915, wp: 0.556, owp: 0.389, oowp: 0.406, rank: 11 },
+  "Paso Robles":          { rpi: 0.4897, wp: 0.553, owp: 0.389, oowp: 0.406, rank: 11 },
   "Santa Maria":          { rpi: 0.4773, wp: 0.385, owp: 0.623, oowp: 0.605, rank: 12 },
   "Templeton":            { rpi: 0.4280, wp: 0.450, owp: 0.389, oowp: 0.405, rank: 13 },
   "Atascadero":           { rpi: 0.3232, wp: 0.263, owp: 0.423, oowp: 0.397, rank: 14 },
@@ -321,9 +321,9 @@ function rpiColor(v) {
 
 // ── League standings data ──
 const D={
-  mountain:{label:"Mountain League",sub:"CCAA — Mountain",teams:standingsData.mountain},
-  sunset:  {label:"Sunset League",  sub:"CCAA — Sunset",  teams:standingsData.sunset},
-  ocean:   {label:"Ocean League",   sub:"CCAA — Ocean",   teams:standingsData.ocean}
+  mountain:{label:"Mountain League",sub:"CCAA Mountain",teams:standingsData.mountain},
+  sunset:  {label:"Sunset League",  sub:"CCAA Sunset",  teams:standingsData.sunset},
+  ocean:   {label:"Ocean League",   sub:"CCAA Ocean",   teams:standingsData.ocean}
 };
 
 function pct(w,l){const t=w+l;return t>0?(w/t).toFixed(3).replace(/^0/,''):'.000'}
