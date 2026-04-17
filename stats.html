@@ -602,14 +602,14 @@ function render(){
     return a.name.localeCompare(b.name);
   });
 
-  document.getElementById('b-hs').innerHTML=H.map((p,i)=>`<tr style="cursor:pointer" onclick="openProfile('${p.name.replace(/'/g,"\\'")}','${p.team}','hitting')"><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.gp}</td><td class="vbold">${f3(p.avg)||'—'}</td><td>${p.pa}</td><td>${p.ab}</td><td>${p.r}</td><td>${p.h}</td><td>${p.doubles}</td><td>${p.triples}</td><td>${p.hr}</td><td>${p.rbi}</td><td>${p.bb}</td><td>${p.k}</td><td>${cv(p.obp,.300,.380,v=>f3(v))}</td><td>${cv(p.slg,.350,.500,v=>f3(v))}</td><td>${cv(p.ops,.700,.900,v=>f3(v))}</td></tr>`).join('');
+  document.getElementById('b-hs').innerHTML=H.map((p,i)=>`<tr style="cursor:pointer" onclick="openProfile('${p.name.replace(/'/g,"\\'")}','${p.team}','hitting','${p.pa}')"><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.gp}</td><td class="vbold">${f3(p.avg)||'—'}</td><td>${p.pa}</td><td>${p.ab}</td><td>${p.r}</td><td>${p.h}</td><td>${p.doubles}</td><td>${p.triples}</td><td>${p.hr}</td><td>${p.rbi}</td><td>${p.bb}</td><td>${p.k}</td><td>${cv(p.obp,.300,.380,v=>f3(v))}</td><td>${cv(p.slg,.350,.500,v=>f3(v))}</td><td>${cv(p.ops,.700,.900,v=>f3(v))}</td></tr>`).join('');
 
   document.getElementById('b-ha').innerHTML=H.map((p,i)=>{
     const wc=p.wrc_plus,wcCls=wc===null?'vna':wc>=130?'vhi':wc>=90?'vmd':'vlo';
     const oc=p.owar===null?'vna':p.owar>=1?'vhi':p.owar>=0?'vmd':'vlo';
     const bc=p.bbk===null?'vna':p.bbk>=0.5?'vhi':p.bbk>=0.25?'vmd':'vlo';
     const babipCls=p.babip===null?'vna':(p.babip>=BABIP_HI?'vhi':p.babip>=BABIP_LO?'vmd':'vlo');
-    return `<tr style="cursor:pointer" onclick="openProfile('${p.name.replace(/'/g,"\\'")}','${p.team}','hitting')"><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.pa}</td><td>${f3(p.avg)||'—'}</td><td>${cv(p.obp,.300,.380,v=>f3(v))}</td><td>${cv(p.slg,.350,.500,v=>f3(v))}</td><td class="vadv">${f3(p.woba)||'—'}</td><td><span class="${wcCls}">${wc!==null?wc:'—'}</span></td><td><span class="${oc}">${p.owar!==null?(p.owar>0?'+':'')+p.owar:'—'}</span></td><td class="vadv"><span class="${p.proj40owar===null?'vna':p.proj40owar>=2?'vhi':p.proj40owar>=1?'vmd':'vlo'}">${p.proj40owar!==null?(p.proj40owar>0?'+':'')+p.proj40owar:'—'}</span></td><td><span class="${bc}">${p.bbk!==null?f2(p.bbk):'—'}</span></td><td class="vadv"><span class="${babipCls}">${p.babip!==null?f3(p.babip):'—'}</span></td></tr>`;
+    return `<tr style="cursor:pointer" onclick="openProfile('${p.name.replace(/'/g,"\\'")}','${p.team}','hitting','${p.pa}')"><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.pa}</td><td>${f3(p.avg)||'—'}</td><td>${cv(p.obp,.300,.380,v=>f3(v))}</td><td>${cv(p.slg,.350,.500,v=>f3(v))}</td><td class="vadv">${f3(p.woba)||'—'}</td><td><span class="${wcCls}">${wc!==null?wc:'—'}</span></td><td><span class="${oc}">${p.owar!==null?(p.owar>0?'+':'')+p.owar:'—'}</span></td><td class="vadv"><span class="${p.proj40owar===null?'vna':p.proj40owar>=2?'vhi':p.proj40owar>=1?'vmd':'vlo'}">${p.proj40owar!==null?(p.proj40owar>0?'+':'')+p.proj40owar:'—'}</span></td><td><span class="${bc}">${p.bbk!==null?f2(p.bbk):'—'}</span></td><td class="vadv"><span class="${babipCls}">${p.babip!==null?f3(p.babip):'—'}</span></td></tr>`;
   }).join('');
 
   let P=pitchers.filter(p=>(!teamF||p.team===teamF)&&(curLeague==='all'||TL[p.team]===curLeague)&&p.ip>=mIP&&(!srch||p.name.toLowerCase().includes(srch)));
@@ -623,10 +623,10 @@ function render(){
     return a.name.localeCompare(b.name);
   });
 
-  document.getElementById('b-ps').innerHTML=P.map((p,i)=>`<tr style="cursor:pointer" onclick="openProfile('${p.name.replace(/'/g,"\\'")}','${p.team}','pitching')"><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.app}</td><td>${p.w}</td><td>${p.l}</td><td>${cv(p.era,2.5,4.5,v=>v.toFixed(2),true)}</td><td>${cv(p.whip,WHIP_LO,WHIP_HI,v=>f2(v),true)}</td><td>${p.ip}</td><td>${p.h}</td><td>${p.er}</td><td>${p.bb}</td><td>${p.k}</td></tr>`).join('');
+  document.getElementById('b-ps').innerHTML=P.map((p,i)=>`<tr style="cursor:pointer" onclick="openProfile('${p.name.replace(/'/g,"\\'")}','${p.team}','pitching','${p.ip}')"><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.app}</td><td>${p.w}</td><td>${p.l}</td><td>${cv(p.era,2.5,4.5,v=>v.toFixed(2),true)}</td><td>${cv(p.whip,WHIP_LO,WHIP_HI,v=>f2(v),true)}</td><td>${p.ip}</td><td>${p.h}</td><td>${p.er}</td><td>${p.bb}</td><td>${p.k}</td></tr>`).join('');
 
   document.getElementById('b-pa').innerHTML=P.map((p,i)=>{
-    return `<tr style="cursor:pointer" onclick="openProfile('${p.name.replace(/'/g,"\\'")}','${p.team}','pitching')"><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.ip}</td><td>${cv(p.era,2.5,4.5,v=>v.toFixed(2),true)}</td><td>${cv(p.whip,WHIP_LO,WHIP_HI,v=>f2(v),true)}</td><td class="vadv">${cv(p.k9,6,9,v=>f1(v))}</td><td class="vadv">${cv(p.kpct,20,30,v=>v.toFixed(1)+'%')}</td><td class="vadv">${cv(p.pwar,0,1,v=>(v>0?'+':'')+v)}</td><td class="vadv"><span class="${p.proj40pwar===null?'vna':p.proj40pwar>=2?'vhi':p.proj40pwar>=1?'vmd':'vlo'}">${p.proj40pwar!==null?(p.proj40pwar>0?'+':'')+p.proj40pwar:'—'}</span></td><td class="vadv">${cv(p.kbb,1.5,3,v=>f2(v))}</td><td class="vadv">${cv(p.era_plus,80,120,v=>v.toString())}</td></tr>`;
+    return `<tr style="cursor:pointer" onclick="openProfile('${p.name.replace(/'/g,"\\'")}','${p.team}','pitching','${p.ip}')"><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.ip}</td><td>${cv(p.era,2.5,4.5,v=>v.toFixed(2),true)}</td><td>${cv(p.whip,WHIP_LO,WHIP_HI,v=>f2(v),true)}</td><td class="vadv">${cv(p.k9,6,9,v=>f1(v))}</td><td class="vadv">${cv(p.kpct,20,30,v=>v.toFixed(1)+'%')}</td><td class="vadv">${cv(p.pwar,0,1,v=>(v>0?'+':'')+v)}</td><td class="vadv"><span class="${p.proj40pwar===null?'vna':p.proj40pwar>=2?'vhi':p.proj40pwar>=1?'vmd':'vlo'}">${p.proj40pwar!==null?(p.proj40pwar>0?'+':'')+p.proj40pwar:'—'}</span></td><td class="vadv">${cv(p.kbb,1.5,3,v=>f2(v))}</td><td class="vadv">${cv(p.era_plus,80,120,v=>v.toString())}</td></tr>`;
   }).join('');
 
   // Two-Way: match batters with pitchers by name+team, require both owar and pwar
@@ -660,7 +660,7 @@ function render(){
       const pc=p.pwar>=1?'vhi':p.pwar>=0?'vmd':'vlo';
       const tc=p.twar>=2?'vhi':p.twar>=1?'vmd':'vlo';
       const wc=p.wrc_plus===null?'vna':p.wrc_plus>=130?'vhi':p.wrc_plus>=90?'vmd':'vlo';
-      return `<tr style="cursor:pointer" onclick="openProfile('${p.name.replace(/'/g,"\\'")}','${p.team}','twoway')"><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.pa}</td><td>${p.ip}</td><td class="vbold">${f3(p.avg)||'—'}</td><td><span class="${wc}">${p.wrc_plus!==null?p.wrc_plus:'—'}</span></td><td>${cv(p.era,2.5,4.5,v=>v.toFixed(2),true)}</td><td class="vadv"><span class="${oc}">${p.owar!==null?(p.owar>0?'+':'')+p.owar:'—'}</span></td><td class="vadv"><span class="${pc}">${p.pwar!==null?(p.pwar>0?'+':'')+p.pwar:'—'}</span></td><td class="vadv"><span class="${tc}">${(p.twar>0?'+':'')+p.twar}</span></td></tr>`;
+      return `<tr style="cursor:pointer" onclick="openProfile('${p.name.replace(/'/g,"\\'")}','${p.team}','twoway','${p.pa}')"><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.pa}</td><td>${p.ip}</td><td class="vbold">${f3(p.avg)||'—'}</td><td><span class="${wc}">${p.wrc_plus!==null?p.wrc_plus:'—'}</span></td><td>${cv(p.era,2.5,4.5,v=>v.toFixed(2),true)}</td><td class="vadv"><span class="${oc}">${p.owar!==null?(p.owar>0?'+':'')+p.owar:'—'}</span></td><td class="vadv"><span class="${pc}">${p.pwar!==null?(p.pwar>0?'+':'')+p.pwar:'—'}</span></td><td class="vadv"><span class="${tc}">${(p.twar>0?'+':'')+p.twar}</span></td></tr>`;
     }).join('');
   }
 }
@@ -810,7 +810,9 @@ function renderMob(){
     }).join('');
     const safeName=p.name.replace(/'/g,"\\'");
     const safeTeam=p.team.replace(/'/g,"\\'");
-    return `<div class="mob-card" onclick="openProfile('${safeName}','${safeTeam}','${curTab}')">
+    // Disambiguator: PA for hitters/two-way, IP for pitchers
+    const disamb=curTab==='pitching' ? p.ip : p.pa;
+    return `<div class="mob-card" onclick="openProfile('${safeName}','${safeTeam}','${curTab}','${disamb}')">
       <div class="mob-card-header">
         <span class="mob-rank">${i+1}</span>
         <span class="mob-name">${p.name}</span>
@@ -872,7 +874,7 @@ function pillCV(label,v,lo,hi,fmt,rev){
   return pill(label,fmt(v),cls);
 }
 
-function openProfile(name,team,tab){
+function openProfile(name,team,tab,disamb){
   const c=TC[team]||{bg:'#222',fg:'#aaa',a:team.slice(0,3)};
   const badge=document.getElementById('pm-badge');
   badge.style.cssText=`background:${c.bg};color:${c.fg}`;
@@ -890,8 +892,20 @@ function openProfile(name,team,tab){
   }
   document.getElementById('pm-name').textContent=name;
 
-  const b=batters.find(x=>x.name===name&&x.team===team);
-  const p=pitchers.find(x=>x.name===name&&x.team===team);
+  // Find the specific player entry — if a disambiguator was provided
+  // (from a click or shareable URL), match on it first. This handles duplicate
+  // player names on the same team (e.g., two J. Medina's on Santa Maria —
+  // disambiguated by different PA totals). Falls back to first name+team match
+  // if the disambiguator-specific lookup fails — this keeps old shareable
+  // links working AND keeps two-way rows working (where disamb=PA is correct
+  // for the batter lookup but won't match a pitcher's IP, so pitcher falls
+  // back to name+team which is fine since two-way players are unique).
+  const matchBatter = x => x.name===name && x.team===team;
+  const matchPitcher = x => x.name===name && x.team===team;
+  const matchBatterExact = x => matchBatter(x) && x.pa.toString()===disamb?.toString();
+  const matchPitcherExact = x => matchPitcher(x) && x.ip.toString()===disamb?.toString();
+  const b = (disamb!=null && batters.find(matchBatterExact)) || batters.find(matchBatter);
+  const p = (disamb!=null && pitchers.find(matchPitcherExact)) || pitchers.find(matchPitcher);
   const league=TL[team]||'';
   const leagueDot=league==='mountain'?'<span class="dot dm" style="display:inline-block;margin-right:.3rem"></span>Mountain':league==='sunset'?'<span class="dot ds" style="display:inline-block;margin-right:.3rem"></span>Sunset':'<span class="dot do" style="display:inline-block;margin-right:.3rem"></span>Ocean';
 
@@ -1024,7 +1038,10 @@ function openProfile(name,team,tab){
   document.getElementById('profileModal').classList.add('open');
   document.body.style.overflow='hidden';
   // Write shareable URL and manage copy-link button
-  const hash='#player='+encodeURIComponent(name)+'&team='+encodeURIComponent(team);
+  // Include disambiguator (d=PA for batters, or d=IP for pitchers) so shareable
+  // links resolve to the correct player when duplicates exist on a team.
+  let hash='#player='+encodeURIComponent(name)+'&team='+encodeURIComponent(team);
+  if(disamb!=null) hash+='&d='+encodeURIComponent(disamb);
   history.replaceState(null,'',hash);
   const hdr=document.querySelector('.modal-hdr');
   if(hdr){
@@ -1062,7 +1079,8 @@ window.addEventListener('load',()=>{
   const params=Object.fromEntries(hash.slice(1).split('&').map(p=>p.split('=').map(decodeURIComponent)));
   if(params.player&&params.team){
     // Wait for render to complete before opening
-    setTimeout(()=>openProfile(params.player,params.team,'hitting'),300);
+    // params.d is the optional disambiguator (PA or IP) for duplicate names
+    setTimeout(()=>openProfile(params.player,params.team,'hitting',params.d),300);
   }
 });
 
