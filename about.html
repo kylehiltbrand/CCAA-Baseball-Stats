@@ -124,6 +124,13 @@ main{max-width:1280px;margin:0 auto;padding:1.5rem 1.5rem 4rem}
 .b-links{display:flex;gap:.4rem;margin-top:.6rem;flex-wrap:wrap}
 .b-links a{font-size:.7rem;color:var(--sky);border:1px solid var(--bdr2);padding:.2rem .6rem;border-radius:5px;transition:border-color .15s}
 .b-links a:hover{border-color:var(--sky)}
+
+/* ── SUGGEST CTA ── */
+.suggest-row{display:flex;align-items:center;gap:1rem;padding:1rem;flex-wrap:wrap}
+.suggest-text{flex:1;min-width:200px}
+.suggest-text p{font-size:.8rem;color:var(--sub);line-height:1.6;margin:0}
+.suggest-btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--gold);color:#0d1117;font-weight:700;font-size:.75rem;letter-spacing:.05em;text-transform:uppercase;padding:.55rem 1rem;border-radius:6px;transition:transform .1s,opacity .15s;flex-shrink:0}
+.suggest-btn:hover{opacity:.92;transform:translateY(-1px)}
 </style>
 </head>
 <body>
@@ -226,6 +233,15 @@ main{max-width:1280px;margin:0 auto;padding:1.5rem 1.5rem 4rem}
           </div>
         </div>
       </div>
+  <!-- SUGGESTIONS -->
+  <div class="llabel"><span class="dot dg"></span>Feedback</div>
+  <div class="card">
+    <div class="card-hdr"><span class="card-title">Have a suggestion?</span></div>
+    <div class="suggest-row">
+      <div class="suggest-text">
+        <p>Spot a missing player, broken stat, or feature you'd like to see? Drop your idea in the suggestion box and it'll be considered for the next update.</p>
+      </div>
+      <a class="suggest-btn" href="https://forms.gle/HsVgm9UVJqV2Aa8i7" target="_blank" rel="noopener">Open suggestion box ↗</a>
     </div>
   </div>
 
