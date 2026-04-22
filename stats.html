@@ -519,6 +519,7 @@ function toggleGloss(btn){btn.classList.toggle('open');btn.nextElementSibling.cl
       <th onclick="srt('owar',false)" data-tip="Offensive WAR">oWAR <span class="advb">ADV</span></th>
       <th onclick="srt('pwar',false)" data-tip="Pitching WAR">pWAR <span class="advb">ADV</span></th>
       <th onclick="srt('twar',false)" data-tip="Total WAR = oWAR + pWAR">tWAR <span class="advb">ADV</span></th>
+      <th onclick="srt('proj40twar',false)" data-tip="Projected tWAR over 40 games">Proj40 <span class="advb">ADV</span></th>
     </tr></thead>
     <tbody id="b-tw"></tbody>
   </table></div>
@@ -645,7 +646,8 @@ function render(){
       if(!p||p.ip<mIP||b.pa<mPA)return;
       if(b.owar===null||p.pwar===null)return;
       const twar=Math.round((b.owar+p.pwar)*10)/10;
-      TW.push({...b,ip:p.ip,era:p.era,pwar:p.pwar,twar,year:b.year});
+      const proj40twar=(b.proj40owar!==null&&p.proj40pwar!==null)?Math.round((b.proj40owar+p.proj40pwar)*10)/10:null;
+      TW.push({...b,ip:p.ip,era:p.era,pwar:p.pwar,proj40pwar:p.proj40pwar,twar,proj40twar,year:b.year});
     });
     TW.sort((a,b)=>{
       const col=curCol==='twar'?'twar':curCol;
@@ -659,8 +661,9 @@ function render(){
       const oc=p.owar>=1?'vhi':p.owar>=0?'vmd':'vlo';
       const pc=p.pwar>=1?'vhi':p.pwar>=0?'vmd':'vlo';
       const tc=p.twar>=2?'vhi':p.twar>=1?'vmd':'vlo';
+      const p4tc=p.proj40twar===null?'vna':p.proj40twar>=4?'vhi':p.proj40twar>=2?'vmd':'vlo';
       const wc=p.wrc_plus===null?'vna':p.wrc_plus>=130?'vhi':p.wrc_plus>=90?'vmd':'vlo';
-      return `<tr style="cursor:pointer" onclick="openProfile('${p.name.replace(/'/g,"\\'")}','${p.team}','twoway','${p.pa}')"><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.pa}</td><td>${p.ip}</td><td class="vbold">${f3(p.avg)||'—'}</td><td><span class="${wc}">${p.wrc_plus!==null?p.wrc_plus:'—'}</span></td><td>${cv(p.era,2.5,4.5,v=>v.toFixed(2),true)}</td><td class="vadv"><span class="${oc}">${p.owar!==null?(p.owar>0?'+':'')+p.owar:'—'}</span></td><td class="vadv"><span class="${pc}">${p.pwar!==null?(p.pwar>0?'+':'')+p.pwar:'—'}</span></td><td class="vadv"><span class="${tc}">${(p.twar>0?'+':'')+p.twar}</span></td></tr>`;
+      return `<tr style="cursor:pointer" onclick="openProfile('${p.name.replace(/'/g,"\\'")}','${p.team}','twoway','${p.pa}')"><td><span class="rn">${i+1}</span>${p.name}</td><td>${tbadge(p.team)}</td><td>${p.year}</td><td>${p.pa}</td><td>${p.ip}</td><td class="vbold">${f3(p.avg)||'—'}</td><td><span class="${wc}">${p.wrc_plus!==null?p.wrc_plus:'—'}</span></td><td>${cv(p.era,2.5,4.5,v=>v.toFixed(2),true)}</td><td class="vadv"><span class="${oc}">${p.owar!==null?(p.owar>0?'+':'')+p.owar:'—'}</span></td><td class="vadv"><span class="${pc}">${p.pwar!==null?(p.pwar>0?'+':'')+p.pwar:'—'}</span></td><td class="vadv"><span class="${tc}">${(p.twar>0?'+':'')+p.twar}</span></td><td class="vadv"><span class="${p4tc}">${p.proj40twar!==null?(p.proj40twar>0?'+':'')+p.proj40twar:'—'}</span></td></tr>`;
     }).join('');
   }
 }
@@ -694,10 +697,11 @@ const MOB_PITCHING_SORTS = [
   {key:'w',label:'W',asc:false},
 ];
 const MOB_TWOWAY_SORTS = [
-  {key:'twar',label:'tWAR',asc:false},{key:'owar',label:'oWAR',asc:false},
-  {key:'pwar',label:'pWAR',asc:false},{key:'wrc_plus',label:'wRC+',asc:false},
-  {key:'era',label:'ERA',asc:true},{key:'avg',label:'AVG',asc:false},
-  {key:'pa',label:'PA',asc:false},{key:'ip',label:'IP',asc:false},
+  {key:'twar',label:'tWAR',asc:false},{key:'proj40twar',label:'Proj40',asc:false},
+  {key:'owar',label:'oWAR',asc:false},{key:'pwar',label:'pWAR',asc:false},
+  {key:'wrc_plus',label:'wRC+',asc:false},{key:'era',label:'ERA',asc:true},
+  {key:'avg',label:'AVG',asc:false},{key:'pa',label:'PA',asc:false},
+  {key:'ip',label:'IP',asc:false},
 ];
 let mobSortKey='avg',mobSortAsc=false;
 
@@ -714,6 +718,7 @@ function fmtMobVal(key,p){
     proj40owar:[p.proj40owar,v=>(v>0?'+':'')+v,'vadv',1,2,false],
     proj40pwar:[p.proj40pwar,v=>(v>0?'+':'')+v,'vadv',1,2,false],
     twar:[p.twar,v=>(v>0?'+':'')+v,'vadv',1,2,false],
+    proj40twar:[p.proj40twar,v=>(v>0?'+':'')+v,'vadv',2,4,false],
     rbi:[p.rbi,v=>v+'','',10,20,false],
     hr:[p.hr,v=>v+'','',2,5,false],
     bbk:[p.bbk,v=>f2(v)||'—','vadv',.25,.5,false],
@@ -744,7 +749,7 @@ function getMobSorts(){
 
 function getMobStatKeys(){
   if(curTab==='twoway'){
-    const extras=curView==='advanced'?['twar','owar','pwar','wrc_plus','era_plus']:['era','owar','wrc_plus'];
+    const extras=curView==='advanced'?['twar','proj40twar','owar','pwar','wrc_plus','era_plus']:['era','owar','wrc_plus','proj40twar'];
     return[mobSortKey,...extras.filter(k=>k!==mobSortKey)].slice(0,4);
   }
   if(curTab==='pitching'){
@@ -771,7 +776,8 @@ function getMobData(teamF,mPA,mIP){
       if(!p||p.ip<mIP||b.pa<mPA)return;
       if(b.owar===null||p.pwar===null)return;
       const twar=Math.round((b.owar+p.pwar)*10)/10;
-      TW.push({...b,ip:p.ip,era:p.era,pwar:p.pwar,twar});
+      const proj40twar=(b.proj40owar!==null&&p.proj40pwar!==null)?Math.round((b.proj40owar+p.proj40pwar)*10)/10:null;
+      TW.push({...b,ip:p.ip,era:p.era,pwar:p.pwar,proj40pwar:p.proj40pwar,twar,proj40twar});
     });
     return TW;
   }
@@ -799,7 +805,7 @@ function renderMob(){
   });
 
   const statKeys=getMobStatKeys();
-  const statLabels={avg:'AVG',ops:'OPS',obp:'OBP',slg:'SLG',woba:'wOBA',wrc_plus:'wRC+',owar:'oWAR',pwar:'pWAR',twar:'tWAR',proj40owar:'Proj40 oWAR',proj40pwar:'Proj40 pWAR',rbi:'RBI',hr:'HR',bbk:'BB/K',babip:'BABIP',h:'H',r:'R',pa:'PA',era:'ERA',whip:'WHIP',k9:'K/9',era_plus:'ERA+',kbb:'K/BB',ip:'IP',k:'K',w:'W'};
+  const statLabels={avg:'AVG',ops:'OPS',obp:'OBP',slg:'SLG',woba:'wOBA',wrc_plus:'wRC+',owar:'oWAR',pwar:'pWAR',twar:'tWAR',proj40owar:'Proj40 oWAR',proj40pwar:'Proj40 pWAR',proj40twar:'Proj40 tWAR',rbi:'RBI',hr:'HR',bbk:'BB/K',babip:'BABIP',h:'H',r:'R',pa:'PA',era:'ERA',whip:'WHIP',k9:'K/9',era_plus:'ERA+',kbb:'K/BB',ip:'IP',k:'K',w:'W'};
 
   const container=document.getElementById('mob-cards-inner');
   container.innerHTML=data.map((p,i)=>{
