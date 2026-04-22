@@ -320,7 +320,8 @@ footer a:hover{color:var(--text)}
   // Falls back to a "check data.js" message if not set.
   const el = document.getElementById('last-updated');
   if (typeof DATA_UPDATED !== 'undefined' && DATA_UPDATED) {
-    const d = new Date(DATA_UPDATED);
+    const [yr,mo,dy] = DATA_UPDATED.split('-').map(Number);
+    const d = new Date(yr, mo-1, dy);
     const fmt = d.toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
     el.textContent = 'Stats updated ' + fmt;
   } else {

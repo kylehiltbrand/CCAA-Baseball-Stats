@@ -407,7 +407,8 @@ function filt(d,btn){
 (function(){
   const el=document.getElementById('last-updated');
   if(typeof DATA_UPDATED!=='undefined'&&DATA_UPDATED){
-    const d=new Date(DATA_UPDATED);
+    const [yr,mo,dy]=DATA_UPDATED.split('-').map(Number);
+    const d=new Date(yr,mo-1,dy);
     el.textContent='Stats updated '+d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
   } else { el.textContent='Set DATA_UPDATED in data.js'; }
 })();
