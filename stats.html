@@ -389,7 +389,7 @@ footer a:hover{color:var(--text)}
 function toggleGloss(btn){btn.classList.toggle('open');btn.nextElementSibling.classList.toggle('open')}
 </script>
 <div class="ib">📊 Stats computed from MaxPreps exports. Advanced metrics (wOBA, wRC+, oWAR, K/9, K/BB, ERA+, pWAR) calculated from raw counting stats across all 13 teams with data.</div>
-<div class="ib">🏅 Leaderboard qualifiers: min 30 PA (hitters) · min 15 IP (pitchers), based on CCAA-wide average at ~18 GP</div>
+<div class="ib">🏅 Leaderboard qualifiers: min 55 PA (hitters) · min 20 IP (pitchers), based on CCAA-wide average at ~22 GP</div>
 <div style="display:flex;align-items:center;gap:.35rem;font-size:.65rem;color:var(--sub);margin-bottom:.75rem;padding-left:.1rem"><span class="updated-dot"></span><span id="last-updated">—</span></div>
 <div class="ctrl">
   <div class="tgroup">
@@ -407,14 +407,16 @@ function toggleGloss(btn){btn.classList.toggle('open');btn.nextElementSibling.cl
     <input class="selm" id="playerSearch" type="text" placeholder="Search player…" oninput="render()">
   </div>
   <select class="selm" id="minPA" onchange="render()">
-    <option value="0">Any PA</option><option value="10">10+ PA</option>
-    <option value="20">20+ PA</option><option value="30" selected>30+ PA</option>
-    <option value="40">40+ PA</option><option value="50">50+ PA</option>
+    <option value="0">Any PA</option><option value="20">20+ PA</option>
+    <option value="30">30+ PA</option><option value="40">40+ PA</option>
+    <option value="50">50+ PA</option><option value="55" selected>55+ PA</option>
+    <option value="65">65+ PA</option><option value="75">75+ PA</option>
   </select>
   <select class="selm" id="minIP" onchange="render()">
-    <option value="0">Any IP</option><option value="3">3+ IP</option>
-    <option value="5">5+ IP</option><option value="10">10+ IP</option>
-    <option value="15" selected>15+ IP</option><option value="20">20+ IP</option>
+    <option value="0">Any IP</option><option value="5">5+ IP</option>
+    <option value="10">10+ IP</option><option value="15">15+ IP</option>
+    <option value="20" selected>20+ IP</option><option value="25">25+ IP</option>
+    <option value="30">30+ IP</option><option value="40">40+ IP</option>
   </select>
   <button class="dl-btn" onclick="downloadCSV()">⬇ Download CSV</button>
 </div>
