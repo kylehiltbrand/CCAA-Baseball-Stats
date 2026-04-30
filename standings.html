@@ -177,8 +177,8 @@ footer a:hover{color:var(--text)}
       <div class="card-title">CCAA RPI Rankings</div>
       <div class="card-sub">All leagues · Ratings Percentage Index</div>
     </div>
-    <div style="font-size:.62rem;color:var(--sub);text-align:right;line-height:1.6;max-width:220px">
-      RPI = 60% WP + 25% OWP + 15% OOWP<br>Based on completed games only
+    <div style="font-size:.62rem;color:var(--sub);text-align:right;line-height:1.6;max-width:240px">
+      RPI = 50% WP + 25% OWP + 10% OOWP + 15% CLSI<br>Based on completed games only
     </div>
   </div>
   <table class="rpi-table" id="rpi-rankings"></table>
@@ -196,8 +196,8 @@ footer a:hover{color:var(--text)}
 
     <!-- Formula block -->
     <div style="grid-column:1/-1">
-      <div style="background:var(--bg3);border:1px solid var(--bdr2);border-radius:6px;padding:.9rem 1.2rem;font-family:'Rajdhani',sans-serif;font-size:1.05rem;font-weight:600;letter-spacing:.04em;text-align:center;color:var(--text)">
-        RPI &nbsp;=&nbsp; <span style="color:#68d391">0.60 × WP</span> &nbsp;+&nbsp; <span style="color:var(--sky)">0.25 × OWP</span> &nbsp;+&nbsp; <span style="color:var(--gold)">0.15 × OOWP</span>
+      <div style="background:var(--bg3);border:1px solid var(--bdr2);border-radius:6px;padding:.9rem 1.2rem;font-family:'Rajdhani',sans-serif;font-size:1.0rem;font-weight:600;letter-spacing:.04em;text-align:center;color:var(--text)">
+        RPI &nbsp;=&nbsp; <span style="color:#68d391">0.50 × WP</span> &nbsp;+&nbsp; <span style="color:var(--sky)">0.25 × OWP</span> &nbsp;+&nbsp; <span style="color:var(--gold)">0.10 × OOWP</span> &nbsp;+&nbsp; <span style="color:#c084fc">0.15 × CLSI</span>
       </div>
     </div>
 
@@ -205,10 +205,10 @@ footer a:hover{color:var(--text)}
     <div>
       <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.45rem">
         <span style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.95rem;color:#68d391">WP: Winning Percentage</span>
-        <span style="font-size:.6rem;font-weight:700;color:#68d391;background:rgba(56,161,105,.12);padding:.1rem .35rem;border-radius:3px">60%</span>
+        <span style="font-size:.6rem;font-weight:700;color:#68d391;background:rgba(56,161,105,.12);padding:.1rem .35rem;border-radius:3px">50%</span>
       </div>
       <p style="font-size:.73rem;color:var(--sub);line-height:1.65">
-        The heaviest component. A team's wins divided by total completed games, with ties counting as half a win and half a loss (NCAA convention). A team that goes 14-4 has a WP of .778. Standard NCAA RPI uses 25% WP, but this site weights it higher because the CCAA's three leagues play almost entirely separate schedules, which makes raw schedule-strength comparisons less reliable. Winning your games still has to mean something.
+        The heaviest component. A team's wins divided by total completed games, with ties counting as half a win and half a loss (NCAA convention). A team that goes 14-4 has a WP of .778. Standard NCAA RPI uses 25% WP, but this site weights it higher because the CCAA's three leagues play almost entirely separate schedules. Winning your games still has to mean something, even when raw schedule comparisons across leagues are limited.
       </p>
     </div>
 
@@ -227,20 +227,34 @@ footer a:hover{color:var(--text)}
     <div>
       <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.45rem">
         <span style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.95rem;color:var(--gold)">OOWP: Opponents' Opponents' WP</span>
-        <span style="font-size:.6rem;font-weight:700;color:var(--gold);background:rgba(240,165,0,.1);padding:.1rem .35rem;border-radius:3px">15%</span>
+        <span style="font-size:.6rem;font-weight:700;color:var(--gold);background:rgba(240,165,0,.1);padding:.1rem .35rem;border-radius:3px">10%</span>
       </div>
       <p style="font-size:.73rem;color:var(--sub);line-height:1.65">
         One more degree of separation. OOWP is the average OWP of your CCAA opponents, essentially asking "how strong were the schedules of the teams you played?" It smooths out the noise from a single dominant or weak opponent and gives a fuller picture of league context.
       </p>
     </div>
 
-    <!-- What counts -->
+    <!-- CLSI -->
     <div>
+      <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.45rem">
+        <span style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.95rem;color:#c084fc">CLSI: Cross-League Strength Index</span>
+        <span style="font-size:.6rem;font-weight:700;color:#c084fc;background:rgba(192,132,252,.12);padding:.1rem .35rem;border-radius:3px">15%</span>
+      </div>
+      <p style="font-size:.73rem;color:var(--sub);line-height:1.65">
+        A league-context adjustment unique to this site. CLSI averages two signals: <strong style="color:var(--text)">league depth</strong> (the share of teams in your league posting a winning record, excluding yourself) and <strong style="color:var(--text)">within-league position</strong> (your WP relative to your league's leader). A team in a deep league with five winning programs gets credit for the gauntlet. A team that's the best of a thinner league still gets credit for being the best. The two together prevent a strong record built against a top-heavy league from outweighing a comparable record built across a balanced one.
+      </p>
+    </div>
+
+    <!-- Divider -->
+    <div style="grid-column:1/-1;border-top:1px solid var(--bdr);margin:.25rem 0"></div>
+
+    <!-- What counts -->
+    <div style="grid-column:1/-1">
       <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.45rem">
         <span style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.95rem;color:var(--text)">What Games Count</span>
       </div>
       <p style="font-size:.73rem;color:var(--sub);line-height:1.65">
-        All completed games count toward a team's own WP, with ties counting as half a win and half a loss. However, OWP and OOWP only use games against other CCAA opponents. Non-league opponents (tournaments, scrimmages, out-of-conference opponents) are excluded from the schedule-strength components.
+        All completed games count toward a team's own WP, with ties counting as half a win and half a loss. However, OWP and OOWP only use games against other CCAA opponents. Non-league opponents (tournaments, scrimmages, out-of-conference opponents) are excluded from the schedule-strength components. CLSI is computed entirely from current CCAA league standings.
       </p>
     </div>
 
@@ -251,7 +265,7 @@ footer a:hover{color:var(--text)}
     <div style="grid-column:1/-1">
       <div style="margin-bottom:.5rem;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.9rem;color:var(--text)">Why It Matters in the CCAA</div>
       <p style="font-size:.73rem;color:var(--sub);line-height:1.7">
-        The three CCAA leagues (Mountain, Sunset, and Ocean) don't play a shared schedule, which means a league record alone can't tell you how a Mountain team stacks up against an Ocean team. RPI solves that by combining results with schedule strength in a single cross-league number. Standard NCAA RPI weights schedule strength heavily (75% of the formula), but in a conference where leagues barely cross over, that can punish winning teams unfairly. A dominant team in a down league gets dragged below a mediocre team in a loaded one. This site uses a <strong style="color:var(--text)">60/25/15</strong> weighting that keeps results as the primary driver while still rewarding tough schedules. In practice, that means a team with a strong record in a weaker league will generally rank ahead of a team with a losing record in a stronger league, because winning still has to mean something. But a team that goes .500 against the hardest slate in the conference can still climb past teams with better records who played softer schedules. It's built for the shape of the CCAA specifically: three leagues that rarely intersect, with real talent gaps between them. RPI is not the only measure of a team's quality, but it is the most cross-league-comparable one available.
+        The three CCAA leagues (Mountain, Sunset, and Ocean) don't play a shared schedule, which means a league record alone can't tell you how a Mountain team stacks up against an Ocean team. RPI solves that by combining results with schedule strength in a single cross-league number. Standard NCAA RPI weights schedule strength heavily (75% of the formula), but in a conference where leagues barely cross over, that can punish winning teams unfairly. A dominant team in a down league gets dragged below a mediocre team in a loaded one. At the same time, OWP alone struggles when one league is top-heavy: a team that piles up wins against thin competition can post a strong record without facing many tough opponents. This site uses a <strong style="color:var(--text)">50/25/10/15</strong> weighting that keeps results as the primary driver while adding CLSI to capture league context that OWP misses. CLSI rewards both league depth and being the best (or among the best) within your league, so a team going 14-5 in a top-heavy league doesn't automatically outrank a team going 17-8 in a balanced one. A team in a thinner league can still climb if they're clearly the class of that league. It's built for the shape of the CCAA specifically: three leagues that rarely intersect, with real talent gaps between them and uneven depth across them. RPI is not the only measure of a team's quality, but it is the most cross-league-comparable one available.
       </p>
     </div>
 
@@ -261,23 +275,25 @@ footer a:hover{color:var(--text)}
 
 <script src="data.js"></script>
 <script>
-// ── RPI DATA (computed from all 15 MaxPreps schedules, 4/16/26 — 60/25/15 weighting, NCAA half-tie convention) ──
-const rpiData = {
-  "St. Joseph":           { rpi: 0.7252, wp: 0.775, owp: 0.649, oowp: 0.653, rank: 1 },
-  "Santa Ynez":           { rpi: 0.7133, wp: 0.800, owp: 0.557, oowp: 0.627, rank: 2 },
-  "Arroyo Grande":        { rpi: 0.6803, wp: 0.700, owp: 0.650, oowp: 0.652, rank: 3 },
-  "Righetti":             { rpi: 0.6614, wp: 0.667, owp: 0.655, oowp: 0.651, rank: 4 },
-  "Morro Bay":            { rpi: 0.6375, wp: 0.632, owp: 0.642, oowp: 0.654, rank: 5 },
-  "Pioneer Valley":       { rpi: 0.6258, wp: 0.632, owp: 0.625, oowp: 0.604, rank: 6 },
-  "Mission College Prep": { rpi: 0.5989, wp: 0.562, owp: 0.655, oowp: 0.651, rank: 7 },
-  "Nipomo":               { rpi: 0.5485, wp: 0.500, owp: 0.633, oowp: 0.602, rank: 8 },
-  "Lompoc":               { rpi: 0.5325, wp: 0.450, owp: 0.660, oowp: 0.650, rank: 9 },
-  "San Luis Obispo":      { rpi: 0.5042, wp: 0.579, owp: 0.383, oowp: 0.407, rank: 10 },
-  "Paso Robles":          { rpi: 0.4897, wp: 0.553, owp: 0.389, oowp: 0.406, rank: 11 },
-  "Santa Maria":          { rpi: 0.4773, wp: 0.385, owp: 0.623, oowp: 0.605, rank: 12 },
-  "Templeton":            { rpi: 0.4280, wp: 0.450, owp: 0.389, oowp: 0.405, rank: 13 },
-  "Atascadero":           { rpi: 0.3232, wp: 0.263, owp: 0.423, oowp: 0.397, rank: 14 },
-  "Cabrillo":             { rpi: 0.3090, wp: 0.238, owp: 0.427, oowp: 0.396, rank: 15 },
+// ── RPI INPUTS (computed from all 15 MaxPreps schedules, 4/16/26 — NCAA half-tie convention) ──
+// WP, OWP, OOWP are computed offline from full schedule data. CLSI and final RPI are
+// computed live below from these inputs plus LEAGUE_OF, so weight changes propagate cleanly.
+const rpiInputs = {
+  "St. Joseph":           { wp: 0.775, owp: 0.649, oowp: 0.653 },
+  "Santa Ynez":           { wp: 0.800, owp: 0.557, oowp: 0.627 },
+  "Arroyo Grande":        { wp: 0.700, owp: 0.650, oowp: 0.652 },
+  "Righetti":             { wp: 0.667, owp: 0.655, oowp: 0.651 },
+  "Morro Bay":            { wp: 0.632, owp: 0.642, oowp: 0.654 },
+  "Pioneer Valley":       { wp: 0.632, owp: 0.625, oowp: 0.604 },
+  "Mission College Prep": { wp: 0.562, owp: 0.655, oowp: 0.651 },
+  "Nipomo":               { wp: 0.500, owp: 0.633, oowp: 0.602 },
+  "Lompoc":               { wp: 0.450, owp: 0.660, oowp: 0.650 },
+  "San Luis Obispo":      { wp: 0.579, owp: 0.383, oowp: 0.407 },
+  "Paso Robles":          { wp: 0.553, owp: 0.389, oowp: 0.406 },
+  "Santa Maria":          { wp: 0.385, owp: 0.623, oowp: 0.605 },
+  "Templeton":            { wp: 0.450, owp: 0.389, oowp: 0.405 },
+  "Atascadero":           { wp: 0.263, owp: 0.423, oowp: 0.397 },
+  "Cabrillo":             { wp: 0.238, owp: 0.427, oowp: 0.396 },
 };
 
 const LEAGUE_OF = {
@@ -289,6 +305,48 @@ const LEAGUE_OF = {
 };
 const LEAGUE_LABEL = { mountain:"MTN", sunset:"SUN", ocean:"OCN" };
 const LEAGUE_CLS   = { mountain:"lbadge-m", sunset:"lbadge-s", ocean:"lbadge-o" };
+
+// ── RPI weights (50% WP + 25% OWP + 10% OOWP + 15% CLSI) ──
+const RPI_W = { wp: 0.50, owp: 0.25, oowp: 0.10, clsi: 0.15 };
+
+// ── CLSI: hybrid of league depth + within-league position, blended 50/50 ──
+// depth   = fraction of league teammates (excl self) with WP > .500
+// within  = your WP / your league's top WP (rewards being best of your league)
+// CLSI    = 0.5 * depth + 0.5 * within
+function computeCLSI() {
+  const byLg = { mountain: [], sunset: [], ocean: [] };
+  Object.entries(rpiInputs).forEach(([name, d]) => {
+    byLg[LEAGUE_OF[name]].push({ name, wp: d.wp });
+  });
+  // League top WP for the within-league component
+  const lgTop = {};
+  Object.keys(byLg).forEach(lg => {
+    lgTop[lg] = Math.max(...byLg[lg].map(t => t.wp));
+  });
+  const out = {};
+  Object.entries(rpiInputs).forEach(([name, d]) => {
+    const lg = LEAGUE_OF[name];
+    const teammates = byLg[lg].filter(t => t.name !== name);
+    const depth = teammates.length
+      ? teammates.filter(t => t.wp > 0.500).length / teammates.length
+      : 0;
+    const within = lgTop[lg] > 0 ? d.wp / lgTop[lg] : 0;
+    out[name] = 0.5 * depth + 0.5 * within;
+  });
+  return out;
+}
+
+// ── Build full rpiData with computed CLSI + RPI ──
+const rpiData = (function(){
+  const clsi = computeCLSI();
+  const out = {};
+  Object.entries(rpiInputs).forEach(([name, d]) => {
+    const c = clsi[name];
+    const rpi = RPI_W.wp * d.wp + RPI_W.owp * d.owp + RPI_W.oowp * d.oowp + RPI_W.clsi * c;
+    out[name] = { rpi, wp: d.wp, owp: d.owp, oowp: d.oowp, clsi: c };
+  });
+  return out;
+})();
 
 const LOGOS={"Arroyo Grande":"images/logos/ag.png","Atascadero":"images/logos/ata.png","Cabrillo":"images/logos/cabrillo.png","Lompoc":"images/logos/lompoc.png","Mission College Prep":"images/logos/mp.png","St. Joseph":"images/logos/sj.png","Morro Bay":"images/logos/mb.png","Nipomo":"images/logos/nipomo.png","Paso Robles":"images/logos/paso.png","Pioneer Valley":"images/logos/pv.png","Righetti":"images/logos/righetti.png","San Luis Obispo":"images/logos/slo.png","Santa Maria":"images/logos/santa_maria.png","Santa Ynez":"images/logos/santa_ynez.png","Templeton":"images/logos/templeton.png"};
 
@@ -325,6 +383,7 @@ function rpiColor(v) {
     <th class="r rpi-sub-h" style="padding-right:.8rem">WP</th>
     <th class="r rpi-sub-h" style="padding-right:.8rem">OWP</th>
     <th class="r rpi-sub-h" style="padding-right:.8rem">OOWP</th>
+    <th class="r rpi-sub-h" style="padding-right:.8rem">CLSI</th>
     <th style="width:100px"></th>
   </tr></thead><tbody>` +
   sorted.map(([name, d], i) => {
@@ -336,10 +395,11 @@ function rpiColor(v) {
       <td class="rpi-rank">${i+1}</td>
       <td class="rpi-name">${teamDisplay(name)}<span class="lbadge ${LEAGUE_CLS[lg]}">${LEAGUE_LABEL[lg]}</span></td>
       <td class="rpi-rec">${rec}</td>
-      <td class="rpi-val ${cls}" data-tip="WP: ${d.wp.toFixed(3)} · OWP: ${d.owp.toFixed(3)} · OOWP: ${d.oowp.toFixed(3)}">${d.rpi.toFixed(4)}</td>
+      <td class="rpi-val ${cls}" data-tip="WP: ${d.wp.toFixed(3)} · OWP: ${d.owp.toFixed(3)} · OOWP: ${d.oowp.toFixed(3)} · CLSI: ${d.clsi.toFixed(3)}">${d.rpi.toFixed(4)}</td>
       <td class="rpi-sub">${d.wp.toFixed(3)}</td>
       <td class="rpi-sub">${d.owp.toFixed(3)}</td>
       <td class="rpi-sub">${d.oowp.toFixed(3)}</td>
+      <td class="rpi-sub">${d.clsi.toFixed(3)}</td>
       <td class="rpi-bar-cell"><div class="rpi-bar-bg"><div class="rpi-bar-fill" style="width:${pct}%"></div></div></td>
     </tr>`;
   }).join('') + '</tbody>';
@@ -368,7 +428,7 @@ function build(key,data){
       <span class="spct">PCT</span>
       <span class="sgb">GB</span>
       <span class="sovr">OVR</span>
-      <span class="srpi sth-rpi" style="color:var(--dim);font-size:.6rem;font-weight:600;letter-spacing:.08em" data-tip="Ratings Percentage Index&#10;60% WP + 25% OWP + 15% OOWP">RPI ⓘ</span>
+      <span class="srpi sth-rpi" style="color:var(--dim);font-size:.6rem;font-weight:600;letter-spacing:.08em" data-tip="Ratings Percentage Index&#10;50% WP + 25% OWP + 10% OOWP + 15% CLSI">RPI ⓘ</span>
     </div>
     ${s.map((t,i)=>{
       const ovr=t.ot>0?`${t.ow}-${t.ol}-${t.ot}`:`${t.ow}-${t.ol}`;
