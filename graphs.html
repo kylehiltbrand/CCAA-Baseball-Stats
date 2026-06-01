@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Graphs · CCAA Baseball</title>
+<meta name="description" content="Interactive CCAA baseball scatter charts — plot any two advanced stats against each other, colored by league. Plate discipline, pitcher stuff, two-way value, and more.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="Graphs · CCAA Baseball">
+<meta property="og:description" content="Interactive CCAA baseball scatter charts. Plot any two advanced stats, colored by league.">
+<meta property="og:image" content="https://ccaabaseballstats.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://ccaabaseballstats.com/og-image.png">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap');
+:root{--bg:#0d1117;--bg2:#161b22;--bg3:#1c2230;--bdr:#21293a;--bdr2:#2d3748;--gold:#f0a500;--text:#e2e8f0;--sub:#8b9cb5;--dim:#4a5568;--green:#38a169;--red:#e53e3e;--sky:#63b3ed;--mtn:#e07b39;--sun:#9b5de5;--ocn:#38bdf8}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:14px}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.5}
+a{color:inherit;text-decoration:none}
+header{background:var(--bg2);border-bottom:1px solid var(--bdr);position:sticky;top:0;z-index:100}
+.hdr{max-width:1280px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:stretch;height:56px}
+.brand{display:flex;align-items:center;gap:.65rem;margin-right:2rem;flex-shrink:0}
+.logo{width:36px;height:36px;border-radius:8px;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.8rem;color:#0d1117;letter-spacing:-.02em;flex-shrink:0}
+.bname{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.05rem;display:block;color:var(--text)}
+.bsub{font-size:.58rem;color:var(--sub);letter-spacing:.08em;text-transform:uppercase;display:block}
+nav{display:flex;align-items:stretch}
+nav a{display:flex;align-items:center;padding:0 1rem;font-size:.75rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--sub);border-bottom:2px solid transparent;transition:color .15s,border-color .15s}
+nav a:hover{color:var(--text)}
+nav a.on{color:var(--text);border-bottom-color:var(--gold)}
+.sbadge{margin-left:auto;display:flex;align-items:center}
+.sp26{font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.22rem .65rem;border-radius:4px;background:var(--gold);color:#0d1117}
+.fbar{background:var(--bg2);border-bottom:1px solid var(--bdr)}
+.fbar-inner{max-width:1280px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:stretch;height:42px}
+.fbtn{display:flex;align-items:center;gap:.4rem;padding:0 1rem;background:none;border:none;border-right:1px solid var(--bdr);font-family:'Inter',sans-serif;font-size:.7rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--sub);cursor:pointer;transition:color .15s,background .15s;white-space:nowrap}
+.fbtn:first-child{border-left:1px solid var(--bdr)}
+.fbtn:hover,.fbtn.on{background:var(--bg3);color:var(--text)}
+.dot{width:7px;height:7px;border-radius:2px;flex-shrink:0}
+.dm{background:var(--mtn)}.ds{background:var(--sun)}.do{background:var(--ocn)}
+main{max-width:1280px;margin:0 auto;padding:1.5rem 1.5rem 4rem}
+.card{background:var(--bg2);border:1px solid var(--bdr);border-radius:8px;overflow:hidden;margin-bottom:1rem}
+.card-hdr{padding:.8rem 1rem;border-bottom:1px solid var(--bdr);display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+.card-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.95rem;letter-spacing:.02em}
+.card-sub{font-size:.62rem;color:var(--sub);text-transform:uppercase;letter-spacing:.07em;margin-top:.1rem}
+.card-body{padding:1rem}
+footer{text-align:center;padding:1.5rem;border-top:1px solid var(--bdr);font-size:.65rem;color:var(--dim)}
+footer a{color:var(--sub)}
+footer a:hover{color:var(--text)}
+
+/* ── HERO ── */
+.hero{background:var(--bg2);border:1px solid var(--bdr);border-radius:8px;padding:1.4rem 1.6rem;margin-bottom:1rem}
+.hero-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.7rem;letter-spacing:.02em;line-height:1.1;margin-bottom:.45rem}
+.hero-title span{color:var(--gold)}
+.hero-sub{font-size:.8rem;color:var(--sub);line-height:1.6;max-width:680px}
+
+/* ── CONTROLS ── */
+.preset-row{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.9rem}
+.preset-pill{padding:.4rem .8rem;background:var(--bg3);border:1px solid var(--bdr);border-radius:20px;font-size:.7rem;font-weight:600;color:var(--sub);cursor:pointer;transition:all .15s;white-space:nowrap}
+.preset-pill:hover:not(.on){color:var(--text);border-color:var(--bdr2)}
+.preset-pill.on{background:var(--gold);border-color:var(--gold);color:#0d1117}
+.ctrl-grid{display:flex;flex-wrap:wrap;gap:.75rem 1rem;align-items:flex-end}
+.ctrl{display:flex;flex-direction:column;gap:.3rem}
+.ctrl-label{font-size:.58rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+.tgroup{display:flex;gap:.3rem}
+.tbtn{padding:.4rem .8rem;background:var(--bg3);border:1px solid var(--bdr);border-radius:5px;font-family:'Inter',sans-serif;font-size:.72rem;font-weight:600;color:var(--sub);cursor:pointer;transition:all .15s;white-space:nowrap}
+.tbtn.on{background:var(--gold);border-color:var(--gold);color:#0d1117}
+.tbtn:hover:not(.on){color:var(--text)}
+.selm{background:var(--bg3);border:1px solid var(--bdr);color:var(--text);padding:.42rem .65rem;border-radius:5px;font-family:'Inter',sans-serif;font-size:.72rem;outline:none;cursor:pointer;min-width:130px}
+.selm:disabled{opacity:.45;cursor:not-allowed}
+.selm option{background:var(--bg2)}
+.numin{background:var(--bg3);border:1px solid var(--bdr);color:var(--text);padding:.42rem .55rem;border-radius:5px;font-family:'Inter',sans-serif;font-size:.72rem;outline:none;width:78px}
+.chk{display:flex;align-items:center;gap:.4rem;font-size:.72rem;color:var(--sub);cursor:pointer;user-select:none;padding-bottom:.42rem}
+.chk input{accent-color:var(--gold);width:14px;height:14px;cursor:pointer}
+.axis-note{font-size:.7rem;color:var(--sub);font-style:italic;padding-bottom:.5rem}
+
+.ib{display:flex;align-items:flex-start;gap:.6rem;background:rgba(99,179,237,.06);border:1px solid rgba(99,179,237,.18);border-radius:6px;padding:.7rem 1rem;font-size:.7rem;color:var(--sub);margin-bottom:.9rem;line-height:1.5}
+.ib .k{color:var(--gold);flex-shrink:0}
+
+/* ── CHART ── */
+.chart-meta{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+.chart-count{font-size:.62rem;color:var(--sub);text-transform:uppercase;letter-spacing:.07em}
+.chart-count b{color:var(--gold);font-weight:700}
+.chart-wrap{position:relative;height:560px;padding:1rem .9rem 1rem 1rem}
+.chart-empty{display:flex;align-items:center;justify-content:center;height:100%;color:var(--sub);font-size:.85rem}
+
+/* ── MOBILE ── */
+.mob-nav{display:none}
+@media(max-width:640px){
+  html{font-size:13px}
+  main{padding:1rem 1rem 5.5rem}
+  .hdr{padding:0 1rem;height:50px}
+  .bsub{display:none}
+  .brand{margin-right:1rem}
+  .sp26{display:none}
+  nav a{padding:0 .65rem;font-size:.7rem}
+  .fbar-inner{padding:0 .75rem;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .fbar-inner::-webkit-scrollbar{display:none}
+  .fbtn{padding:0 .85rem;font-size:.65rem;flex-shrink:0}
+  .hero-title{font-size:1.4rem}
+  .chart-wrap{height:62vh;min-height:380px;padding:.6rem .4rem .6rem .5rem}
+  .ctrl-grid{gap:.6rem .7rem}
+  .selm{min-width:0;flex:1}
+  .tgroup{width:100%}
+  .tbtn{flex:1;text-align:center}
+  .ctrl.grow{flex:1 1 100%}
+  .mob-nav{display:flex;position:fixed;bottom:0;left:0;right:0;background:var(--bg2);border-top:1px solid var(--bdr);z-index:200;height:54px}
+  .mob-nav a{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.2rem;font-size:.52rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--sub);transition:color .15s}
+  .mob-nav a.on{color:var(--gold)}
+  .mob-nav a .mn-ic{font-size:1.05rem;line-height:1}
+}
+</style>
+</head>
+<body>
+<header><div class="hdr">
+  <a href="index.html" class="brand"><div class="logo">CCAA</div><div><span class="bname">CCAA Baseball</span><span class="bsub">Central Coast Athletic Association</span></div></a>
+  <nav><a href="standings.html">Standings</a><a href="stats.html">Stats</a><a href="teams.html">Teams</a><a href="graphs.html" class="on">Graphs</a><a href="about.html">About</a></nav>
+  <div class="sbadge"><span class="sp26">Spring 2026</span></div>
+</div></header>
+<div class="fbar"><div class="fbar-inner">
+  <button class="fbtn on" onclick="setLeague('all',this)">All Leagues</button>
+  <button class="fbtn" onclick="setLeague('mountain',this)"><span class="dot dm"></span>Mountain</button>
+  <button class="fbtn" onclick="setLeague('sunset',this)"><span class="dot ds"></span>Sunset</button>
+  <button class="fbtn" onclick="setLeague('ocean',this)"><span class="dot do"></span>Ocean</button>
+</div></div>
+
+<main>
+  <div class="hero">
+    <div class="hero-title">CCAA <span>Graphs</span></div>
+    <div class="hero-sub">Plot any two metrics against each other across the league. Start from a preset or build your own. Points are colored by league and sized by sample — click any dot to open that player's full profile.</div>
+  </div>
+
+  <div class="ib"><span class="k">▸</span><span>All metrics are CCAA-calibrated, same as the rest of the site. Reference lines mark league context (a 100-level, a league average, or zero) so you can read each quadrant at a glance.</span></div>
+
+  <div class="card">
+    <div class="card-hdr"><div><div class="card-title">Build a chart</div><div class="card-sub" id="preset-desc">Two-way value · oWAR vs pWAR</div></div></div>
+    <div class="card-body">
+      <div class="preset-row" id="preset-row"></div>
+      <div class="ctrl-grid">
+        <div class="ctrl">
+          <span class="ctrl-label">Players</span>
+          <div class="tgroup">
+            <button class="tbtn" data-mode="hitting" onclick="setMode('hitting',this)">Hitting</button>
+            <button class="tbtn" data-mode="pitching" onclick="setMode('pitching',this)">Pitching</button>
+            <button class="tbtn on" data-mode="twoway" onclick="setMode('twoway',this)">Two-Way</button>
+          </div>
+        </div>
+        <div class="ctrl" id="xwrap">
+          <span class="ctrl-label">X axis</span>
+          <select class="selm" id="xsel" onchange="onAxisChange()"></select>
+        </div>
+        <div class="ctrl" id="ywrap">
+          <span class="ctrl-label">Y axis</span>
+          <select class="selm" id="ysel" onchange="onAxisChange()"></select>
+        </div>
+        <div class="axis-note" id="axis-note" style="display:none">Axes fixed to oWAR × pWAR</div>
+        <div class="ctrl" id="pawrap">
+          <span class="ctrl-label">Min PA</span>
+          <input class="numin" id="minpa" type="number" min="0" value="20" onchange="draw()">
+        </div>
+        <div class="ctrl" id="ipwrap" style="display:none">
+          <span class="ctrl-label">Min IP</span>
+          <input class="numin" id="minip" type="number" min="0" value="10" onchange="draw()">
+        </div>
+        <label class="chk"><input type="checkbox" id="sizeby" checked onchange="draw()">Size by sample</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-hdr chart-meta">
+      <div class="card-title" id="chart-title">oWAR vs pWAR</div>
+      <div class="chart-count" id="chart-count"></div>
+    </div>
+    <div class="chart-wrap">
+      <canvas id="chart"></canvas>
+      <div class="chart-empty" id="chart-empty" style="display:none">No players match these filters.</div>
+    </div>
+  </div>
+</main>
+
+<nav class="mob-nav">
+  <a href="index.html"><span class="mn-ic">🏠</span>Home</a>
+  <a href="standings.html"><span class="mn-ic">🏆</span>Standings</a>
+  <a href="stats.html"><span class="mn-ic">📊</span>Stats</a>
+  <a href="teams.html"><span class="mn-ic">⚾</span>Teams</a>
+  <a href="graphs.html" class="on"><span class="mn-ic">📈</span>Graphs</a>
+  <a href="about.html"><span class="mn-ic">ℹ️</span>About</a>
+</nav>
+<footer>CCAA Baseball · Spring 2026 · Central Coast Athletic Association, CA · Stats: <a href="standings.html">Mountain</a> · <a href="standings.html">Sunset</a> · <a href="standings.html">Ocean</a></footer>
+
+<script src="data.js"></script>
+<script>
+// ── Team → league map (matches the rest of the site) ──
+const TL={"St. Joseph":"mountain","Arroyo Grande":"mountain","Righetti":"mountain","Morro Bay":"mountain","Mission College Prep":"mountain","Lompoc":"mountain","Paso Robles":"sunset","San Luis Obispo":"sunset","Atascadero":"sunset","Templeton":"sunset","Cabrillo":"sunset","Nipomo":"ocean","Pioneer Valley":"ocean","Santa Ynez":"ocean","Santa Maria":"ocean"};
+const TC={"St. Joseph":{a:"SJ"},"Arroyo Grande":{a:"AG"},"Righetti":{a:"RHS"},"Morro Bay":{a:"MB"},"Mission College Prep":{a:"MP"},"Lompoc":{a:"LOM"},"Paso Robles":{a:"PAS"},"San Luis Obispo":{a:"SLO"},"Atascadero":{a:"ATA"},"Templeton":{a:"TMP"},"Cabrillo":{a:"CAB"},"Nipomo":{a:"NIP"},"Pioneer Valley":{a:"PV"},"Santa Ynez":{a:"SY"},"Santa Maria":{a:"SM"}};
+const LEAGUES={mountain:{label:"Mountain",color:"#e07b39"},sunset:{label:"Sunset",color:"#9b5de5"},ocean:{label:"Ocean",color:"#38bdf8"}};
+
+// ── formatters ──
+const f1=v=>v==null||isNaN(v)?'—':v.toFixed(1);
+const f2=v=>v==null||isNaN(v)?'—':v.toFixed(2);
+const f3=v=>v==null||isNaN(v)?'—':(Math.abs(v)<1?v.toFixed(3).replace('0.','.').replace('-0.','-.'):v.toFixed(3));
+const sgn=v=>v==null||isNaN(v)?'—':(v>0?'+':'')+v.toFixed(1);
+const ipf=v=>(typeof ipToFloat==='function')?ipToFloat(v):parseFloat(v)||0;
+
+// ── metric registries ──
+const HIT_METRICS={
+  avg:{label:'AVG',get:p=>p.avg,fmt:f3},
+  obp:{label:'OBP',get:p=>p.obp,fmt:f3},
+  slg:{label:'SLG',get:p=>p.slg,fmt:f3},
+  ops:{label:'OPS',get:p=>p.ops,fmt:f3},
+  woba:{label:'wOBA',get:p=>p.woba,fmt:f3},
+  wrc_plus:{label:'wRC+',get:p=>p.wrc_plus,fmt:v=>v==null?'—':Math.round(v)},
+  owar:{label:'oWAR',get:p=>p.owar,fmt:sgn},
+  iso:{label:'ISO',get:p=>(p.slg!=null&&p.avg!=null)?p.slg-p.avg:null,fmt:f3},
+  bbpct:{label:'BB%',get:p=>p.pa?p.bb/p.pa*100:null,fmt:v=>f1(v)+'%'},
+  kpct:{label:'K%',get:p=>p.pa?p.k/p.pa*100:null,fmt:v=>f1(v)+'%'},
+  bbk:{label:'BB/K',get:p=>p.bbk,fmt:f2},
+  babip:{label:'BABIP',get:p=>p.babip,fmt:f3},
+  hr:{label:'HR',get:p=>p.hr,fmt:v=>v},
+  rbi:{label:'RBI',get:p=>p.rbi,fmt:v=>v},
+  pa:{label:'PA',get:p=>p.pa,fmt:v=>v}
+};
+const PIT_METRICS={
+  era:{label:'ERA',get:p=>p.era,fmt:f2},
+  era_plus:{label:'ERA+',get:p=>p.era_plus,fmt:v=>v==null?'—':Math.round(v)},
+  whip:{label:'WHIP',get:p=>p.whip,fmt:f2},
+  pwar:{label:'pWAR',get:p=>p.pwar,fmt:sgn},
+  k9:{label:'K/9',get:p=>p.k9,fmt:f1},
+  kpct:{label:'K%',get:p=>p.kpct,fmt:v=>f1(v)+'%'},
+  kbb:{label:'K/BB',get:p=>p.kbb,fmt:f2},
+  bb9:{label:'BB/9',get:p=>{const ip=ipf(p.ip);return ip?p.bb/ip*9:null;},fmt:f1},
+  ip:{label:'IP',get:p=>ipf(p.ip),fmt:f1},
+  k:{label:'K',get:p=>p.k,fmt:v=>v},
+  w:{label:'W',get:p=>p.w,fmt:v=>v}
+};
+
+// ── presets ──
+// ref values: a number = literal line; 'mean' = mean of plotted population;
+// 'lgbabip' = LG_BABIP constant; null = no line
+const PRESETS=[
+  {id:'twoway',label:'Two-Way Value',mode:'twoway',x:'owar',y:'pwar',refX:0,refY:0,minpa:30,minip:15,desc:'Two-way value · oWAR vs pWAR — both-way contributors land top-right'},
+  {id:'discipline',label:'Plate Discipline',mode:'hitting',x:'kpct',y:'bbpct',refX:'mean',refY:'mean',minpa:30,desc:'Plate discipline · BB% vs K% — patient, low-K bats land top-left'},
+  {id:'stuff',label:'Pitcher Stuff',mode:'pitching',x:'k9',y:'era_plus',refX:'mean',refY:100,minip:15,desc:'Pitcher stuff · K/9 vs ERA+ — misses bats and prevents runs'},
+  {id:'luck',label:'BABIP vs AVG',mode:'hitting',x:'avg',y:'babip',refX:null,refY:'lgbabip',minpa:30,desc:'Batted-ball luck · high BABIP can signal regression coming'},
+  {id:'power',label:'Power vs Contact',mode:'hitting',x:'kpct',y:'iso',refX:'mean',refY:'mean',minpa:30,desc:'Power vs contact · ISO vs K% — power with or without swing-and-miss'}
+];
+
+// ── state ──
+let mode='twoway',xKey='owar',yKey='pwar',league='all',presetId='twoway',chart=null;
+
+function metrics(){return mode==='pitching'?PIT_METRICS:HIT_METRICS;}
+
+function populateAxisSelects(){
+  const M=metrics();
+  const xs=document.getElementById('xsel'),ys=document.getElementById('ysel');
+  xs.innerHTML='';ys.innerHTML='';
+  Object.keys(M).forEach(k=>{
+    const ox=document.createElement('option');ox.value=k;ox.textContent=M[k].label;xs.appendChild(ox);
+    const oy=document.createElement('option');oy.value=k;oy.textContent=M[k].label;ys.appendChild(oy);
+  });
+  xs.value=xKey;ys.value=yKey;
+}
+
+function buildPresetRow(){
+  const row=document.getElementById('preset-row');
+  row.innerHTML='';
+  PRESETS.forEach(pr=>{
+    const b=document.createElement('button');
+    b.className='preset-pill'+(pr.id===presetId?' on':'');
+    b.textContent=pr.label;
+    b.onclick=()=>applyPreset(pr.id);
+    row.appendChild(b);
+  });
+}
+
+function applyPreset(id){
+  const pr=PRESETS.find(p=>p.id===id);if(!pr)return;
+  presetId=id;mode=pr.mode;xKey=pr.x;yKey=pr.y;
+  if(pr.minpa!=null)document.getElementById('minpa').value=pr.minpa;
+  if(pr.minip!=null)document.getElementById('minip').value=pr.minip;
+  document.getElementById('preset-desc').textContent=pr.desc;
+  syncModeButtons();populateAxisSelects();buildPresetRow();applyModeUI();draw();
+}
+
+function syncModeButtons(){
+  document.querySelectorAll('.tbtn[data-mode]').forEach(b=>b.classList.toggle('on',b.dataset.mode===mode));
+}
+
+function applyModeUI(){
+  const tw=mode==='twoway';
+  document.getElementById('xwrap').style.display=tw?'none':'';
+  document.getElementById('ywrap').style.display=tw?'none':'';
+  document.getElementById('axis-note').style.display=tw?'':'none';
+  document.getElementById('pawrap').style.display=(mode==='hitting'||tw)?'':'none';
+  document.getElementById('ipwrap').style.display=(mode==='pitching'||tw)?'':'none';
+}
+
+function setMode(m,btn){
+  if(m===mode&&presetId)return;
+  mode=m;
+  // sensible default axes per mode
+  if(m==='twoway'){xKey='owar';yKey='pwar';}
+  else if(m==='pitching'){xKey='k9';yKey='era_plus';}
+  else{xKey='kpct';yKey='bbpct';}
+  presetId=null;
+  document.getElementById('preset-desc').textContent='Custom';
+  syncModeButtons();populateAxisSelects();buildPresetRow();applyModeUI();draw();
+}
+
+function onAxisChange(){
+  xKey=document.getElementById('xsel').value;
+  yKey=document.getElementById('ysel').value;
+  presetId=null;
+  document.getElementById('preset-desc').textContent='Custom';
+  buildPresetRow();draw();
+}
+
+function setLeague(l,btn){
+  league=l;
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  draw();
+}
+
+// ── assemble plotted points ──
+function getPoints(){
+  const minPA=parseFloat(document.getElementById('minpa').value)||0;
+  const minIP=parseFloat(document.getElementById('minip').value)||0;
+  const inLeague=t=>league==='all'||TL[t]===league;
+  const pts=[];
+
+  if(mode==='twoway'){
+    const pmap={};
+    pitchers.forEach(p=>{const k=p.name+'|'+p.team;if(!pmap[k]||ipf(p.ip)>ipf(pmap[k].ip))pmap[k]=p;});
+    batters.forEach(b=>{
+      if(!inLeague(b.team)||b.pa<minPA)return;
+      const p=pmap[b.name+'|'+b.team];
+      if(!p||ipf(p.ip)<minIP)return;
+      if(b.owar==null||p.pwar==null)return;
+      pts.push({x:b.owar,y:p.pwar,name:b.name,team:b.team,lg:TL[b.team],
+        sample:b.pa,xs:sgn(b.owar),ys:sgn(p.pwar),d:b.pa});
+    });
+  }else{
+    const M=metrics();const src=mode==='pitching'?pitchers:batters;
+    const gx=M[xKey].get,gy=M[yKey].get,fx=M[xKey].fmt,fy=M[yKey].fmt;
+    src.forEach(p=>{
+      if(!inLeague(p.team))return;
+      if(mode==='hitting'&&p.pa<minPA)return;
+      if(mode==='pitching'&&ipf(p.ip)<minIP)return;
+      const xv=gx(p),yv=gy(p);
+      if(xv==null||yv==null||isNaN(xv)||isNaN(yv))return;
+      pts.push({x:xv,y:yv,name:p.name,team:p.team,lg:TL[p.team],
+        sample:mode==='pitching'?ipf(p.ip):p.pa,xs:fx(xv),ys:fy(yv),
+        d:mode==='pitching'?p.ip:p.pa});
+    });
+  }
+  return pts;
+}
+
+function resolveRef(val,pts,axis){
+  if(val==null)return null;
+  if(typeof val==='number')return val;
+  if(val==='mean'){const a=pts.map(p=>axis==='x'?p.x:p.y);return a.length?a.reduce((s,v)=>s+v,0)/a.length:null;}
+  if(val==='lgbabip')return(typeof LG_BABIP!=='undefined')?LG_BABIP:null;
+  return null;
+}
+
+// ── reference-line plugin ──
+const refPlugin={
+  id:'refLines',
+  afterDraw(c){
+    const o=c.$ref;if(!o)return;
+    const{ctx,chartArea:a,scales}=c;
+    ctx.save();ctx.setLineDash([5,4]);ctx.lineWidth=1;ctx.strokeStyle='rgba(240,165,0,.35)';
+    ctx.font="600 10px Inter";ctx.fillStyle='rgba(240,165,0,.7)';
+    if(o.x!=null){const px=scales.x.getPixelForValue(o.x);
+      if(px>=a.left&&px<=a.right){ctx.beginPath();ctx.moveTo(px,a.top);ctx.lineTo(px,a.bottom);ctx.stroke();}}
+    if(o.y!=null){const py=scales.y.getPixelForValue(o.y);
+      if(py>=a.top&&py<=a.bottom){ctx.beginPath();ctx.moveTo(a.left,py);ctx.lineTo(a.right,py);ctx.stroke();}}
+    ctx.restore();
+  }
+};
+
+// ── radius scaling ──
+function radii(pts,on){
+  if(!on)return pts.map(()=>4.5);
+  const s=pts.map(p=>p.sample);const mn=Math.min(...s),mx=Math.max(...s);
+  const span=mx-mn||1;
+  return pts.map(p=>3.5+5.5*((p.sample-mn)/span));
+}
+
+function draw(){
+  const pts=getPoints();
+  const M=mode==='twoway'?{[xKey]:{label:'oWAR'},[yKey]:{label:'pWAR'}}:metrics();
+  const xLabel=mode==='twoway'?'oWAR':M[xKey].label;
+  const yLabel=mode==='twoway'?'pWAR':M[yKey].label;
+  document.getElementById('chart-title').textContent=xLabel+' vs '+yLabel;
+  document.getElementById('chart-count').innerHTML=pts.length?('Showing <b>'+pts.length+'</b> players'):'';
+
+  const empty=document.getElementById('chart-empty');
+  const canvas=document.getElementById('chart');
+  if(!pts.length){empty.style.display='flex';canvas.style.display='none';if(chart){chart.destroy();chart=null;}return;}
+  empty.style.display='none';canvas.style.display='';
+
+  const rArr=radii(pts,document.getElementById('sizeby').checked);
+  pts.forEach((p,i)=>p.r=rArr[i]);
+
+  const datasets=Object.keys(LEAGUES)
+    .filter(lg=>league==='all'||league===lg)
+    .map(lg=>{
+      const dp=pts.filter(p=>p.lg===lg);
+      return{
+        label:LEAGUES[lg].label,
+        data:dp,
+        backgroundColor:LEAGUES[lg].color+'cc',
+        borderColor:LEAGUES[lg].color,
+        borderWidth:1,
+        pointRadius:dp.map(p=>p.r),
+        pointHoverRadius:dp.map(p=>p.r+2.5),
+        hoverBorderColor:'#fff',hoverBorderWidth:1.5
+      };
+    }).filter(d=>d.data.length);
+
+  // resolve reference lines from active preset (custom = none)
+  const pr=PRESETS.find(p=>p.id===presetId);
+  const ref=pr?{x:resolveRef(pr.refX,pts,'x'),y:resolveRef(pr.refY,pts,'y')}:null;
+
+  const cfg={
+    type:'scatter',
+    data:{datasets},
+    plugins:[refPlugin],
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      interaction:{mode:'nearest',intersect:true},
+      onClick:(e,els)=>{
+        if(!els.length)return;
+        const el=els[0];const p=chart.data.datasets[el.datasetIndex].data[el.index];
+        const tab=mode==='pitching'?'pitching':'hitting';
+        window.location.href='stats.html#player='+encodeURIComponent(p.name)+'&team='+encodeURIComponent(p.team)+'&d='+encodeURIComponent(p.d);
+        void tab;
+      },
+      onHover:(e,els)=>{e.native.target.style.cursor=els.length?'pointer':'default';},
+      scales:{
+        x:{title:{display:true,text:xLabel,color:'#8b9cb5',font:{family:'Inter',size:12,weight:'600'}},
+           grid:{color:'rgba(255,255,255,.05)'},ticks:{color:'#8b9cb5',font:{family:'Inter',size:11}}},
+        y:{title:{display:true,text:yLabel,color:'#8b9cb5',font:{family:'Inter',size:12,weight:'600'}},
+           grid:{color:'rgba(255,255,255,.05)'},ticks:{color:'#8b9cb5',font:{family:'Inter',size:11}}}
+      },
+      plugins:{
+        legend:{labels:{color:'#e2e8f0',usePointStyle:true,pointStyle:'circle',boxWidth:8,font:{family:'Inter',size:12}}},
+        tooltip:{
+          backgroundColor:'#1c2230',borderColor:'#2d3748',borderWidth:1,
+          titleColor:'#e2e8f0',bodyColor:'#8b9cb5',padding:10,displayColors:false,
+          titleFont:{family:'Inter',size:12,weight:'700'},bodyFont:{family:'Inter',size:11},
+          callbacks:{
+            title:items=>{const p=items[0].raw;return p.name+'  ·  '+(TC[p.team]?TC[p.team].a:p.team);},
+            label:item=>{const p=item.raw;return[xLabel+': '+p.xs,yLabel+': '+p.ys];}
+          }
+        }
+      }
+    }
+  };
+
+  if(chart)chart.destroy();
+  chart=new Chart(canvas.getContext('2d'),cfg);
+  chart.$ref=ref;
+  if(ref)chart.update();
+}
+
+// ── init ──
+buildPresetRow();populateAxisSelects();syncModeButtons();applyModeUI();
+applyPreset('twoway');
+window.addEventListener('resize',()=>{if(chart){chart.$ref=chart.$ref;}});
+</script>
+</body>
+</html>
