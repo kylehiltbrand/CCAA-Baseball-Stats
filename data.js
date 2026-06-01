@@ -15,7 +15,7 @@
 // ============================================================
 
 // ── Last updated date — change this every time you push new stats ──
-const DATA_UPDATED = "2026-05-31"; // YYYY-MM-DD — end of season (partial: 13 of 15 teams final)
+const DATA_UPDATED = "2026-06-01"; // YYYY-MM-DD — end of season (Mission College Prep final)
 
 // wOBA weights (standard)
 const wBB = 0.69, wHBP = 0.72, w1B = 0.88, w2B = 1.24, w3B = 1.56, wHR = 2.00;
@@ -314,14 +314,14 @@ const teams = [
     coach: "S.D. Harrow",
     colors: "Navy, Vegas Gold",
     league: "CCAA - Mountain",
-    overall: "12-11",
+    overall: "12-12",
     leagueRecord: "6-9",
-    wins: 12, losses: 11, ties: 0,
+    wins: 12, losses: 12, ties: 0,
     leagueWins: 6, leagueLosses: 9,
     caRank: 220,
-    gp: 23,
-    teamBavg: .324, teamOBP: .407, teamSLG: .443,
-    teamERA: 5.39, teamIP: 152
+    gp: 24,
+    teamBavg: .323, teamOBP: .409, teamSLG: .437,
+    teamERA: 5.18, teamIP: 158
   },
   {
     id: "atascadero",
@@ -629,17 +629,17 @@ const batters = [
   buildBatter("Templeton","T. Miller","So",16,.179,43,39,5,7,6,3,0,0,4,10,0,0,.256,.256,.512),
   buildBatter("Templeton","A. Abatti","Jr",22,.062,40,32,1,2,5,1,0,0,5,14,1,1,.205,.094,.299),
   // MISSION COLLEGE PREP
-  buildBatter("Mission College Prep","T. Bernal","Jr",17,.469,57,49,15,23,17,2,2,2,7,6,1,0,.544,.714,1.258),
-  buildBatter("Mission College Prep","H. Drake","Sr",23,.387,90,75,22,29,13,4,2,1,13,8,2,0,.489,.533,1.022),
-  buildBatter("Mission College Prep","R. Engle","So",22,.382,81,68,14,26,21,6,1,3,8,14,3,1,.468,.632,1.101),
-  buildBatter("Mission College Prep","A. Johnson","Jr",20,.379,71,58,12,22,10,5,0,0,10,2,0,1,.464,.466,.929),
-  buildBatter("Mission College Prep","J. Villa","Sr",23,.371,95,89,22,33,13,4,0,1,2,9,2,2,.389,.449,.839),
-  buildBatter("Mission College Prep","C. Mott","Jr",22,.339,66,56,10,19,8,4,0,0,7,8,1,1,.422,.411,.833),
+  buildBatter("Mission College Prep","T. Bernal","Jr",18,.462,61,52,15,24,18,2,2,2,8,7,1,0,.541,.692,1.233),
+  buildBatter("Mission College Prep","J. Villa","Sr",24,.387,99,93,24,36,13,4,0,1,2,9,2,2,.404,.462,.866),
+  buildBatter("Mission College Prep","H. Drake","Sr",24,.380,94,79,22,30,15,4,2,1,13,8,2,0,.479,.519,.998),
+  buildBatter("Mission College Prep","R. Engle","So",23,.380,85,71,14,27,22,6,1,3,9,16,3,0,.470,.620,1.090),
+  buildBatter("Mission College Prep","A. Johnson","Jr",21,.377,75,61,13,23,11,5,0,0,10,3,1,1,.466,.459,.925),
   buildBatter("Mission College Prep","N. Bender","So",2,.333,3,3,1,1,4,0,0,1,0,0,0,0,.333,1.333,1.667),
+  buildBatter("Mission College Prep","C. Mott","Jr",23,.322,70,59,10,19,8,4,0,0,8,8,1,0,.412,.390,.802),
   buildBatter("Mission College Prep","B. Augustine","Jr",12,.308,14,13,1,4,4,0,1,0,0,5,1,0,.357,.462,.819),
-  buildBatter("Mission College Prep","B. Orfila","Jr",20,.292,59,48,6,14,8,4,0,1,9,14,1,1,.414,.438,.851),
-  buildBatter("Mission College Prep","J. Esparza","Jr",22,.284,80,74,12,21,15,2,0,0,3,5,0,3,.308,.311,.619),
-  buildBatter("Mission College Prep","J. Cortez","Sr",21,.208,66,53,9,11,6,3,0,0,11,22,1,1,.354,.264,.618),
+  buildBatter("Mission College Prep","B. Orfila","Jr",21,.294,62,51,7,15,8,4,0,1,9,14,1,0,.410,.431,.841),
+  buildBatter("Mission College Prep","J. Esparza","Jr",23,.273,84,77,12,21,15,2,0,0,4,6,0,1,.305,.299,.604),
+  buildBatter("Mission College Prep","J. Cortez","Sr",22,.204,69,54,10,11,6,3,0,0,13,22,1,0,.368,.259,.627),
   buildBatter("Mission College Prep","B. May","Jr",15,.200,31,25,4,5,2,1,0,1,5,11,1,0,.355,.360,.715),
   buildBatter("Mission College Prep","E. Engle","Jr",11,.182,13,11,4,2,0,0,0,0,2,3,0,0,.308,.182,.490),
   buildBatter("Mission College Prep","B. Burt","Jr",9,.100,12,10,1,1,0,1,0,0,2,6,0,0,.250,.200,.450),
@@ -788,17 +788,16 @@ const pitchers = [
   buildPitcher("Templeton","N. Capaci","Jr",0.00,0,0,0.2,0,0,0,0,1,1),
   buildPitcher("Templeton","J. Buys","Jr",0.00,0,0,0,0,0,0,0,0,1),
   // MISSION COLLEGE PREP
-  buildPitcher("Mission College Prep","J. Cortez","Sr",0.00,0,0,1,1,0,0,0,0,1),
-  buildPitcher("Mission College Prep","T. Bernal","Jr",3.16,3,2,37.2,41,19,17,14,37,9),
+  buildPitcher("Mission College Prep","J. Cortez","Sr",0.00,0,0,1.0,1,0,0,0,0,1),
+  buildPitcher("Mission College Prep","T. Bernal","Jr",3.10,3,2,40.2,44,20,18,15,38,10),
   buildPitcher("Mission College Prep","B. Augustine","Jr",3.43,2,1,16.1,23,15,8,9,10,9),
   buildPitcher("Mission College Prep","B. May","Jr",4.61,1,0,13.2,15,12,9,11,9,11),
-  buildPitcher("Mission College Prep","B. Orfila","Jr",4.75,4,4,48.2,65,37,33,24,39,12),
-  buildPitcher("Mission College Prep","C. Treanor","Jr",6.22,0,1,9,11,10,8,5,5,7),
+  buildPitcher("Mission College Prep","B. Orfila","Jr",5.15,4,5,51.2,70,43,38,27,41,13),
+  buildPitcher("Mission College Prep","C. Treanor","Jr",6.22,0,1,9.0,11,10,8,5,5,7),
   buildPitcher("Mission College Prep","C. Mott","Jr",7.74,0,0,6.1,9,7,7,4,4,5),
   buildPitcher("Mission College Prep","H. Drake","Sr",10.16,2,2,10.1,12,17,15,17,7,8),
   buildPitcher("Mission College Prep","N. Bender","So",11.12,0,0,5.2,10,9,9,3,5,2),
   buildPitcher("Mission College Prep","B. Burt","Jr",16.80,0,1,3.1,8,10,8,4,1,2),
-
 ];
 
 // ============================================================
@@ -809,7 +808,7 @@ const standingsData = {
     { abbr:"SJ",  name:"St. Joseph",          lw:13,ll:2, ow:23, ol:6,  ot:1 },
     { abbr:"AG",  name:"Arroyo Grande",        lw:10,ll:5, ow:24, ol:9,  ot:0 },
     { abbr:"RHS", name:"Righetti",             lw:8, ll:7, ow:17, ol:12, ot:0 },
-    { abbr:"MP",  name:"Mission College Prep", lw:6, ll:9, ow:12, ol:11, ot:0 },
+    { abbr:"MP",  name:"Mission College Prep", lw:6, ll:9, ow:12, ol:12, ot:0 },
     { abbr:"MB",  name:"Morro Bay",            lw:5, ll:10,ow:16, ol:13, ot:0 },
     { abbr:"LOM", name:"Lompoc",               lw:3, ll:12,ow:11, ol:17, ot:0 },
   ],
