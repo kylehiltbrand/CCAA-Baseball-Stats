@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Awards | CCAA Baseball 2025-26</title>
+
+<!-- Favicons (mobile + desktop) -->
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0d1117">
+
+<!-- Social sharing -->
+<meta name="description" content="2026 CCAA Baseball end-of-season awards: All-CCAA and All-League teams (1st, 2nd, Honorable Mention), plus Player of the Year and Pitcher of the Year, calibrated to CCAA league averages.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ccaabaseballstats.com/awards.html">
+<meta property="og:title" content="Awards | CCAA Baseball Stats">
+<meta property="og:description" content="2026 CCAA All-League teams, Player of the Year, and Pitcher of the Year — selected by oWAR and pWAR.">
+<meta property="og:image" content="https://ccaabaseballstats.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="CCAA Baseball Stats">
+<meta property="og:site_name" content="CCAA Baseball Stats">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://ccaabaseballstats.com/awards.html">
+<meta name="twitter:title" content="Awards | CCAA Baseball Stats">
+<meta name="twitter:description" content="2026 CCAA All-League teams, Player of the Year, and Pitcher of the Year.">
+<meta name="twitter:image" content="https://ccaabaseballstats.com/og-image.png">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap');
+:root{--bg:#0d1117;--bg2:#161b22;--bg3:#1c2230;--bdr:#21293a;--bdr2:#2d3748;--gold:#f0a500;--text:#e2e8f0;--sub:#8b9cb5;--dim:#4a5568;--green:#38a169;--red:#e53e3e;--sky:#63b3ed;--mtn:#e07b39;--sun:#9b5de5;--ocn:#38bdf8}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:14px}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.5}
+a{color:inherit;text-decoration:none}
+header{background:var(--bg2);border-bottom:1px solid var(--bdr);position:sticky;top:0;z-index:100}
+.hdr{max-width:1280px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:stretch;height:56px}
+.brand{display:flex;align-items:center;gap:.65rem;margin-right:2rem;flex-shrink:0}
+.logo{width:36px;height:36px;border-radius:8px;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.8rem;color:#0d1117;letter-spacing:-.02em;flex-shrink:0}
+.bname{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.05rem;display:block;color:var(--text)}
+.bsub{font-size:.58rem;color:var(--sub);letter-spacing:.08em;text-transform:uppercase;display:block}
+nav{display:flex;align-items:stretch}
+nav a{display:flex;align-items:center;padding:0 1rem;font-size:.75rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--sub);border-bottom:2px solid transparent;transition:color .15s,border-color .15s}
+nav a:hover{color:var(--text)}
+nav a.on{color:var(--text);border-bottom-color:var(--gold)}
+.sbadge{margin-left:auto;display:flex;align-items:center}
+.sp26{font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.22rem .65rem;border-radius:4px;background:var(--gold);color:#0d1117}
+.fbar{background:var(--bg2);border-bottom:1px solid var(--bdr)}
+.fbar-inner{max-width:1280px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:stretch;height:42px;overflow-x:auto}
+.fbtn{display:flex;align-items:center;gap:.4rem;padding:0 1rem;background:none;border:none;border-right:1px solid var(--bdr);font-family:'Inter',sans-serif;font-size:.7rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--sub);cursor:pointer;transition:color .15s,background .15s;white-space:nowrap}
+.fbtn:first-child{border-left:1px solid var(--bdr)}
+.fbtn:hover,.fbtn.on{background:var(--bg3);color:var(--text)}
+.dot{width:7px;height:7px;border-radius:2px;flex-shrink:0}
+.dm{background:var(--mtn)}.ds{background:var(--sun)}.do{background:var(--ocn)}
+main{max-width:1280px;margin:0 auto;padding:1.5rem 1.5rem 5rem}
+.card{background:var(--bg2);border:1px solid var(--bdr);border-radius:8px;overflow:hidden;margin-bottom:1rem}
+.card-hdr{padding:.8rem 1rem;border-bottom:1px solid var(--bdr);display:flex;align-items:flex-start;justify-content:space-between}
+.card-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.95rem;letter-spacing:.02em}
+.card-sub{font-size:.62rem;color:var(--sub);text-transform:uppercase;letter-spacing:.07em;margin-top:.1rem}
+.tbadge{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:5px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.6rem;flex-shrink:0}
+.llabel{display:flex;align-items:center;gap:.45rem;font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin:1.6rem 0 .65rem;color:var(--sub)}
+.llabel .dot{width:8px;height:8px;border-radius:2px}
+.vhi{color:#68d391!important;font-weight:600}.vmd{color:var(--sky)!important}.vlo{color:#fc8181!important}
+footer{text-align:center;padding:1.5rem;border-top:1px solid var(--bdr);font-size:.65rem;color:var(--dim)}
+footer a{color:var(--sub)}footer a:hover{color:var(--text)}
+.mob-nav{display:none}
+@media(max-width:640px){
+  nav{display:none}
+  .mob-nav{display:flex;position:fixed;bottom:0;left:0;right:0;background:var(--bg2);border-top:1px solid var(--bdr);z-index:200;height:54px}
+  .mob-nav a{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.2rem;font-size:.52rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--sub);transition:color .15s}
+  .mob-nav a.on{color:var(--gold)}
+  .mob-nav a .mn-ic{font-size:1.05rem;line-height:1}
+}
+</style>
+
+<style>
+/* ── AWARDS PAGE ─────────────────────────────────────────── */
+.page-intro{margin-bottom:.4rem}
+.page-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:clamp(1.6rem,4vw,2.3rem);line-height:1.05;color:var(--text)}
+.page-title span{color:var(--gold)}
+.page-sub{font-size:.72rem;color:var(--sub);margin-top:.35rem;max-width:760px;line-height:1.6}
+.scope-name{color:var(--gold);font-weight:700}
+
+/* Hero award cards (POY / Pitcher of Year) */
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.25rem}
+@media(max-width:760px){.hero-grid{grid-template-columns:1fr}}
+.hero{position:relative;background:linear-gradient(135deg,var(--bg2),var(--bg3));border:1px solid var(--bdr);border-radius:12px;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;border-radius:12px;padding:1px;background:linear-gradient(135deg,rgba(240,165,0,.55),rgba(240,165,0,0) 55%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.hero-top{display:flex;align-items:center;justify-content:space-between;padding:.7rem 1rem;border-bottom:1px solid var(--bdr)}
+.hero-award{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.92rem;letter-spacing:.04em;color:var(--gold);display:flex;align-items:center;gap:.45rem}
+.hero-award .trophy{font-size:1.05rem}
+.hero-scope{font-size:.58rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--sub)}
+.hero-body{padding:1.1rem 1rem 1rem}
+.hero-winner{display:flex;align-items:center;gap:.85rem;cursor:pointer}
+.hero-winner img{width:54px;height:54px;object-fit:contain;flex-shrink:0}
+.hero-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.5rem;line-height:1.05;color:var(--text)}
+.hero-team{font-size:.68rem;color:var(--sub);margin-top:.15rem;display:flex;align-items:center;gap:.4rem}
+.hero-stats{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1rem}
+.hstat{background:rgba(0,0,0,.22);border:1px solid var(--bdr);border-radius:7px;padding:.45rem .65rem;min-width:62px;text-align:center}
+.hstat .hv{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.15rem;line-height:1;color:var(--text)}
+.hstat .hv.gold{color:var(--gold)}
+.hstat .hl{font-size:.55rem;text-transform:uppercase;letter-spacing:.07em;color:var(--sub);margin-top:.25rem}
+.runners{margin-top:1rem;border-top:1px solid var(--bdr);padding-top:.7rem}
+.runners-lbl{font-size:.58rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--dim);margin-bottom:.45rem}
+.runner{display:flex;align-items:center;gap:.5rem;padding:.3rem 0;cursor:pointer;font-size:.76rem}
+.runner:hover .runner-name{color:var(--text)}
+.runner-rk{width:14px;color:var(--dim);font-size:.66rem;flex-shrink:0}
+.runner-name{color:var(--sub);font-weight:600;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.runner-val{font-family:'Rajdhani',sans-serif;font-weight:700;color:var(--gold);font-size:.82rem}
+
+/* Tier blocks */
+.tier{margin-bottom:1rem;border:1px solid var(--bdr);border-radius:9px;overflow:hidden;background:var(--bg2)}
+.tier.t1{border-color:rgba(240,165,0,.4)}
+.tier-hdr{display:flex;align-items:center;gap:.55rem;padding:.6rem 1rem;border-bottom:1px solid var(--bdr);background:rgba(0,0,0,.15)}
+.tier-medal{width:9px;height:22px;border-radius:3px;flex-shrink:0}
+.t1 .tier-medal{background:linear-gradient(var(--gold),#b87a00)}
+.t2 .tier-medal{background:linear-gradient(#cdd6e4,#8a93a6)}
+.t3 .tier-medal{background:linear-gradient(#cd7f47,#8a4f25)}
+.tier-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:.03em}
+.tier-count{margin-left:auto;font-size:.6rem;color:var(--dim);text-transform:uppercase;letter-spacing:.06em}
+.prow{display:flex;align-items:center;gap:.6rem;padding:.5rem 1rem;border-bottom:1px solid var(--bdr);cursor:pointer;transition:background .1s}
+.prow:last-child{border-bottom:none}
+.prow:hover{background:rgba(255,255,255,.025)}
+.prk{width:18px;text-align:center;color:var(--dim);font-size:.72rem;font-weight:700;flex-shrink:0}
+.t1 .prow .prk{color:var(--gold)}
+.plogo{width:26px;height:26px;object-fit:contain;flex-shrink:0}
+.pname{flex:1;min-width:0;font-weight:600;font-size:.84rem;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pyr{font-size:.62rem;color:var(--sub);font-weight:600;margin-left:.35rem}
+.pteam{font-size:.62rem;color:var(--sub);white-space:nowrap}
+.pmetrics{display:flex;gap:.5rem;align-items:baseline;flex-shrink:0}
+.pm{text-align:right}
+.pm .pmv{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.92rem;line-height:1}
+.pm .pml{font-size:.5rem;text-transform:uppercase;letter-spacing:.05em;color:var(--dim);display:block;margin-top:.05rem}
+.pm-sec .pmv{font-size:.78rem;color:var(--sub)}
+@media(max-width:520px){.pteam{display:none}.pm-sec{display:none}}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:1rem;align-items:start}
+@media(max-width:900px){.cols{grid-template-columns:1fr}}
+.colhead{display:flex;align-items:center;gap:.5rem;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.1rem;letter-spacing:.02em;margin:.4rem 0 .7rem}
+.colhead .ce{font-size:1.15rem}
+.note{font-size:.64rem;color:var(--dim);line-height:1.6;margin-top:1.5rem;border-top:1px solid var(--bdr);padding-top:1rem}
+.empty{padding:1rem;font-size:.74rem;color:var(--dim);text-align:center}
+.updated-tag{display:flex;align-items:center;gap:.4rem;font-size:.62rem;color:var(--sub);margin:1.1rem 0 .2rem}
+.updated-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px rgba(56,161,105,.15)}
+</style>
+</head>
+<body>
+<header><div class="hdr">
+  <a href="index.html" class="brand"><div class="logo">CCAA</div><div><span class="bname">CCAA Baseball</span><span class="bsub">Central Coast Athletic Association</span></div></a>
+  <nav>
+    <a href="standings.html">Standings</a>
+    <a href="stats.html">Stats</a>
+    <a href="teams.html">Teams</a>
+    <a href="graphs.html">Graphs</a>
+    <a href="awards.html" class="on">Awards</a>
+    <a href="about.html">About</a>
+  </nav>
+  <div class="sbadge"><span class="sp26">Spring 2026</span></div>
+</div></header>
+
+<div class="fbar"><div class="fbar-inner">
+  <button class="fbtn on" onclick="setScope('all',this)">🏆 All-CCAA</button>
+  <button class="fbtn" onclick="setScope('mountain',this)"><span class="dot dm"></span>Mountain</button>
+  <button class="fbtn" onclick="setScope('sunset',this)"><span class="dot ds"></span>Sunset</button>
+  <button class="fbtn" onclick="setScope('ocean',this)"><span class="dot do"></span>Ocean</button>
+</div></div>
+
+<main>
+  <div class="page-intro">
+    <div class="page-title" id="page-title">2026 <span>All-CCAA</span> Awards</div>
+    <div class="page-sub" id="page-sub"></div>
+    <div class="updated-tag"><span class="updated-dot"></span><span id="last-updated">—</span></div>
+  </div>
+  <div id="root"></div>
+  <div class="note" id="methodology"></div>
+</main>
+
+<nav class="mob-nav">
+  <a href="index.html"><span class="mn-ic">🏠</span>Home</a>
+  <a href="standings.html"><span class="mn-ic">🏆</span>Standings</a>
+  <a href="stats.html"><span class="mn-ic">📊</span>Stats</a>
+  <a href="teams.html"><span class="mn-ic">⚾</span>Teams</a>
+  <a href="graphs.html"><span class="mn-ic">📈</span>Graphs</a>
+  <a href="awards.html" class="on"><span class="mn-ic">🏅</span>Awards</a>
+</nav>
+
+<footer>CCAA Baseball · Spring 2026 · Central Coast Athletic Association, CA · Awards selected by oWAR &amp; pWAR, calibrated to CCAA league averages.</footer>
+
+<script src="data.js"></script>
+<script>
+/* ====================================================================
+   AWARDS CONFIG — tweak these and everything below recomputes.
+   teamSizes are [1st Team, 2nd Team, Honorable Mention] counts.
+   ==================================================================== */
+const CONFIG = {
+  hitMinPA: 40,        // qualifying plate appearances for hitters
+  pitMinIP: 18,        // qualifying innings pitched for pitchers
+  hit:  { all:[9,9,9], league:[6,6,6] },   // hitter team sizes
+  pit:  { all:[5,5,5], league:[3,3,3] },   // pitcher team sizes
+  runnersUp: 4         // # of runners-up listed under POY / Pitcher of Year
+};
+
+/* Team → league, colors, and logos (mirrors the rest of the site) */
+const TL={"St. Joseph":"mountain","Arroyo Grande":"mountain","Righetti":"mountain","Morro Bay":"mountain","Mission College Prep":"mountain","Lompoc":"mountain","Paso Robles":"sunset","San Luis Obispo":"sunset","Atascadero":"sunset","Templeton":"sunset","Cabrillo":"sunset","Nipomo":"ocean","Pioneer Valley":"ocean","Santa Ynez":"ocean","Santa Maria":"ocean"};
+const TC={"St. Joseph":{bg:"#2d4a1e",fg:"#a8d5a2",a:"SJ"},"Arroyo Grande":{bg:"#3a3010",fg:"#f0d080",a:"AG"},"Righetti":{bg:"#2d1a4a",fg:"#c4a0f0",a:"RHS"},"Morro Bay":{bg:"#0f2a40",fg:"#80c8f0",a:"MB"},"Mission College Prep":{bg:"#0e2d5e",fg:"#6bb8ff",a:"MP"},"Lompoc":{bg:"#1a1a2e",fg:"#90a8e0",a:"LOM"},"Paso Robles":{bg:"#2a1010",fg:"#e08080",a:"PAS"},"San Luis Obispo":{bg:"#1a1a2e",fg:"#c8b060",a:"SLO"},"Atascadero":{bg:"#2a1810",fg:"#e09060",a:"ATA"},"Templeton":{bg:"#1a2a1a",fg:"#90c890",a:"TMP"},"Cabrillo":{bg:"#1a1a1a",fg:"#c8b060",a:"CAB"},"Nipomo":{bg:"#1a1a2a",fg:"#a0a0c8",a:"NIP"},"Pioneer Valley":{bg:"#0f2a2a",fg:"#80c8c8",a:"PV"},"Santa Ynez":{bg:"#2a1a10",fg:"#e0a060",a:"SY"},"Santa Maria":{bg:"#2a0f0f",fg:"#e08080",a:"SM"}};
+const LOGOS={"Arroyo Grande":"ag.png","Atascadero":"ata.png","Cabrillo":"cabrillo.png","Lompoc":"lompoc.png","Mission College Prep":"mp.png","St. Joseph":"sj.png","Morro Bay":"mb.png","Nipomo":"nipomo.png","Paso Robles":"paso.png","Pioneer Valley":"pv.png","Righetti":"righetti.png","San Luis Obispo":"slo.png","Santa Maria":"santa_maria.png","Santa Ynez":"santa_ynez.png","Templeton":"templeton.png"};
+
+const SCOPE_META={
+  all:    {label:"All-CCAA",      dot:"",   long:"all three CCAA leagues"},
+  mountain:{label:"All-Mountain", dot:"dm", long:"the Mountain League"},
+  sunset: {label:"All-Sunset",    dot:"ds", long:"the Sunset League"},
+  ocean:  {label:"All-Ocean",     dot:"do", long:"the Ocean League"}
+};
+const TIER_NAMES=["First Team","Second Team","Honorable Mention"];
+
+let scope='all';
+
+/* ---- helpers ---- */
+function f1(v){return v==null?'—':(Math.round(v*10)/10).toFixed(1)}
+function f2(v){return v==null?'—':(Math.round(v*100)/100).toFixed(2)}
+function f3(v){return v==null?'—':(Math.round(v*1000)/1000).toFixed(3).replace(/^0\./,'.')}
+function warStr(v){return v==null?'—':(v>0?'+':'')+(Math.round(v*10)/10).toFixed(1)}
+function warCls(v){return v==null?'':v>=1?'vhi':v>=0?'vmd':'vlo'}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function logoTag(team,sz){const c=TC[team]||{bg:'#222',fg:'#aaa',a:team.slice(0,3)};return LOGOS[team]?`<img class="plogo" style="width:${sz}px;height:${sz}px" src="${LOGOS[team]}" alt="">`:`<span class="tbadge" style="width:${sz}px;height:${sz}px;background:${c.bg};color:${c.fg}">${c.a}</span>`}
+function abbr(team){return (TC[team]||{a:team.slice(0,3)}).a}
+function profLink(p,kind){const d=kind==='pit'?p.ip:p.pa;return `stats.html#player=${encodeURIComponent(p.name)}&team=${encodeURIComponent(p.team)}&d=${encodeURIComponent(d)}`}
+
+/* ---- selection ---- */
+function qualifiedHitters(sc){
+  return batters
+    .filter(b=>b.owar!=null && b.pa>=CONFIG.hitMinPA && (sc==='all'||TL[b.team]===sc))
+    .sort((a,b)=> (b.owar-a.owar) || ((b.wrc_plus||0)-(a.wrc_plus||0)) || ((b.woba||0)-(a.woba||0)));
+}
+function qualifiedPitchers(sc){
+  return pitchers
+    .filter(p=>p.pwar!=null && p.ip>=CONFIG.pitMinIP && (sc==='all'||TL[p.team]===sc))
+    .sort((a,b)=> (b.pwar-a.pwar) || ((b.era_plus||0)-(a.era_plus||0)) || (a.era-b.era));
+}
+
+/* ---- render pieces ---- */
+function heroCard(kind,sc,list){
+  const w=list[0];
+  const scopeLbl=SCOPE_META[sc].label.replace('All-','');
+  if(!w) return `<div class="hero"><div class="hero-top"><span class="hero-award"><span class="trophy">${kind==='hit'?'🏆':'🔥'}</span>${kind==='hit'?'Player of the Year':'Pitcher of the Year'}</span><span class="hero-scope">${esc(scopeLbl)}</span></div><div class="empty">Not enough qualified players.</div></div>`;
+  const stats = kind==='hit'
+    ? [['AVG',f3(w.avg)],['HR',w.hr],['wRC+',w.wrc_plus??'—'],['oWAR',warStr(w.owar),'gold']]
+    : [['ERA',f2(w.era)],['ERA+',w.era_plus??'—'],['K',w.k],['pWAR',warStr(w.pwar),'gold']];
+  const ru=list.slice(1,1+CONFIG.runnersUp).map((p,i)=>{
+    const val=kind==='hit'?warStr(p.owar):warStr(p.pwar);
+    return `<div class="runner" onclick="location.href='${profLink(p,kind)}'"><span class="runner-rk">${i+2}</span><span class="runner-name">${esc(p.name)} · ${abbr(p.team)}</span><span class="runner-val">${val}</span></div>`;
+  }).join('');
+  return `<div class="hero">
+    <div class="hero-top">
+      <span class="hero-award"><span class="trophy">${kind==='hit'?'🏆':'🔥'}</span>${kind==='hit'?'Player of the Year':'Pitcher of the Year'}</span>
+      <span class="hero-scope">${esc(scopeLbl)}</span>
+    </div>
+    <div class="hero-body">
+      <div class="hero-winner" onclick="location.href='${profLink(w,kind)}'">
+        ${logoTag(w.team,54)}
+        <div>
+          <div class="hero-name">${esc(w.name)}</div>
+          <div class="hero-team">${esc(w.team)} · ${w.year}${sc==='all'?` · <span class="dot ${SCOPE_META[TL[w.team]].dot}"></span>${SCOPE_META[TL[w.team]].label.replace('All-','')}`:''}</div>
+        </div>
+      </div>
+      <div class="hero-stats">
+        ${stats.map(s=>`<div class="hstat"><div class="hv ${s[2]||''}">${s[1]}</div><div class="hl">${s[0]}</div></div>`).join('')}
+      </div>
+      ${ru?`<div class="runners"><div class="runners-lbl">Runners-Up</div>${ru}</div>`:''}
+    </div>
+  </div>`;
+}
+
+function playerRow(p,rk,kind){
+  const pri = kind==='hit'
+    ? `<div class="pm"><span class="pmv ${warCls(p.owar)}">${warStr(p.owar)}</span><span class="pml">oWAR</span></div>`
+    : `<div class="pm"><span class="pmv ${warCls(p.pwar)}">${warStr(p.pwar)}</span><span class="pml">pWAR</span></div>`;
+  const sec = kind==='hit'
+    ? `<div class="pm pm-sec"><span class="pmv">${p.wrc_plus??'—'}</span><span class="pml">wRC+</span></div>`
+    : `<div class="pm pm-sec"><span class="pmv">${p.era_plus??'—'}</span><span class="pml">ERA+</span></div>`;
+  return `<div class="prow" onclick="location.href='${profLink(p,kind)}'">
+    <span class="prk">${rk}</span>
+    ${logoTag(p.team,26)}
+    <span class="pname">${esc(p.name)}<span class="pyr">${p.year}</span></span>
+    <span class="pteam">${esc(p.team)}</span>
+    ${sec}${pri}
+  </div>`;
+}
+
+function tierBlock(players,start,count,tierIdx,kind){
+  const slice=players.slice(start,start+count);
+  if(!slice.length) return '';
+  const rows=slice.map((p,i)=>playerRow(p,start+i+1,kind)).join('');
+  return `<div class="tier t${tierIdx+1}">
+    <div class="tier-hdr"><span class="tier-medal"></span><span class="tier-name">${TIER_NAMES[tierIdx]}</span><span class="tier-count">${slice.length} ${kind==='hit'?'hitters':'pitchers'}</span></div>
+    ${rows}
+  </div>`;
+}
+
+function teamColumn(title,emoji,players,sizes,kind){
+  if(!players.length) return `<div><div class="colhead"><span class="ce">${emoji}</span>${title}</div><div class="tier"><div class="empty">No qualified ${kind==='hit'?'hitters':'pitchers'} in this scope.</div></div></div>`;
+  let html=`<div><div class="colhead"><span class="ce">${emoji}</span>${title}</div>`;
+  let start=0;
+  sizes.forEach((sz,i)=>{ html+=tierBlock(players,start,sz,i,kind); start+=sz; });
+  html+='</div>';
+  return html;
+}
+
+function render(){
+  if(typeof recalcLeagueAvgs==='function'){try{recalcLeagueAvgs();}catch(e){}}
+  const meta=SCOPE_META[scope];
+  const hitters=qualifiedHitters(scope);
+  const pitchersQ=qualifiedPitchers(scope);
+  const hitSizes = scope==='all'?CONFIG.hit.all:CONFIG.hit.league;
+  const pitSizes = scope==='all'?CONFIG.pit.all:CONFIG.pit.league;
+
+  // Title + subhead
+  document.getElementById('page-title').innerHTML = `2026 <span>${esc(meta.label)}</span> Awards`;
+  document.getElementById('page-sub').innerHTML =
+    `End-of-season honors for ${meta.long}. Hitters are ranked by <strong style="color:var(--text)">oWAR</strong> and pitchers by <strong style="color:var(--text)">pWAR</strong> — both calibrated to CCAA league averages, not MLB baselines. Click any player to open their full profile.`;
+
+  // Hero awards
+  let html = `<div class="hero-grid">${heroCard('hit',scope,hitters)}${heroCard('pit',scope,pitchersQ)}</div>`;
+
+  // All-League teams
+  const teamTitle = meta.label.startsWith('All')?meta.label:('All-'+meta.label);
+  html += `<div class="llabel"><span class="dot ${meta.dot||''}"></span>${esc(scope==='all'?'All-CCAA':teamTitle)} Teams</div>`;
+  html += `<div class="cols">`;
+  html += teamColumn('Hitters','⚾',hitters,hitSizes,'hit');
+  html += teamColumn('Pitchers','🔥',pitchersQ,pitSizes,'pit');
+  html += `</div>`;
+
+  document.getElementById('root').innerHTML = html;
+
+  // Methodology footnote
+  document.getElementById('methodology').innerHTML =
+    `<strong style="color:var(--sub)">How these are selected:</strong> Hitters qualify with ${CONFIG.hitMinPA}+ PA and are ranked by oWAR; pitchers qualify with ${CONFIG.pitMinIP}+ IP and are ranked by pWAR. Team sizes for this scope: hitters ${hitSizes.join(' / ')}, pitchers ${pitSizes.join(' / ')} (First / Second / Honorable Mention). WAR is built on the CCAA run environment with small-sample regression toward league average, so partial seasons aren't over-credited. ${hitters.length} hitters and ${pitchersQ.length} pitchers qualified in this scope.`;
+}
+
+function setScope(s,btn){
+  scope=s;
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  render();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// Last-updated tag
+(function(){
+  const el=document.getElementById('last-updated');
+  if(typeof DATA_UPDATED!=='undefined' && DATA_UPDATED){el.textContent='Stats updated '+DATA_UPDATED;}
+  else{el.textContent='Final 2026 regular-season stats';}
+})();
+
+render();
+</script>
+</body></html>
