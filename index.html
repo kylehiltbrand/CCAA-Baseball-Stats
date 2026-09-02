@@ -150,6 +150,27 @@ footer a:hover{color:var(--text)}
   .mob-nav a.on{color:var(--gold)}
   .mob-nav a .mn-ic{font-size:1.1rem;line-height:1}
 }
+
+/* ── DROPDOWN NAV ─────────────────────────────────────────── */
+.navdd{position:relative;display:flex;align-items:stretch}
+.navdd-btn{display:flex;align-items:center;gap:.32rem;padding:0 1rem;background:none;border:none;border-bottom:2px solid transparent;font-family:'Inter',sans-serif;font-size:.75rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--sub);cursor:pointer;transition:color .15s,border-color .15s;white-space:nowrap}
+.navdd-btn:hover{color:var(--text)}
+.navdd.on .navdd-btn{color:var(--text);border-bottom-color:var(--gold)}
+.navdd-btn .cv{font-size:.55rem;line-height:1;transition:transform .15s;opacity:.8}
+.navdd.open .navdd-btn .cv{transform:rotate(180deg)}
+.navdd-menu{position:absolute;top:100%;left:0;min-width:160px;background:var(--bg2);border:1px solid var(--bdr2);border-top:none;border-radius:0 0 7px 7px;box-shadow:0 10px 24px rgba(0,0,0,.5);padding:.3rem 0;opacity:0;visibility:hidden;transform:translateY(-5px);transition:opacity .14s,transform .14s,visibility .14s;z-index:150}
+.navdd.open .navdd-menu{opacity:1;visibility:visible;transform:translateY(0)}
+.navdd-menu a{display:block;padding:.5rem .9rem;font-size:.72rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--sub);border-bottom:none;transition:color .12s,background .12s}
+.navdd-menu a:hover{background:var(--bg3);color:var(--text)}
+.navdd-menu a.on{color:var(--gold)}
+@media(hover:hover) and (min-width:641px){
+  .navdd:hover .navdd-menu{opacity:1;visibility:visible;transform:translateY(0)}
+  .navdd:hover .navdd-btn{color:var(--text)}
+}
+@media(max-width:640px){
+  .navdd-btn{padding:0 .65rem;font-size:.7rem}
+  .navdd-menu{min-width:140px}
+}
 </style>
 
 <style>
@@ -195,18 +216,32 @@ footer a:hover{color:var(--text)}
 <body>
 <header><div class="hdr">
   <a href="index.html" class="brand"><div class="logo">CCAA</div><div><span class="bname">CCAA Baseball</span><span class="bsub">Central Coast Athletic Association</span></div></a>
-  <nav><a href="standings.html">Standings</a><a href="stats.html">Stats</a><a href="teams.html">Teams</a><a href="graphs.html">Graphs</a><a href="awards.html">Awards</a><a href="about.html">About</a></nav>
+  <nav>
+    <a href="standings.html">Standings</a>
+    <a href="stats.html">Stats</a>
+    <a href="teams.html">Teams</a>
+    <div class="navdd">
+      <button class="navdd-btn" type="button" aria-expanded="false" aria-haspopup="true">Analysis <span class="cv">&#9660;</span></button>
+      <div class="navdd-menu" role="menu">
+        <a href="graphs.html" role="menuitem">Graphs</a>
+        <a href="projections.html" role="menuitem">Projections</a>
+      </div>
+    </div>
+    <a href="awards.html">Awards</a>
+    <a href="about.html">About</a>
+  </nav>
   <div class="sbadge"><span class="sp26">Spring 2026</span></div>
 </div></header>
 <div class="home">
 <nav class="mob-nav">
-  <a href="index.html" class="on"><span class="mn-ic">🏠</span>Home</a>
-  <a href="standings.html"><span class="mn-ic">🏆</span>Standings</a>
-  <a href="stats.html"><span class="mn-ic">📊</span>Stats</a>
-  <a href="teams.html"><span class="mn-ic">⚾</span>Teams</a>
-  <a href="graphs.html"><span class="mn-ic">📈</span>Graphs</a>
-  <a href="awards.html"><span class="mn-ic">🏅</span>Awards</a>
-  <a href="about.html"><span class="mn-ic">ℹ️</span>About</a>
+  <a href="index.html"><span class="mn-ic">&#127968;</span>Home</a>
+  <a href="standings.html"><span class="mn-ic">&#127942;</span>Stand</a>
+  <a href="stats.html"><span class="mn-ic">&#128202;</span>Stats</a>
+  <a href="teams.html"><span class="mn-ic">&#9918;</span>Teams</a>
+  <a href="graphs.html"><span class="mn-ic">&#128200;</span>Graphs</a>
+  <a href="projections.html"><span class="mn-ic">&#128302;</span>Proj</a>
+  <a href="awards.html"><span class="mn-ic">&#127941;</span>Awards</a>
+  <a href="about.html"><span class="mn-ic">&#8505;&#65039;</span>About</a>
 </nav>
   <div class="htitle">CCAA <span>Baseball</span></div>
   <p class="hsub">2025–2026 Season · Central Section</p>
@@ -332,6 +367,46 @@ footer a:hover{color:var(--text)}
   } else {
     el.textContent = 'Set DATA_UPDATED in data.js to show refresh date';
   }
+})();
+</script>
+<script>
+/* Shared nav: active-state detection + dropdown behaviour.
+   The nav markup is identical on every page; this marks the current one. */
+(function(){
+  // Normalise so matching survives Vercel clean URLs (/stats) and
+  // trailing slashes, not just explicit /stats.html paths.
+  function key(p){
+    p=(p||'').toLowerCase().split('?')[0].split('#')[0];
+    p=p.replace(/\/+$/,'');            // tolerate a trailing slash
+    p=p.split('/').pop();
+    if(!p) return 'index';
+    return p.replace(/\.html$/,'');
+  }
+  var here=key(location.pathname);
+  document.querySelectorAll('nav a[href]').forEach(function(a){
+    if(key(a.getAttribute('href'))===here){
+      a.classList.add('on');
+      var dd=a.closest('.navdd');
+      if(dd) dd.classList.add('on');
+    }
+  });
+  function closeAll(){
+    document.querySelectorAll('.navdd.open').forEach(function(dd){
+      dd.classList.remove('open');
+      dd.querySelector('.navdd-btn').setAttribute('aria-expanded','false');
+    });
+  }
+  document.querySelectorAll('.navdd').forEach(function(dd){
+    var btn=dd.querySelector('.navdd-btn');
+    btn.addEventListener('click',function(e){
+      e.stopPropagation();
+      var willOpen=!dd.classList.contains('open');
+      closeAll();
+      if(willOpen){ dd.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
+    });
+  });
+  document.addEventListener('click',closeAll);
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeAll(); });
 })();
 </script>
 </body></html>

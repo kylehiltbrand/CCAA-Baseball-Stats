@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Projections | CCAA Baseball 2025-26</title>
+
+<!-- Favicons (mobile + desktop) -->
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0d1117">
+
+<!-- Social sharing -->
+<meta name="description" content="2027 CCAA team projections built from returning production, with the conference's top returning hitters. Calibrated to CCAA league averages.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ccaabaseballstats.com/projections.html">
+<meta property="og:title" content="Projections | CCAA Baseball Stats">
+<meta property="og:description" content="2027 CCAA team projections built from returning production, with the conference's top returning hitters.">
+<meta property="og:image" content="https://ccaabaseballstats.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="CCAA Baseball Stats">
+<meta property="og:site_name" content="CCAA Baseball Stats">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://ccaabaseballstats.com/projections.html">
+<meta name="twitter:title" content="Projections | CCAA Baseball Stats">
+<meta name="twitter:description" content="2027 CCAA team projections built from returning production, with the conference's top returning hitters.">
+<meta name="twitter:image" content="https://ccaabaseballstats.com/og-image.png">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap');
+:root{--bg:#0d1117;--bg2:#161b22;--bg3:#1c2230;--bdr:#21293a;--bdr2:#2d3748;--gold:#f0a500;--text:#e2e8f0;--sub:#8b9cb5;--dim:#4a5568;--green:#38a169;--red:#e53e3e;--sky:#63b3ed;--mtn:#e07b39;--sun:#9b5de5;--ocn:#38bdf8}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:14px}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.5}
+a{color:inherit;text-decoration:none}
+header{background:var(--bg2);border-bottom:1px solid var(--bdr);position:sticky;top:0;z-index:100}
+.hdr{max-width:1280px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:stretch;height:56px}
+.brand{display:flex;align-items:center;gap:.65rem;margin-right:2rem;flex-shrink:0}
+.logo{width:36px;height:36px;border-radius:8px;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.8rem;color:#0d1117;letter-spacing:-.02em;flex-shrink:0}
+.bname{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.05rem;display:block;color:var(--text)}
+.bsub{font-size:.58rem;color:var(--sub);letter-spacing:.08em;text-transform:uppercase;display:block}
+nav{display:flex;align-items:stretch}
+nav a{display:flex;align-items:center;padding:0 1rem;font-size:.75rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--sub);border-bottom:2px solid transparent;transition:color .15s,border-color .15s}
+nav a:hover{color:var(--text)}
+nav a.on{color:var(--text);border-bottom-color:var(--gold)}
+.sbadge{margin-left:auto;display:flex;align-items:center}
+.sp26{font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.22rem .65rem;border-radius:4px;background:var(--gold);color:#0d1117}
+.fbar{background:var(--bg2);border-bottom:1px solid var(--bdr)}
+.fbar-inner{max-width:1280px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:stretch;height:42px}
+.fbtn{display:flex;align-items:center;gap:.4rem;padding:0 1rem;background:none;border:none;border-right:1px solid var(--bdr);font-family:'Inter',sans-serif;font-size:.7rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--sub);cursor:pointer;transition:color .15s,background .15s;white-space:nowrap}
+.fbtn:first-child{border-left:1px solid var(--bdr)}
+.fbtn:hover,.fbtn.on{background:var(--bg3);color:var(--text)}
+.dot{width:7px;height:7px;border-radius:2px;flex-shrink:0}
+.dm{background:var(--mtn)}.ds{background:var(--sun)}.do{background:var(--ocn)}
+main{max-width:1280px;margin:0 auto;padding:1.5rem 1.5rem 4rem}
+.card{background:var(--bg2);border:1px solid var(--bdr);border-radius:8px;overflow:hidden;margin-bottom:1rem}
+.card-hdr{padding:.8rem 1rem;border-bottom:1px solid var(--bdr);display:flex;align-items:flex-start;justify-content:space-between}
+.card-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.95rem;letter-spacing:.02em}
+.card-sub{font-size:.62rem;color:var(--sub);text-transform:uppercase;letter-spacing:.07em;margin-top:.1rem}
+.tbadge{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:5px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.6rem;flex-shrink:0}
+.llabel{display:flex;align-items:center;gap:.45rem;font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin:1.5rem 0 .65rem;color:var(--sub)}
+.llabel .dot{width:8px;height:8px;border-radius:2px}
+.advb{font-size:.52rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.08rem .28rem;border-radius:2px;background:rgba(29,111,164,.3);color:var(--sky);vertical-align:middle;margin-left:.2rem}
+footer{text-align:center;padding:1.5rem;border-top:1px solid var(--bdr);font-size:.65rem;color:var(--dim)}
+footer a{color:var(--sub)}
+footer a:hover{color:var(--text)}
+.updated-dot{width:6px;height:6px;border-radius:50%;background:#68d391;flex-shrink:0;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+/* ── PROJECTIONS PAGE ─────────────────────────────────────── */
+.intro{padding:1rem 1.1rem 1.15rem}
+.intro p{font-size:.78rem;color:var(--sub);line-height:1.7;margin-bottom:.6rem}
+.intro p:last-child{margin-bottom:0}
+.intro strong{color:var(--text);font-weight:600}
+.warnbox{display:flex;gap:.7rem;align-items:flex-start;background:rgba(240,165,0,.07);border:1px solid rgba(240,165,0,.25);border-radius:6px;padding:.75rem .9rem;margin-top:.85rem}
+.warnbox .wi{font-size:.9rem;line-height:1.2;flex-shrink:0}
+.warnbox p{font-size:.72rem;color:var(--sub);line-height:1.65;margin:0}
+
+/* team projection rows */
+.prow{display:grid;grid-template-columns:26px 40px 1fr 108px 92px 128px 74px;align-items:center;gap:.7rem;padding:.7rem 1rem;border-bottom:1px solid var(--bdr);transition:background .12s}
+.prow:last-child{border-bottom:none}
+.prow:hover{background:var(--bg3)}
+.prow.head{background:var(--bg3);font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);padding:.5rem 1rem}
+.prow.head:hover{background:var(--bg3)}
+.prank{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.9rem;color:var(--dim);text-align:center}
+.prank.top{color:var(--gold)}
+.plogo{display:flex;align-items:center;justify-content:center}
+.plogo img{width:30px;height:30px;object-fit:contain}
+.pteam{min-width:0}
+.pname{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.95rem;color:var(--text);line-height:1.2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pmeta{font-size:.6rem;color:var(--sub);margin-top:.1rem;display:flex;align-items:center;gap:.35rem;flex-wrap:wrap}
+.lgb{font-size:.5rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:.05rem .28rem;border-radius:2px}
+.lgb-m{background:rgba(224,123,57,.18);color:#e07b39}
+.lgb-s{background:rgba(155,93,229,.18);color:#b48bf0}
+.lgb-o{background:rgba(56,189,248,.15);color:#38bdf8}
+.precs{font-size:.7rem;color:var(--sub);white-space:nowrap}
+.prec-old{color:var(--dim)}
+.prec-new{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.05rem;color:var(--text)}
+.pwp{font-family:'Rajdhani',sans-serif;font-weight:600;font-size:.9rem;text-align:right}
+.pdelta{font-size:.62rem;font-weight:600;text-align:right;margin-top:.05rem}
+.up{color:#68d391}.down{color:#fc8181}.flat{color:var(--dim)}
+.pret{min-width:0}
+.pretbar{height:5px;background:var(--bg3);border-radius:3px;overflow:hidden;margin-top:.28rem;border:1px solid var(--bdr)}
+.pretfill{height:100%;background:var(--gold);border-radius:3px}
+.pretfill.na{background:var(--dim)}
+.pretlbl{font-size:.6rem;color:var(--sub);white-space:nowrap}
+.pconf{font-size:.52rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:.15rem .4rem;border-radius:3px;text-align:center;white-space:nowrap}
+.conf-hi{background:rgba(56,161,105,.15);color:#68d391}
+.conf-md{background:rgba(99,179,237,.13);color:var(--sky)}
+.conf-lo{background:rgba(240,165,0,.13);color:var(--gold)}
+.pcore{grid-column:1/-1;font-size:.65rem;color:var(--dim);padding:.15rem 0 0 66px;line-height:1.6}
+.pcore b{color:var(--sub);font-weight:600}
+
+/* returning hitters */
+.rgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:.7rem;padding:1rem}
+.rcard{background:var(--bg3);border:1px solid var(--bdr);border-radius:7px;padding:.8rem .9rem;position:relative;overflow:hidden}
+.rcard.gold{border-color:rgba(240,165,0,.45)}
+.rrank{position:absolute;top:.55rem;right:.7rem;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.5rem;color:var(--bdr2);line-height:1}
+.rcard.gold .rrank{color:rgba(240,165,0,.35)}
+.rname{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.05rem;color:var(--text);line-height:1.2;padding-right:1.6rem}
+.rteam{display:flex;align-items:center;gap:.35rem;font-size:.62rem;color:var(--sub);margin-top:.25rem}
+.rteam img{width:16px;height:16px;object-fit:contain;flex-shrink:0}
+.rstats{display:flex;gap:.9rem;margin-top:.65rem;padding-top:.6rem;border-top:1px solid var(--bdr)}
+.rstat{display:flex;flex-direction:column}
+.rs-lbl{font-size:.5rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--dim)}
+.rs-val{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.95rem;color:var(--text);margin-top:.05rem}
+.rs-val.g{color:var(--gold)}
+.ryr{font-size:.55rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.1rem .35rem;border-radius:3px;background:rgba(99,179,237,.13);color:var(--sky)}
+
+/* methodology */
+.mrow{display:flex;gap:.9rem;padding:.75rem 1rem;border-bottom:1px solid var(--bdr);align-items:flex-start}
+.mrow:last-child{border-bottom:none}
+.mstep{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.7rem;color:var(--gold);flex-shrink:0;width:22px;padding-top:.1rem}
+.mtxt{font-size:.73rem;color:var(--sub);line-height:1.7}
+.mtxt b{color:var(--text);font-weight:600}
+.formula{background:var(--bg3);border:1px solid var(--bdr2);border-radius:5px;padding:.5rem .75rem;font-family:'Rajdhani',sans-serif;font-size:.82rem;font-weight:600;letter-spacing:.03em;color:var(--text);margin:.45rem 0;display:inline-block}
+
+/* ── MOBILE ───────────────────────────────────────────────── */
+@media(max-width:640px){
+  html{font-size:13px}
+  main{padding:1rem 1rem 5.5rem}
+  .hdr{padding:0 1rem;height:50px}
+  .bsub{display:none}
+  .brand{margin-right:1rem}
+  .sp26{display:none}
+  nav a{padding:0 .65rem;font-size:.7rem;white-space:nowrap}
+  .fbar-inner{padding:0 .75rem;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .fbar-inner::-webkit-scrollbar{display:none}
+  .fbtn{padding:0 .85rem;font-size:.65rem;flex-shrink:0}
+  .prow{grid-template-columns:22px 32px 1fr auto;gap:.5rem;padding:.65rem .75rem;row-gap:.4rem}
+  .prow.head{display:none}
+  .precs{grid-column:3/-1;font-size:.66rem}
+  .pwp-wrap{grid-column:4;text-align:right}
+  .pret{grid-column:3/-1}
+  .pconf{grid-column:3/-1;justify-self:start;margin-top:.1rem}
+  .pcore{padding-left:0}
+  .rgrid{grid-template-columns:1fr;padding:.75rem}
+}
+.mob-nav{display:none}
+@media(max-width:640px){
+  .mob-nav{display:flex;position:fixed;bottom:0;left:0;right:0;background:var(--bg2);border-top:1px solid var(--bdr);z-index:200;height:54px}
+  .mob-nav a{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.2rem;font-size:.46rem;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:var(--sub);transition:color .15s;min-width:0}
+  .mob-nav a.on{color:var(--gold)}
+  .mob-nav a .mn-ic{font-size:1rem;line-height:1}
+}
+
+/* ── DROPDOWN NAV ─────────────────────────────────────────── */
+.navdd{position:relative;display:flex;align-items:stretch}
+.navdd-btn{display:flex;align-items:center;gap:.32rem;padding:0 1rem;background:none;border:none;border-bottom:2px solid transparent;font-family:'Inter',sans-serif;font-size:.75rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--sub);cursor:pointer;transition:color .15s,border-color .15s;white-space:nowrap}
+.navdd-btn:hover{color:var(--text)}
+.navdd.on .navdd-btn{color:var(--text);border-bottom-color:var(--gold)}
+.navdd-btn .cv{font-size:.55rem;line-height:1;transition:transform .15s;opacity:.8}
+.navdd.open .navdd-btn .cv{transform:rotate(180deg)}
+.navdd-menu{position:absolute;top:100%;left:0;min-width:160px;background:var(--bg2);border:1px solid var(--bdr2);border-top:none;border-radius:0 0 7px 7px;box-shadow:0 10px 24px rgba(0,0,0,.5);padding:.3rem 0;opacity:0;visibility:hidden;transform:translateY(-5px);transition:opacity .14s,transform .14s,visibility .14s;z-index:150}
+.navdd.open .navdd-menu{opacity:1;visibility:visible;transform:translateY(0)}
+.navdd-menu a{display:block;padding:.5rem .9rem;font-size:.72rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--sub);border-bottom:none;transition:color .12s,background .12s}
+.navdd-menu a:hover{background:var(--bg3);color:var(--text)}
+.navdd-menu a.on{color:var(--gold)}
+@media(hover:hover) and (min-width:641px){
+  .navdd:hover .navdd-menu{opacity:1;visibility:visible;transform:translateY(0)}
+  .navdd:hover .navdd-btn{color:var(--text)}
+}
+@media(max-width:640px){
+  .navdd-btn{padding:0 .65rem;font-size:.7rem}
+  .navdd-menu{min-width:140px}
+}
+</style>
+</head>
+<body>
+
+<header><div class="hdr">
+  <a href="index.html" class="brand">
+    <div class="logo">CCAA</div>
+    <div><span class="bname">CCAA Baseball</span><span class="bsub">Central Coast Athletic Association</span></div>
+  </a>
+  <nav>
+    <a href="standings.html">Standings</a>
+    <a href="stats.html">Stats</a>
+    <a href="teams.html">Teams</a>
+    <div class="navdd">
+      <button class="navdd-btn" type="button" aria-expanded="false" aria-haspopup="true">Analysis <span class="cv">&#9660;</span></button>
+      <div class="navdd-menu" role="menu">
+        <a href="graphs.html" role="menuitem">Graphs</a>
+        <a href="projections.html" role="menuitem">Projections</a>
+      </div>
+    </div>
+    <a href="awards.html">Awards</a>
+    <a href="about.html">About</a>
+  </nav>
+  <div class="sbadge"><span class="sp26">Spring 2026</span></div>
+</div></header>
+
+<div class="fbar"><div class="fbar-inner">
+  <button class="fbtn on" onclick="setLeague('all',this)">All Leagues</button>
+  <button class="fbtn" onclick="setLeague('mountain',this)"><span class="dot dm"></span>Mountain</button>
+  <button class="fbtn" onclick="setLeague('sunset',this)"><span class="dot ds"></span>Sunset</button>
+  <button class="fbtn" onclick="setLeague('ocean',this)"><span class="dot do"></span>Ocean</button>
+</div></div>
+
+<nav class="mob-nav">
+  <a href="index.html"><span class="mn-ic">&#127968;</span>Home</a>
+  <a href="standings.html"><span class="mn-ic">&#127942;</span>Stand</a>
+  <a href="stats.html"><span class="mn-ic">&#128202;</span>Stats</a>
+  <a href="teams.html"><span class="mn-ic">&#9918;</span>Teams</a>
+  <a href="graphs.html"><span class="mn-ic">&#128200;</span>Graphs</a>
+  <a href="projections.html"><span class="mn-ic">&#128302;</span>Proj</a>
+  <a href="awards.html"><span class="mn-ic">&#127941;</span>Awards</a>
+  <a href="about.html"><span class="mn-ic">&#8505;&#65039;</span>About</a>
+</nav>
+
+<main>
+
+  <div style="display:flex;align-items:center;gap:.35rem;font-size:.65rem;color:var(--sub);margin-bottom:.75rem;padding-left:.1rem">
+    <span class="updated-dot"></span><span id="last-updated">—</span>
+  </div>
+
+  <!-- INTRO -->
+  <div class="card">
+    <div class="card-hdr">
+      <div>
+        <div class="card-title">2027 Projections <span class="advb">ADV</span></div>
+        <div class="card-sub">Returning production model · CCAA-calibrated</div>
+      </div>
+    </div>
+    <div class="intro">
+      <p>These are <strong>returning-production projections</strong>, not a full forecasting system. With a single season of CCAA data there is no prior year to weight against, so the model does what one season allows: it estimates each program's 2026 talent level, works out how much of that production graduates, applies a growth curve to the players who come back, and assumes departing production is partially replaced.</p>
+      <p>Every input is CCAA-calibrated. WAR comes from the same oWAR and pWAR figures used across the site, which recalibrate to league average on every page load. A projection is a central estimate, not a prediction of what will happen.</p>
+      <div class="warnbox" id="datagap">
+        <span class="wi">⚠</span>
+        <p id="datagap-txt">—</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TEAM PROJECTIONS -->
+  <div class="llabel"><span class="dot" style="background:var(--gold)"></span>Team Projections</div>
+  <div class="card">
+    <div class="card-hdr">
+      <div>
+        <div class="card-title">Projected 2027 Finish</div>
+        <div class="card-sub">Ranked by projected winning percentage</div>
+      </div>
+      <div style="font-size:.6rem;color:var(--sub);text-align:right;line-height:1.6;max-width:230px">
+        Returning % is share of 2026 playing time<br>coming back, not share of WAR
+      </div>
+    </div>
+    <div id="proj-table"></div>
+  </div>
+
+  <!-- TOP RETURNING HITTERS -->
+  <div class="llabel"><span class="dot" style="background:var(--gold)"></span>Top Returning Hitters</div>
+  <div class="card">
+    <div class="card-hdr">
+      <div>
+        <div class="card-title">Top 5 Returning Hitters <span class="advb">ADV</span></div>
+        <div class="card-sub" id="rh-sub">Ranked by 2026 oWAR</div>
+      </div>
+    </div>
+    <div class="rgrid" id="ret-hitters"></div>
+  </div>
+
+  <!-- METHODOLOGY -->
+  <div class="llabel"><span class="dot" style="background:var(--gold)"></span>Methodology</div>
+  <div class="card">
+    <div class="card-hdr">
+      <div>
+        <div class="card-title">How These Are Built</div>
+        <div class="card-sub">Five steps · all constants shown</div>
+      </div>
+    </div>
+    <div class="mrow"><div class="mstep">1</div><div class="mtxt">
+      <b>Estimate 2026 talent.</b> Each team gets two independent reads: its actual winning percentage (ties count as half a win, NCAA convention) and a WAR-based estimate that starts from a replacement-level team and adds the total oWAR and pWAR its players produced.
+      <div class="formula">WAR win% = .300 + (total WAR &times; scale ÷ games)</div>
+      The scale factor is not assumed. It is solved for on every page load so that league-wide WAR reproduces league-wide wins above replacement, which keeps the WAR estimate on the same footing as actual results. Current value: <b id="scale-val">—</b>.
+
+      The two are blended, then regressed toward .500. Regression is the honest admission that a 20-game high school season is a small sample.
+    </div></div>
+    <div class="mrow"><div class="mstep">2</div><div class="mtxt">
+      <b>Split returning from departing.</b> Seniors leave; freshmen, sophomores and juniors return. Players with no listed class year are treated as departing, which is the conservative assumption.
+    </div></div>
+    <div class="mrow"><div class="mstep">3</div><div class="mtxt">
+      <b>Grow the returners.</b> High school players improve year over year, and younger ones improve fastest. Returning WAR is multiplied by a class-based growth factor: <b>freshmen ×1.35</b>, <b>sophomores ×1.25</b>, <b>juniors ×1.10</b>. These are reasoned starting values, not empirically derived, and are the single most replaceable assumption in the model.
+    </div></div>
+    <div class="mrow"><div class="mstep">4</div><div class="mtxt">
+      <b>Replace what graduated.</b> Programs reload at different rates. The model assumes <b>45%</b> of departed WAR is replaced, scaled by program strength so stronger programs backfill better.
+    </div></div>
+    <div class="mrow"><div class="mstep">5</div><div class="mtxt">
+      <b>Convert to a record.</b> Projected WAR becomes a winning percentage, blended once more with the regressed 2026 talent estimate, then applied across a season of <b id="season-len">—</b>, the league median in 2026. A final zero-sum correction shifts every team so the conference averages .500, since the CCAA mostly plays itself and cannot collectively improve.
+    </div></div>
+    <div class="mrow"><div class="mstep">⚠</div><div class="mtxt">
+      <b>Known limitations.</b> There are no park factors, no strength-of-schedule adjustment across the three leagues, no defensive component in WAR, and no accounting for incoming freshmen or transfers. Growth and reload rates are assumed rather than measured. All of these improve once a second season of data exists.
+    </div></div>
+  </div>
+
+</main>
+
+<footer>CCAA Baseball · Spring 2026 · Central Coast Athletic Association, CA · Stats: <a href="standings.html">Mountain</a> · <a href="standings.html">Sunset</a> · <a href="standings.html">Ocean</a></footer>
+
+<script src="data.js"></script>
+<script>
+/* ============================================================
+   2027 PROJECTIONS ENGINE
+   Reads `teams`, `batters`, `pitchers`, `standingsData` from
+   data.js after recalcLeagueAvgs() has run, so every WAR figure
+   is already CCAA-calibrated.
+   ============================================================ */
+
+const CFG = {
+  REPL_WINPCT   : 0.300,   // a replacement-level CCAA team
+  REGRESS_G     : 8,       // games of .500 prior (teams with player data)
+  REGRESS_G_NONE: 20,      // heavier prior when only a W-L record exists
+  GROWTH        : { Fr:1.35, So:1.25, Jr:1.10 },
+  RELOAD_RATE   : 0.45,    // share of departed WAR a program replaces
+  MIN_PA_RETURN : 25,      // qualifier for the returning-hitter board
+  PROJ_GAMES    : 28,      // fallback only; the real value is the league
+                           // median games played, derived in project()
+  WP_FLOOR      : 0.15,
+  WP_CEIL       : 0.85
+};
+
+const TL={"St. Joseph":"mountain","Arroyo Grande":"mountain","Righetti":"mountain","Morro Bay":"mountain","Mission College Prep":"mountain","Lompoc":"mountain","Paso Robles":"sunset","San Luis Obispo":"sunset","Atascadero":"sunset","Templeton":"sunset","Cabrillo":"sunset","Nipomo":"ocean","Pioneer Valley":"ocean","Santa Ynez":"ocean","Santa Maria":"ocean"};
+const TC={"St. Joseph":{bg:"#2d4a1e",fg:"#a8d5a2",a:"SJ"},"Arroyo Grande":{bg:"#3a3010",fg:"#f0d080",a:"AG"},"Righetti":{bg:"#2d1a4a",fg:"#c4a0f0",a:"RHS"},"Morro Bay":{bg:"#0f2a40",fg:"#80c8f0",a:"MB"},"Mission College Prep":{bg:"#0e2d5e",fg:"#6bb8ff",a:"MP"},"Lompoc":{bg:"#1a1a2e",fg:"#90a8e0",a:"LOM"},"Paso Robles":{bg:"#2a1010",fg:"#e08080",a:"PAS"},"San Luis Obispo":{bg:"#1a1a2e",fg:"#c8b060",a:"SLO"},"Atascadero":{bg:"#2a1810",fg:"#e09060",a:"ATA"},"Templeton":{bg:"#1a2a1a",fg:"#90c890",a:"TMP"},"Cabrillo":{bg:"#1a1a1a",fg:"#c8b060",a:"CAB"},"Nipomo":{bg:"#1a1a2a",fg:"#a0a0c8",a:"NIP"},"Pioneer Valley":{bg:"#0f2a2a",fg:"#80c8c8",a:"PV"},"Santa Ynez":{bg:"#2a1a10",fg:"#e0a060",a:"SY"},"Santa Maria":{bg:"#2a0f0f",fg:"#e08080",a:"SM"}};
+const LOGOS={"Arroyo Grande":"images/logos/ag.png","Atascadero":"images/logos/ata.png","Cabrillo":"images/logos/cabrillo.png","Lompoc":"images/logos/lompoc.png","Mission College Prep":"images/logos/mp.png","St. Joseph":"images/logos/sj.png","Morro Bay":"images/logos/mb.png","Nipomo":"images/logos/nipomo.png","Paso Robles":"images/logos/paso.png","Pioneer Valley":"images/logos/pv.png","Righetti":"images/logos/righetti.png","San Luis Obispo":"images/logos/slo.png","Santa Maria":"images/logos/santa_maria.png","Santa Ynez":"images/logos/santa_ynez.png","Templeton":"images/logos/templeton.png"};
+const LGB={mountain:['lgb-m','MTN'],sunset:['lgb-s','SUN'],ocean:['lgb-o','OCN']};
+const NEXT_YEAR={Fr:'So',So:'Jr',Jr:'Sr'};
+const RETURNING=new Set(['Fr','So','Jr']);
+
+function ipF(ip){
+  if(ip===null||ip===undefined)return 0;
+  const s=ip.toString();
+  if(!s.includes('.'))return parseFloat(s)||0;
+  const [w,f]=s.split('.');
+  const wh=parseFloat(w)||0;
+  if(f==='1')return wh+1/3;
+  if(f==='2')return wh+2/3;
+  return parseFloat(s)||0;
+}
+const clamp=(v,lo,hi)=>Math.max(lo,Math.min(hi,v));
+const f3=v=>v.toFixed(3).replace(/^0\./,'.');
+const num=v=>(v===null||v===undefined||isNaN(v))?0:v;
+
+/* ---------- 1. aggregate player value by team ---------- */
+function aggregate(){
+  const A={};
+  const touch=t=>{ if(!A[t]) A[t]={team:t,war:0,retWar:0,grownWar:0,depWar:0,
+                                  pt:0,retPt:0,unknownYr:0,retPlayers:[]}; return A[t]; };
+
+  batters.forEach(b=>{
+    const a=touch(b.team), war=num(b.owar), pt=num(b.pa);
+    a.war+=war; a.pt+=pt;
+    if(RETURNING.has(b.year)){
+      a.retWar+=war; a.retPt+=pt;
+      a.grownWar+=war*(CFG.GROWTH[b.year]||1);
+      a.retPlayers.push({name:b.name,year:b.year,war,pa:b.pa,wrc:b.wrc_plus,kind:'bat'});
+    } else {
+      a.depWar+=war;
+      if(!b.year||!['Fr','So','Jr','Sr'].includes(b.year)) a.unknownYr++;
+    }
+  });
+
+  pitchers.forEach(p=>{
+    const a=touch(p.team), war=num(p.pwar), pt=ipF(p.ip)*3; // outs as the workload unit
+    a.war+=war; a.pt+=pt;
+    if(RETURNING.has(p.year)){
+      a.retWar+=war; a.retPt+=pt;
+      a.grownWar+=war*(CFG.GROWTH[p.year]||1);
+      a.retPlayers.push({name:p.name,year:p.year,war,ip:p.ip,era:p.era,kind:'pit'});
+    } else {
+      a.depWar+=war;
+      if(!p.year||!['Fr','So','Jr','Sr'].includes(p.year)) a.unknownYr++;
+    }
+  });
+  return A;
+}
+
+/* ---------- 2. records from standingsData ---------- */
+function records(){
+  const R={};
+  ['mountain','sunset','ocean'].forEach(lg=>{
+    (standingsData[lg]||[]).forEach(t=>{
+      const g=t.ow+t.ol+t.ot;
+      R[t.name]={ow:t.ow,ol:t.ol,ot:t.ot,g,
+                 wp:g>0?(t.ow+0.5*t.ot)/g:0.5,
+                 label:t.ot>0?`${t.ow}-${t.ol}-${t.ot}`:`${t.ow}-${t.ol}`};
+    });
+  });
+  return R;
+}
+
+/* ---------- 3. build projections ---------- */
+/* WAR is not denominated in team wins on this site, so calibrate the
+   conversion from the data itself: scale total league WAR so that it
+   reproduces total league wins above replacement. Relative differences
+   between teams are preserved; only the units change. Same self-tuning
+   philosophy as recalcLeagueAvgs(). */
+function warScale(A,R){
+  let wins=0, war=0;
+  Object.values(A).forEach(a=>{
+    const rec=R[a.team];
+    if(!rec||!rec.g||a.pt<=0) return;
+    wins += (rec.ow + 0.5*rec.ot) - CFG.REPL_WINPCT*rec.g;
+    war  += a.war;
+  });
+  if(war<=0.5) return 1;                    // degenerate data, fall back to 1:1
+  return clamp(wins/war, 0.2, 6);           // wide guard rails; should not bind
+}
+
+/* Teams play different numbers of games (21 to 33 in 2026), so project onto
+   the league median rather than an assumed season length. */
+function medianGames(R){
+  const g=Object.values(R).map(r=>r.g).filter(v=>v>0).sort((a,b)=>a-b);
+  return g.length ? g[Math.floor(g.length/2)] : CFG.PROJ_GAMES;
+}
+
+function project(){
+  const A=aggregate(), R=records(), out=[];
+  const SCALE=warScale(A,R);
+  const GAMES=medianGames(R);
+
+  // league-median returning share, used to fill in teams with no player data
+  const shares=Object.values(A).filter(a=>a.pt>0).map(a=>a.retPt/a.pt).sort((x,y)=>x-y);
+  const medShare=shares.length?shares[Math.floor(shares.length/2)]:0.55;
+
+  teams.forEach(t=>{
+    const a=A[t.name], rec=R[t.name];
+    if(!rec) return;
+    const hasPlayers=!!(a&&a.pt>0);
+    const G=rec.g||CFG.PROJ_GAMES;
+
+    // -- talent estimate --
+    const warWp = hasPlayers ? CFG.REPL_WINPCT + (a.war*SCALE)/G : null;
+    const blend = hasPlayers ? 0.55*rec.wp + 0.45*warWp : rec.wp;
+    const K     = hasPlayers ? CFG.REGRESS_G : CFG.REGRESS_G_NONE;
+    const talent= (blend*G + 0.500*K)/(G+K);
+
+    // -- projection --
+    let projWp;
+    if(hasPlayers){
+      const reload = clamp(talent/0.500, 0.7, 1.3);
+      const projWar= a.grownWar + CFG.RELOAD_RATE*Math.max(a.depWar,0)*reload;
+      const rawWp  = CFG.REPL_WINPCT + (projWar*SCALE)/GAMES;
+      projWp = 0.60*rawWp + 0.40*talent;
+    } else {
+      // Record-only: the regressed talent estimate IS the projection. There is
+      // no roster information to move it in either direction.
+      projWp = talent;
+    }
+    projWp = clamp(projWp, CFG.WP_FLOOR, CFG.WP_CEIL);
+
+    const pw = Math.round(projWp*GAMES);
+    const core = hasPlayers
+      ? a.retPlayers.slice().sort((x,y)=>y.war-x.war).filter(p=>p.war>0).slice(0,3)
+      : [];
+
+    out.push({
+      name:t.name, league:TL[t.name]||'', hasPlayers,
+      rec:rec.label, wp2026:rec.wp, games:G,
+      war: hasPlayers?a.war:null,
+      retShare: hasPlayers ? a.retPt/a.pt : medShare,
+      retShareKnown: hasPlayers,
+      unknownYr: hasPlayers?a.unknownYr:0,
+      projWp, projRec:`${pw}-${GAMES-pw}`,
+      delta: projWp-rec.wp,
+      conf: !hasPlayers ? 'lo' : (G>=18 ? 'hi' : 'md'),
+      core
+    });
+  });
+
+  /* Zero-sum correction. A conference plays itself, so projected winning
+     percentages have to average out to about .500. Growth factors applied
+     to returners will otherwise inflate the league as a whole. An additive
+     shift preserves the spread between teams; a multiplicative one would not. */
+  if(out.length){
+    const mean=out.reduce((a,t)=>a+t.projWp,0)/out.length;
+    const shift=0.500-mean;
+    out.forEach(t=>{
+      t.projWp=clamp(t.projWp+shift, CFG.WP_FLOOR, CFG.WP_CEIL);
+      const pw=Math.round(t.projWp*GAMES);
+      t.projRec=`${pw}-${GAMES-pw}`;
+      t.delta=t.projWp-t.wp2026;
+    });
+  }
+
+  out.sort((x,y)=>y.projWp-x.projWp);
+  return out;
+}
+
+/* ---------- 4. render ---------- */
+let curLeague='all';
+let PROJ=[];
+
+function logoImg(name,size){
+  return LOGOS[name]?`<img src="${LOGOS[name]}" style="width:${size}px;height:${size}px;object-fit:contain" alt="">`:'';
+}
+
+function renderTable(){
+  const rows=PROJ.filter(p=>curLeague==='all'||p.league===curLeague);
+  const head=`<div class="prow head">
+    <div>#</div><div></div><div>Team</div><div>2026 → 2027</div>
+    <div style="text-align:right">Proj Win%</div><div>Returning</div><div style="text-align:center">Conf</div>
+  </div>`;
+  document.getElementById('proj-table').innerHTML = head + rows.map((p,i)=>{
+    const [lc,ll]=LGB[p.league]||['',''];
+    const d=p.delta, dCls=Math.abs(d)<0.02?'flat':(d>0?'up':'down');
+    const dTxt=Math.abs(d)<0.02?'≈ even':(d>0?'▲ ':'▼ ')+f3(Math.abs(d)).replace('.','.');
+    const share=Math.round(p.retShare*100);
+    const coreTxt=p.core.length
+      ? `<div class="pcore"><b>Core back:</b> ${p.core.map(c=>c.name+' ('+NEXT_YEAR[c.year]+')').join(' · ')}</div>`
+      : (p.hasPlayers?'':`<div class="pcore">No player-level data on file for 2026 — projection is record-only.</div>`);
+    return `<div class="prow">
+      <div class="prank${i===0?' top':''}">${i+1}</div>
+      <div class="plogo">${logoImg(p.name,30)}</div>
+      <div class="pteam">
+        <div class="pname">${p.name}</div>
+        <div class="pmeta"><span class="lgb ${lc}">${ll}</span>${p.war!==null?'<span>'+(p.war>0?'+':'')+p.war.toFixed(1)+' WAR in 2026</span>':'<span>record only</span>'}</div>
+      </div>
+      <div class="precs"><span class="prec-old">${p.rec}</span> → <span class="prec-new">${p.projRec}</span></div>
+      <div class="pwp-wrap">
+        <div class="pwp">${f3(p.projWp)}</div>
+        <div class="pdelta ${dCls}">${dTxt}</div>
+      </div>
+      <div class="pret">
+        <div class="pretlbl">${p.retShareKnown?share+'% returning':'~'+share+'% assumed'}</div>
+        <div class="pretbar"><div class="pretfill${p.retShareKnown?'':' na'}" style="width:${clamp(share,0,100)}%"></div></div>
+      </div>
+      <div><div class="pconf conf-${p.conf}">${p.conf==='hi'?'High':p.conf==='md'?'Med':'Low'}</div></div>
+      ${coreTxt}
+    </div>`;
+  }).join('');
+}
+
+function renderReturners(){
+  const pool=batters
+    .filter(b=>RETURNING.has(b.year) && b.pa>=CFG.MIN_PA_RETURN && b.owar!==null && b.owar!==undefined)
+    .sort((a,b)=>b.owar-a.owar)
+    .slice(0,5);
+  document.getElementById('rh-sub').textContent =
+    `Ranked by 2026 oWAR · min ${CFG.MIN_PA_RETURN} PA · non-seniors only`;
+  document.getElementById('ret-hitters').innerHTML = pool.length ? pool.map((b,i)=>`
+    <div class="rcard${i===0?' gold':''}">
+      <div class="rrank">${i+1}</div>
+      <div class="rname">${b.name}</div>
+      <div class="rteam">${logoImg(b.team,16)}<span>${b.team}</span>
+        <span class="ryr">${b.year} → ${NEXT_YEAR[b.year]}</span></div>
+      <div class="rstats">
+        <div class="rstat"><span class="rs-lbl">oWAR</span><span class="rs-val g">${b.owar>0?'+':''}${b.owar.toFixed(1)}</span></div>
+        <div class="rstat"><span class="rs-lbl">wRC+</span><span class="rs-val">${b.wrc_plus??'—'}</span></div>
+        <div class="rstat"><span class="rs-lbl">AVG</span><span class="rs-val">${f3(b.avg)}</span></div>
+        <div class="rstat"><span class="rs-lbl">PA</span><span class="rs-val">${b.pa}</span></div>
+      </div>
+    </div>`).join('')
+    : `<div style="padding:1rem;font-size:.75rem;color:var(--sub)">No returning hitters clear the ${CFG.MIN_PA_RETURN} PA qualifier.</div>`;
+}
+
+function renderGap(){
+  const missing=PROJ.filter(p=>!p.hasPlayers).map(p=>p.name);
+  const unknown=PROJ.filter(p=>p.unknownYr>0);
+  let txt='';
+  if(missing.length){
+    txt+=`<strong style="color:var(--text)">${missing.join(', ')}</strong> ${missing.length===1?'has':'have'} no player-level stats on file for 2026, so ${missing.length===1?'its':'their'} projection is built from the W-L record alone and regressed far more heavily toward league average. Returning production is shown as the league median because there is no roster to measure. Treat ${missing.length===1?'it':'them'} as the widest error bar on the page.`;
+  } else {
+    txt+='Every team has player-level data on file, so all projections use the full model.';
+  }
+  if(unknown.length){
+    const n=unknown.reduce((s,t)=>s+t.unknownYr,0);
+    txt+=` ${n} player${n===1?'':'s'} across ${unknown.length} team${unknown.length===1?'':'s'} ${n===1?'is':'are'} missing a class year and ${n===1?'is':'are'} counted as departing.`;
+  }
+  document.getElementById('datagap-txt').innerHTML=txt;
+}
+
+function setLeague(l,btn){
+  curLeague=l;
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  renderTable();
+}
+
+/* ---------- boot ---------- */
+PROJ=project();
+{ const _A=aggregate(), _R=records();
+  const el=document.getElementById('scale-val');
+  if(el) el.textContent=warScale(_A,_R).toFixed(2)+' wins per WAR';
+  const gl=document.getElementById('season-len');
+  if(gl) gl.textContent=medianGames(_R)+' games'; }
+renderTable();
+renderReturners();
+renderGap();
+
+if(typeof DATA_UPDATED!=='undefined'&&DATA_UPDATED){
+  const [y,m,d]=DATA_UPDATED.split('-').map(Number);       // force local time
+  document.getElementById('last-updated').textContent =
+    'Projections from data updated '+new Date(y,m-1,d).toLocaleDateString('en-US',
+      {month:'short',day:'numeric',year:'numeric'});
+} else {
+  document.getElementById('last-updated').textContent='Built from the Spring 2026 season';
+}
+</script>
+<script>
+/* Shared nav: active-state detection + dropdown behaviour.
+   The nav markup is identical on every page; this marks the current one. */
+(function(){
+  // Normalise so matching survives Vercel clean URLs (/stats) and
+  // trailing slashes, not just explicit /stats.html paths.
+  function key(p){
+    p=(p||'').toLowerCase().split('?')[0].split('#')[0];
+    p=p.replace(/\/+$/,'');            // tolerate a trailing slash
+    p=p.split('/').pop();
+    if(!p) return 'index';
+    return p.replace(/\.html$/,'');
+  }
+  var here=key(location.pathname);
+  document.querySelectorAll('nav a[href]').forEach(function(a){
+    if(key(a.getAttribute('href'))===here){
+      a.classList.add('on');
+      var dd=a.closest('.navdd');
+      if(dd) dd.classList.add('on');
+    }
+  });
+  function closeAll(){
+    document.querySelectorAll('.navdd.open').forEach(function(dd){
+      dd.classList.remove('open');
+      dd.querySelector('.navdd-btn').setAttribute('aria-expanded','false');
+    });
+  }
+  document.querySelectorAll('.navdd').forEach(function(dd){
+    var btn=dd.querySelector('.navdd-btn');
+    btn.addEventListener('click',function(e){
+      e.stopPropagation();
+      var willOpen=!dd.classList.contains('open');
+      closeAll();
+      if(willOpen){ dd.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
+    });
+  });
+  document.addEventListener('click',closeAll);
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeAll(); });
+})();
+</script>
+</body>
+</html>
