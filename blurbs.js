@@ -28,9 +28,8 @@
 
    USAGE
    -----
-   <script src="data.js"></script>
-   <script src="blurbs.js"></script>
-   ...
+   Load blurbs.js immediately after data.js in the page <head>/<body>,
+   then:
    BLURB.init(batters, pitchers);            // once, after data.js
    BLURB.forPlayer(batterObjOrNull, pitcherObjOrNull);  // -> string
    ============================================================ */
