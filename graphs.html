@@ -146,6 +146,7 @@ footer a:hover{color:var(--text)}
       <div class="navdd-menu" role="menu">
         <a href="graphs.html" role="menuitem">Graphs</a>
         <a href="projections.html" role="menuitem">Projections</a>
+        <a href="writeups.html" role="menuitem">Write-ups</a>
       </div>
     </div>
     <a href="awards.html">Awards</a>
@@ -216,12 +217,12 @@ footer a:hover{color:var(--text)}
 </main>
 
 <nav class="mob-nav">
-  <a href="index.html"><span class="mn-ic">&#127968;</span>Home</a>
   <a href="standings.html"><span class="mn-ic">&#127942;</span>Stand</a>
   <a href="stats.html"><span class="mn-ic">&#128202;</span>Stats</a>
   <a href="teams.html"><span class="mn-ic">&#9918;</span>Teams</a>
   <a href="graphs.html"><span class="mn-ic">&#128200;</span>Graphs</a>
   <a href="projections.html"><span class="mn-ic">&#128302;</span>Proj</a>
+  <a href="writeups.html"><span class="mn-ic">&#128221;</span>Write</a>
   <a href="awards.html"><span class="mn-ic">&#127941;</span>Awards</a>
   <a href="about.html"><span class="mn-ic">&#8505;&#65039;</span>About</a>
 </nav>
@@ -524,7 +525,9 @@ window.addEventListener('resize',()=>{if(chart){chart.$ref=chart.$ref;}});
     if(!p) return 'index';
     return p.replace(/\.html$/,'');
   }
-  var here=key(location.pathname);
+  // A child page (writeup.html) can declare which nav entry owns it via
+  // <body data-nav="writeups.html">, so section highlighting still works.
+  var here=key(document.body.getAttribute('data-nav')||location.pathname);
   document.querySelectorAll('nav a[href]').forEach(function(a){
     if(key(a.getAttribute('href'))===here){
       a.classList.add('on');

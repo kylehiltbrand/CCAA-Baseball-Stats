@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Write-ups | CCAA Baseball 2025-26</title>
+
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0d1117">
+
+<meta name="description" content="Written analysis of CCAA baseball: projections, methodology, player spotlights, and season recaps from across the Central Coast Athletic Association.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ccaabaseballstats.com/writeups.html">
+<meta property="og:title" content="Write-ups | CCAA Baseball Stats">
+<meta property="og:description" content="Written analysis of CCAA baseball: projections, methodology, player spotlights, and season recaps.">
+<meta property="og:image" content="https://ccaabaseballstats.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="CCAA Baseball Stats">
+<meta property="og:site_name" content="CCAA Baseball Stats">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://ccaabaseballstats.com/writeups.html">
+<meta name="twitter:title" content="Write-ups | CCAA Baseball Stats">
+<meta name="twitter:description" content="Written analysis of CCAA baseball: projections, methodology, player spotlights, and season recaps.">
+<meta name="twitter:image" content="https://ccaabaseballstats.com/og-image.png">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap');
+:root{--bg:#0d1117;--bg2:#161b22;--bg3:#1c2230;--bdr:#21293a;--bdr2:#2d3748;--gold:#f0a500;--text:#e2e8f0;--sub:#8b9cb5;--dim:#4a5568;--green:#38a169;--red:#e53e3e;--sky:#63b3ed;--mtn:#e07b39;--sun:#9b5de5;--ocn:#38bdf8}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:14px}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.5}
+a{color:inherit;text-decoration:none}
+header{background:var(--bg2);border-bottom:1px solid var(--bdr);position:sticky;top:0;z-index:100}
+.hdr{max-width:1280px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:stretch;height:56px}
+.brand{display:flex;align-items:center;gap:.65rem;margin-right:2rem;flex-shrink:0}
+.logo{width:36px;height:36px;border-radius:8px;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.8rem;color:#0d1117;letter-spacing:-.02em;flex-shrink:0}
+.bname{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.05rem;display:block;color:var(--text)}
+.bsub{font-size:.58rem;color:var(--sub);letter-spacing:.08em;text-transform:uppercase;display:block}
+nav{display:flex;align-items:stretch}
+nav a{display:flex;align-items:center;padding:0 1rem;font-size:.75rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--sub);border-bottom:2px solid transparent;transition:color .15s,border-color .15s}
+nav a:hover{color:var(--text)}
+nav a.on{color:var(--text);border-bottom-color:var(--gold)}
+.sbadge{margin-left:auto;display:flex;align-items:center}
+.sp26{font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.22rem .65rem;border-radius:4px;background:var(--gold);color:#0d1117}
+.fbar{background:var(--bg2);border-bottom:1px solid var(--bdr)}
+.fbar-inner{max-width:1280px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:stretch;height:42px}
+.fbtn{display:flex;align-items:center;gap:.4rem;padding:0 1rem;background:none;border:none;border-right:1px solid var(--bdr);font-family:'Inter',sans-serif;font-size:.7rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--sub);cursor:pointer;transition:color .15s,background .15s;white-space:nowrap}
+.fbtn:first-child{border-left:1px solid var(--bdr)}
+.fbtn:hover,.fbtn.on{background:var(--bg3);color:var(--text)}
+main{max-width:1280px;margin:0 auto;padding:1.5rem 1.5rem 4rem}
+.card{background:var(--bg2);border:1px solid var(--bdr);border-radius:8px;overflow:hidden;margin-bottom:1rem}
+.card-hdr{padding:.8rem 1rem;border-bottom:1px solid var(--bdr);display:flex;align-items:flex-start;justify-content:space-between}
+.card-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.95rem;letter-spacing:.02em}
+.card-sub{font-size:.62rem;color:var(--sub);text-transform:uppercase;letter-spacing:.07em;margin-top:.1rem}
+.llabel{display:flex;align-items:center;gap:.45rem;font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin:1.5rem 0 .65rem;color:var(--sub)}
+.dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+footer{text-align:center;padding:1.5rem;border-top:1px solid var(--bdr);font-size:.65rem;color:var(--dim)}
+footer a{color:var(--sub)}
+footer a:hover{color:var(--text)}
+
+/* ── WRITE-UPS INDEX ──────────────────────────────────────── */
+.wu-cat{display:inline-block;font-size:.52rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:.16rem .45rem;border-radius:3px;background:rgba(240,165,0,.13);color:var(--gold)}
+.wu-meta{font-size:.62rem;color:var(--sub);display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+.wu-meta .sep{color:var(--dim)}
+
+.feat{display:block;background:var(--bg2);border:1px solid var(--bdr2);border-radius:9px;padding:1.5rem 1.6rem;margin-bottom:1.1rem;transition:border-color .15s,transform .12s}
+.feat:hover{border-color:var(--gold);transform:translateY(-1px)}
+.feat-tag{font-size:.52rem;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem;display:block}
+.feat-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:2rem;line-height:1.15;color:var(--text);margin-bottom:.4rem}
+.feat-sub{font-size:.9rem;color:var(--sub);line-height:1.6;margin-bottom:.8rem}
+.feat-ex{font-size:.8rem;color:var(--sub);line-height:1.75;margin-bottom:.9rem;max-width:70ch}
+.feat-read{display:inline-flex;align-items:center;gap:.35rem;font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold)}
+
+.wulist{display:grid;gap:.7rem}
+.wurow{display:block;background:var(--bg2);border:1px solid var(--bdr);border-radius:8px;padding:1rem 1.15rem;transition:border-color .15s,background .15s}
+.wurow:hover{border-color:var(--bdr2);background:var(--bg3)}
+.wurow-top{display:flex;align-items:center;gap:.6rem;margin-bottom:.45rem;flex-wrap:wrap}
+.wurow-title{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.2rem;line-height:1.2;color:var(--text);margin-bottom:.3rem}
+.wurow-sub{font-size:.75rem;color:var(--sub);line-height:1.65;margin-bottom:.5rem;max-width:75ch}
+.wu-empty{padding:2.5rem 1rem;text-align:center;color:var(--sub);font-size:.8rem}
+.wu-empty b{display:block;font-family:'Rajdhani',sans-serif;font-size:1.1rem;color:var(--text);margin-bottom:.4rem}
+
+@media(max-width:640px){
+  html{font-size:13px}
+  main{padding:1rem 1rem 5.5rem}
+  .hdr{padding:0 1rem;height:50px}
+  .bsub{display:none}
+  .brand{margin-right:1rem}
+  .sp26{display:none}
+  nav a{padding:0 .65rem;font-size:.7rem;white-space:nowrap}
+  .fbar-inner{padding:0 .75rem;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .fbar-inner::-webkit-scrollbar{display:none}
+  .fbtn{padding:0 .85rem;font-size:.65rem;flex-shrink:0}
+  .feat{padding:1.15rem 1.1rem}
+  .feat-title{font-size:1.5rem}
+  .feat-sub{font-size:.82rem}
+}
+.mob-nav{display:none}
+@media(max-width:640px){
+  .mob-nav{display:flex;position:fixed;bottom:0;left:0;right:0;background:var(--bg2);border-top:1px solid var(--bdr);z-index:200;height:54px}
+  .mob-nav a{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.2rem;font-size:.46rem;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:var(--sub);transition:color .15s;min-width:0}
+  .mob-nav a.on{color:var(--gold)}
+  .mob-nav a .mn-ic{font-size:1rem;line-height:1}
+}
+
+/* ── DROPDOWN NAV ─────────────────────────────────────────── */
+.navdd{position:relative;display:flex;align-items:stretch}
+.navdd-btn{display:flex;align-items:center;gap:.32rem;padding:0 1rem;background:none;border:none;border-bottom:2px solid transparent;font-family:'Inter',sans-serif;font-size:.75rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--sub);cursor:pointer;transition:color .15s,border-color .15s;white-space:nowrap}
+.navdd-btn:hover{color:var(--text)}
+.navdd.on .navdd-btn{color:var(--text);border-bottom-color:var(--gold)}
+.navdd-btn .cv{font-size:.55rem;line-height:1;transition:transform .15s;opacity:.8}
+.navdd.open .navdd-btn .cv{transform:rotate(180deg)}
+.navdd-menu{position:absolute;top:100%;left:0;min-width:160px;background:var(--bg2);border:1px solid var(--bdr2);border-top:none;border-radius:0 0 7px 7px;box-shadow:0 10px 24px rgba(0,0,0,.5);padding:.3rem 0;opacity:0;visibility:hidden;transform:translateY(-5px);transition:opacity .14s,transform .14s,visibility .14s;z-index:150}
+.navdd.open .navdd-menu{opacity:1;visibility:visible;transform:translateY(0)}
+.navdd-menu a{display:block;padding:.5rem .9rem;font-size:.72rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--sub);border-bottom:none;transition:color .12s,background .12s}
+.navdd-menu a:hover{background:var(--bg3);color:var(--text)}
+.navdd-menu a.on{color:var(--gold)}
+@media(hover:hover) and (min-width:641px){
+  .navdd:hover .navdd-menu{opacity:1;visibility:visible;transform:translateY(0)}
+  .navdd:hover .navdd-btn{color:var(--text)}
+}
+@media(max-width:640px){
+  .navdd-btn{padding:0 .65rem;font-size:.7rem}
+  .navdd-menu{min-width:140px}
+}
+</style>
+</head>
+<body>
+
+<header><div class="hdr">
+  <a href="index.html" class="brand">
+    <div class="logo">CCAA</div>
+    <div><span class="bname">CCAA Baseball</span><span class="bsub">Central Coast Athletic Association</span></div>
+  </a>
+  <nav>
+    <a href="standings.html">Standings</a>
+    <a href="stats.html">Stats</a>
+    <a href="teams.html">Teams</a>
+    <div class="navdd">
+      <button class="navdd-btn" type="button" aria-expanded="false" aria-haspopup="true">Analysis <span class="cv">&#9660;</span></button>
+      <div class="navdd-menu" role="menu">
+        <a href="graphs.html" role="menuitem">Graphs</a>
+        <a href="projections.html" role="menuitem">Projections</a>
+        <a href="writeups.html" role="menuitem">Write-ups</a>
+      </div>
+    </div>
+    <a href="awards.html">Awards</a>
+    <a href="about.html">About</a>
+  </nav>
+  <div class="sbadge"><span class="sp26">Spring 2026</span></div>
+</div></header>
+
+<div class="fbar"><div class="fbar-inner" id="catbar"></div></div>
+
+<nav class="mob-nav">
+  <a href="standings.html"><span class="mn-ic">&#127942;</span>Stand</a>
+  <a href="stats.html"><span class="mn-ic">&#128202;</span>Stats</a>
+  <a href="teams.html"><span class="mn-ic">&#9918;</span>Teams</a>
+  <a href="graphs.html"><span class="mn-ic">&#128200;</span>Graphs</a>
+  <a href="projections.html"><span class="mn-ic">&#128302;</span>Proj</a>
+  <a href="writeups.html"><span class="mn-ic">&#128221;</span>Write</a>
+  <a href="awards.html"><span class="mn-ic">&#127941;</span>Awards</a>
+  <a href="about.html"><span class="mn-ic">&#8505;&#65039;</span>About</a>
+</nav>
+
+<main>
+  <div class="llabel"><span class="dot" style="background:var(--gold)"></span>Write-ups</div>
+  <div id="feat-slot"></div>
+  <div class="wulist" id="wulist"></div>
+</main>
+
+<footer>CCAA Baseball · Spring 2026 · Central Coast Athletic Association, CA · Stats: <a href="standings.html">Mountain</a> · <a href="standings.html">Sunset</a> · <a href="standings.html">Ocean</a></footer>
+
+<script src="writeups.js"></script>
+<script>
+const POSTS=[...WRITEUPS].sort((a,b)=>MD.sortKey(b.date)-MD.sortKey(a.date));
+let curCat='all';
+
+function metaLine(p){
+  return `<span>${MD.fmtDateShort(p.date)}</span><span class="sep">·</span>
+          <span>${MD.readTime(p.body)} min read</span><span class="sep">·</span>
+          <span>${MD.esc(p.author||'')}</span>`;
+}
+
+function renderCats(){
+  const cats=[...new Set(POSTS.map(p=>p.category).filter(Boolean))].sort();
+  document.getElementById('catbar').innerHTML=
+    `<button class="fbtn${curCat==='all'?' on':''}" data-cat="all">All Write-ups</button>`+
+    cats.map(c=>`<button class="fbtn${curCat===c?' on':''}" data-cat="${MD.esc(c)}">${MD.esc(c)}</button>`).join('');
+  document.querySelectorAll('#catbar .fbtn').forEach(b=>{
+    b.onclick=()=>{ curCat=b.dataset.cat; renderCats(); renderList(); };
+  });
+}
+
+function renderList(){
+  const list=POSTS.filter(p=>curCat==='all'||p.category===curCat);
+  const feat=document.getElementById('feat-slot');
+  const rest=document.getElementById('wulist');
+
+  if(!list.length){
+    feat.innerHTML='';
+    rest.innerHTML=`<div class="card"><div class="wu-empty">
+      <b>Nothing here yet</b>No write-ups filed under that category.</div></div>`;
+    return;
+  }
+
+  // newest post gets the featured treatment, but only in the unfiltered view
+  const showFeat = curCat==='all';
+  const f = showFeat ? list[0] : null;
+  const others = showFeat ? list.slice(1) : list;
+
+  feat.innerHTML = f ? `<a class="feat" href="writeup.html?p=${encodeURIComponent(f.slug)}">
+      <span class="feat-tag">Latest</span>
+      <div class="feat-title">${MD.esc(f.title)}</div>
+      ${f.subtitle?`<div class="feat-sub">${MD.esc(f.subtitle)}</div>`:''}
+      <div class="feat-ex">${MD.esc(f.excerpt||'')}</div>
+      <div class="wu-meta" style="margin-bottom:.9rem">
+        <span class="wu-cat">${MD.esc(f.category||'')}</span>${metaLine(f)}
+      </div>
+      <span class="feat-read">Read the write-up &rarr;</span>
+    </a>` : '';
+
+  rest.innerHTML = others.map(p=>`<a class="wurow" href="writeup.html?p=${encodeURIComponent(p.slug)}">
+      <div class="wurow-top">
+        <span class="wu-cat">${MD.esc(p.category||'')}</span>
+        <span class="wu-meta">${metaLine(p)}</span>
+      </div>
+      <div class="wurow-title">${MD.esc(p.title)}</div>
+      ${p.subtitle?`<div class="wurow-sub">${MD.esc(p.subtitle)}</div>`:''}
+    </a>`).join('');
+}
+
+renderCats();
+renderList();
+</script>
+<script>
+/* Shared nav: active-state detection + dropdown behaviour.
+   The nav markup is identical on every page; this marks the current one. */
+(function(){
+  // Normalise so matching survives Vercel clean URLs (/stats) and
+  // trailing slashes, not just explicit /stats.html paths.
+  function key(p){
+    p=(p||'').toLowerCase().split('?')[0].split('#')[0];
+    p=p.replace(/\/+$/,'');            // tolerate a trailing slash
+    p=p.split('/').pop();
+    if(!p) return 'index';
+    return p.replace(/\.html$/,'');
+  }
+  // A child page (writeup.html) can declare which nav entry owns it via
+  // <body data-nav="writeups.html">, so section highlighting still works.
+  var here=key(document.body.getAttribute('data-nav')||location.pathname);
+  document.querySelectorAll('nav a[href]').forEach(function(a){
+    if(key(a.getAttribute('href'))===here){
+      a.classList.add('on');
+      var dd=a.closest('.navdd');
+      if(dd) dd.classList.add('on');
+    }
+  });
+  function closeAll(){
+    document.querySelectorAll('.navdd.open').forEach(function(dd){
+      dd.classList.remove('open');
+      dd.querySelector('.navdd-btn').setAttribute('aria-expanded','false');
+    });
+  }
+  document.querySelectorAll('.navdd').forEach(function(dd){
+    var btn=dd.querySelector('.navdd-btn');
+    btn.addEventListener('click',function(e){
+      e.stopPropagation();
+      var willOpen=!dd.classList.contains('open');
+      closeAll();
+      if(willOpen){ dd.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
+    });
+  });
+  document.addEventListener('click',closeAll);
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeAll(); });
+})();
+</script>
+</body>
+</html>
