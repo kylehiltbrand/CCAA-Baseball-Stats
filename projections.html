@@ -131,6 +131,25 @@ footer a:hover{color:var(--text)}
 .rs-val.g{color:var(--gold)}
 .ryr{font-size:.55rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.1rem .35rem;border-radius:3px;background:rgba(99,179,237,.13);color:var(--sky)}
 
+/* top returner by team */
+.trgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:.7rem;padding:1rem}
+.trcard{background:var(--bg3);border:1px solid var(--bdr);border-radius:7px;overflow:hidden}
+.trhdr{display:flex;align-items:center;gap:.5rem;padding:.55rem .8rem;border-bottom:1px solid var(--bdr);background:rgba(0,0,0,.18)}
+.trhdr img{width:22px;height:22px;object-fit:contain;flex-shrink:0}
+.trname{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.9rem;color:var(--text);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.trrow{display:flex;align-items:center;gap:.55rem;padding:.55rem .8rem;border-bottom:1px solid var(--bdr)}
+.trrow:last-child{border-bottom:none}
+.trkind{font-size:.48rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:.14rem 0;border-radius:3px;width:32px;text-align:center;flex-shrink:0}
+.trk-h{background:rgba(240,165,0,.15);color:var(--gold)}
+.trk-p{background:rgba(99,179,237,.15);color:var(--sky)}
+.trplayer{flex:1;min-width:0}
+.trp-name{font-size:.78rem;font-weight:600;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.trp-meta{font-size:.57rem;color:var(--sub);margin-top:.05rem}
+.trwar{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.95rem;flex-shrink:0}
+.trwar.h{color:var(--gold)}.trwar.p{color:var(--sky)}
+.trnone{font-size:.7rem;color:var(--dim);font-style:italic}
+.twoway-tag{font-size:.46rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.05rem .28rem;border-radius:2px;background:rgba(155,93,229,.18);color:#b48bf0;margin-left:.3rem;vertical-align:middle}
+
 /* methodology */
 .mrow{display:flex;gap:.9rem;padding:.75rem 1rem;border-bottom:1px solid var(--bdr);align-items:flex-start}
 .mrow:last-child{border-bottom:none}
@@ -283,6 +302,31 @@ footer a:hover{color:var(--text)}
     <div class="rgrid" id="ret-hitters"></div>
   </div>
 
+  <div class="card">
+    <div class="card-hdr">
+      <div>
+        <div class="card-title">Top 5 Returning Pitchers <span class="advb">ADV</span></div>
+        <div class="card-sub" id="rp-sub">Ranked by 2026 pWAR</div>
+      </div>
+    </div>
+    <div class="rgrid" id="ret-pitchers"></div>
+  </div>
+
+  <!-- TOP RETURNER BY TEAM -->
+  <div class="llabel"><span class="dot" style="background:var(--gold)"></span>Top Returner by Team</div>
+  <div class="card">
+    <div class="card-hdr">
+      <div>
+        <div class="card-title">Best Bat and Best Arm Coming Back</div>
+        <div class="card-sub" id="tr-sub">One hitter and one pitcher per program</div>
+      </div>
+      <div style="font-size:.6rem;color:var(--sub);text-align:right;line-height:1.6;max-width:210px">
+        A two-way player can lead both columns<br>and is marked as such
+      </div>
+    </div>
+    <div class="trgrid" id="team-returners"></div>
+  </div>
+
   <!-- METHODOLOGY -->
   <div class="llabel"><span class="dot" style="background:var(--gold)"></span>Methodology</div>
   <div class="card">
@@ -336,6 +380,9 @@ const CFG = {
   GROWTH        : { Fr:1.35, So:1.25, Jr:1.10 },
   RELOAD_RATE   : 0.45,    // share of departed WAR a program replaces
   MIN_PA_RETURN : 25,      // qualifier for the returning-hitter board
+  MIN_IP_RETURN : 15,      // qualifier for the returning-pitcher board
+  MIN_PA_TEAM   : 10,      // lower bar for the per-team view
+  MIN_IP_TEAM   : 5,
   PROJ_GAMES    : 28,      // fallback only; the real value is the league
                            // median games played, derived in project()
   WP_FLOOR      : 0.15,
@@ -367,7 +414,17 @@ const num=v=>(v===null||v===undefined||isNaN(v))?0:v;
 function aggregate(){
   const A={};
   const touch=t=>{ if(!A[t]) A[t]={team:t,war:0,retWar:0,grownWar:0,depWar:0,
-                                  pt:0,retPt:0,unknownYr:0,retPlayers:[]}; return A[t]; };
+                                  pt:0,retPt:0,unknownYr:0,retMap:new Map()}; return A[t]; };
+  /* A two-way player appears in both arrays and must not be listed twice.
+     Key on name + class year so that genuinely different players who share a
+     name (Nipomo carries an L. Hobbs Sr and an L. Hobbs Fr) stay separate,
+     while the same player's bat and arm merge into one entry. */
+  const merge=(a,p)=>{
+    const k=p.name+'|'+p.year;
+    const e=a.retMap.get(k);
+    if(e){ e.war+=p.war; Object.assign(e,{...p,war:e.war,bat:e.bat||p.bat,pit:e.pit||p.pit}); }
+    else a.retMap.set(k,p);
+  };
 
   batters.forEach(b=>{
     const a=touch(b.team), war=num(b.owar), pt=num(b.pa);
@@ -375,7 +432,7 @@ function aggregate(){
     if(RETURNING.has(b.year)){
       a.retWar+=war; a.retPt+=pt;
       a.grownWar+=war*(CFG.GROWTH[b.year]||1);
-      a.retPlayers.push({name:b.name,year:b.year,war,pa:b.pa,wrc:b.wrc_plus,kind:'bat'});
+      merge(a,{name:b.name,year:b.year,war,pa:b.pa,wrc:b.wrc_plus,bat:true,pit:false});
     } else {
       a.depWar+=war;
       if(!b.year||!['Fr','So','Jr','Sr'].includes(b.year)) a.unknownYr++;
@@ -388,12 +445,13 @@ function aggregate(){
     if(RETURNING.has(p.year)){
       a.retWar+=war; a.retPt+=pt;
       a.grownWar+=war*(CFG.GROWTH[p.year]||1);
-      a.retPlayers.push({name:p.name,year:p.year,war,ip:p.ip,era:p.era,kind:'pit'});
+      merge(a,{name:p.name,year:p.year,war,ip:p.ip,era:p.era,bat:false,pit:true});
     } else {
       a.depWar+=war;
       if(!p.year||!['Fr','So','Jr','Sr'].includes(p.year)) a.unknownYr++;
     }
   });
+  Object.values(A).forEach(a=>{ a.retPlayers=[...a.retMap.values()]; });
   return A;
 }
 
@@ -529,7 +587,7 @@ function renderTable(){
     const dTxt=Math.abs(d)<0.02?'≈ even':(d>0?'▲ ':'▼ ')+f3(Math.abs(d)).replace('.','.');
     const share=Math.round(p.retShare*100);
     const coreTxt=p.core.length
-      ? `<div class="pcore"><b>Core back:</b> ${p.core.map(c=>c.name+' ('+NEXT_YEAR[c.year]+')').join(' · ')}</div>`
+      ? `<div class="pcore"><b>Core back:</b> ${p.core.map(c=>c.name+' ('+NEXT_YEAR[c.year]+(c.bat&&c.pit?', two-way':'')+')').join(' · ')}</div>`
       : (p.hasPlayers?'':`<div class="pcore">No player-level data on file for 2026 — projection is record-only.</div>`);
     return `<div class="prow">
       <div class="prank${i===0?' top':''}">${i+1}</div>
@@ -553,27 +611,85 @@ function renderTable(){
   }).join('');
 }
 
+/* Does this player also contribute on the other side of the ball?
+   Matched on name + class year, same key the core-back merge uses. */
+function isTwoWay(pl,fromBatters){
+  const other = fromBatters ? pitchers : batters;
+  return other.some(o=>o.team===pl.team && o.name===pl.name && o.year===pl.year &&
+                       (fromBatters ? ipF(o.ip)>0 : o.pa>0));
+}
+
+function card(i,pl,stats,twoWay){
+  return `<div class="rcard${i===0?' gold':''}">
+      <div class="rrank">${i+1}</div>
+      <div class="rname">${pl.name}${twoWay?' <span class="twoway-tag">Two-way</span>':''}</div>
+      <div class="rteam">${logoImg(pl.team,16)}<span>${pl.team}</span>
+        <span class="ryr">${pl.year} → ${NEXT_YEAR[pl.year]}</span></div>
+      <div class="rstats">${stats.map(s=>
+        `<div class="rstat"><span class="rs-lbl">${s[0]}</span><span class="rs-val${s[2]?' g':''}">${s[1]}</span></div>`
+      ).join('')}</div>
+    </div>`;
+}
+
 function renderReturners(){
-  const pool=batters
+  // ---- hitters ----
+  const hp=batters
     .filter(b=>RETURNING.has(b.year) && b.pa>=CFG.MIN_PA_RETURN && b.owar!==null && b.owar!==undefined)
-    .sort((a,b)=>b.owar-a.owar)
-    .slice(0,5);
+    .sort((a,b)=>b.owar-a.owar).slice(0,5);
   document.getElementById('rh-sub').textContent =
     `Ranked by 2026 oWAR · min ${CFG.MIN_PA_RETURN} PA · non-seniors only`;
-  document.getElementById('ret-hitters').innerHTML = pool.length ? pool.map((b,i)=>`
-    <div class="rcard${i===0?' gold':''}">
-      <div class="rrank">${i+1}</div>
-      <div class="rname">${b.name}</div>
-      <div class="rteam">${logoImg(b.team,16)}<span>${b.team}</span>
-        <span class="ryr">${b.year} → ${NEXT_YEAR[b.year]}</span></div>
-      <div class="rstats">
-        <div class="rstat"><span class="rs-lbl">oWAR</span><span class="rs-val g">${b.owar>0?'+':''}${b.owar.toFixed(1)}</span></div>
-        <div class="rstat"><span class="rs-lbl">wRC+</span><span class="rs-val">${b.wrc_plus??'—'}</span></div>
-        <div class="rstat"><span class="rs-lbl">AVG</span><span class="rs-val">${f3(b.avg)}</span></div>
-        <div class="rstat"><span class="rs-lbl">PA</span><span class="rs-val">${b.pa}</span></div>
-      </div>
-    </div>`).join('')
+  document.getElementById('ret-hitters').innerHTML = hp.length ? hp.map((b,i)=>
+    card(i,b,[['oWAR',(b.owar>0?'+':'')+b.owar.toFixed(1),true],
+              ['wRC+',b.wrc_plus??'—',false],
+              ['AVG',f3(b.avg),false],
+              ['PA',b.pa,false]], isTwoWay(b,true))).join('')
     : `<div style="padding:1rem;font-size:.75rem;color:var(--sub)">No returning hitters clear the ${CFG.MIN_PA_RETURN} PA qualifier.</div>`;
+
+  // ---- pitchers ----
+  const pp=pitchers
+    .filter(p=>RETURNING.has(p.year) && ipF(p.ip)>=CFG.MIN_IP_RETURN && p.pwar!==null && p.pwar!==undefined)
+    .sort((a,b)=>b.pwar-a.pwar).slice(0,5);
+  document.getElementById('rp-sub').textContent =
+    `Ranked by 2026 pWAR · min ${CFG.MIN_IP_RETURN} IP · non-seniors only`;
+  document.getElementById('ret-pitchers').innerHTML = pp.length ? pp.map((p,i)=>
+    card(i,p,[['pWAR',(p.pwar>0?'+':'')+p.pwar.toFixed(1),true],
+              ['ERA+',p.era_plus??'—',false],
+              ['ERA',p.era.toFixed(2),false],
+              ['IP',p.ip,false]], isTwoWay(p,false))).join('')
+    : `<div style="padding:1rem;font-size:.75rem;color:var(--sub)">No returning pitchers clear the ${CFG.MIN_IP_RETURN} IP qualifier.</div>`;
+}
+
+/* Best returning bat and best returning arm for every program.
+   Uses a lower bar than the league boards so small rosters still surface
+   someone; teams with nothing qualifying say so rather than showing noise. */
+function renderTeamReturners(){
+  document.getElementById('tr-sub').textContent =
+    `Best returning bat (min ${CFG.MIN_PA_TEAM} PA) and arm (min ${CFG.MIN_IP_TEAM} IP) · non-seniors`;
+  const list=PROJ.filter(t=>curLeague==='all'||t.league===curLeague);
+  document.getElementById('team-returners').innerHTML=list.map(t=>{
+    const bat=batters.filter(b=>b.team===t.name&&RETURNING.has(b.year)&&b.pa>=CFG.MIN_PA_TEAM&&b.owar!=null)
+                     .sort((a,b)=>b.owar-a.owar)[0];
+    const arm=pitchers.filter(p=>p.team===t.name&&RETURNING.has(p.year)&&ipF(p.ip)>=CFG.MIN_IP_TEAM&&p.pwar!=null)
+                      .sort((a,b)=>b.pwar-a.pwar)[0];
+    const hasAnyData = batters.some(b=>b.team===t.name) || pitchers.some(p=>p.team===t.name);
+    const emptyMsg = hasAnyData ? 'none qualifying' : 'no player data on file';
+    const row=(kind,pl,warVal,meta,twoWay)=>pl
+      ? `<div class="trrow">
+           <span class="trkind trk-${kind==='HIT'?'h':'p'}">${kind}</span>
+           <div class="trplayer">
+             <div class="trp-name">${pl.name}${twoWay?' <span class="twoway-tag">2W</span>':''}</div>
+             <div class="trp-meta">${pl.year} → ${NEXT_YEAR[pl.year]} · ${meta}</div>
+           </div>
+           <span class="trwar ${kind==='HIT'?'h':'p'}">${warVal>0?'+':''}${warVal.toFixed(1)}</span>
+         </div>`
+      : `<div class="trrow"><span class="trkind trk-${kind==='HIT'?'h':'p'}">${kind}</span>
+           <div class="trplayer"><span class="trnone">${emptyMsg}</span></div></div>`;
+    return `<div class="trcard">
+      <div class="trhdr">${logoImg(t.name,22)}<span class="trname">${t.name}</span></div>
+      ${row('HIT',bat,bat?bat.owar:0,bat?`${bat.wrc_plus??'—'} wRC+ · ${bat.pa} PA`:'',bat?isTwoWay(bat,true):false)}
+      ${row('ARM',arm,arm?arm.pwar:0,arm?`${arm.era.toFixed(2)} ERA · ${arm.ip} IP`:'',arm?isTwoWay(arm,false):false)}
+    </div>`;
+  }).join('');
 }
 
 function renderGap(){
@@ -597,6 +713,7 @@ function setLeague(l,btn){
   document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
   renderTable();
+  renderTeamReturners();
 }
 
 /* ---------- boot ---------- */
@@ -608,6 +725,7 @@ PROJ=project();
   if(gl) gl.textContent=medianGames(_R)+' games'; }
 renderTable();
 renderReturners();
+renderTeamReturners();
 renderGap();
 
 if(typeof DATA_UPDATED!=='undefined'&&DATA_UPDATED){
