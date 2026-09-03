@@ -12,6 +12,17 @@
 //
 // DO NOT edit stats.html, standings.html, teams.html, or index.html
 // unless you're changing the site layout/design.
+//
+// ── ERA BASIS ──
+// CCAA games are seven innings. Every p.era stored below is MaxPreps' printed
+// value, which is ER*7/IP. LG_ERA is therefore computed the same way, and
+// calcPWAR divides by 7. Do not switch either to 9 without switching both:
+// mixing the two silently inflates ERA+ and pWAR by a factor of 9/7.
+// history.js uses the same basis, so ERA+ is comparable across seasons.
+//
+// ── JERSEY NUMBERS ──
+// See assignJerseys() near the bottom. Numbers exist so that history.js can
+// match players across seasons when a roster carries two of the same name.
 // ============================================================
 
 // ── Last updated date — change this every time you push new stats ──
@@ -30,7 +41,7 @@ let LG_WOBA        = 0.356;  // CCAA league avg wOBA
 let WOBA_SCALE     = 0.884;  // wOBA/lgOBP-style scaling factor
 let LG_R_PA        = 0.188;  // runs per PA (CCAA avg; MLB≈0.115)
 let LG_BABIP       = 0.362;  // CCAA league avg BABIP — used for color thresholds
-let LG_ERA         = 4.75;   // CCAA league ERA
+let LG_ERA         = 3.75;   // CCAA league ERA — SEVEN-inning basis (ER*7/IP). See ERA BASIS note in header.
 let LG_K9          = 8.0;    // CCAA league avg K/9
 let LG_BB9         = 4.8;    // CCAA league avg BB/9
 let LG_WHIP        = 1.59;   // CCAA league avg WHIP — used for color thresholds
@@ -95,7 +106,9 @@ function calcERA_plus(era, ip) {
 function calcPWAR(era, ip) {
   if (ip < 5) return null;
   const weight = Math.min(ip / WAR_FULL_IP, 1.0);
-  const raa = (LG_ERA - era) / 9 * ip;
+  // /7 to match the seven-inning ERA basis: (lgERA - ERA)/IP_per_game gives the
+  // per-inning run differential, which is then scaled by innings pitched.
+  const raa = (LG_ERA - era) / 7 * ip;
   const rar = raa + (0.03 * ip);
   const raw = rar / RUNS_PER_WIN;
   return Math.round(raw * weight * 10) / 10;
@@ -871,7 +884,10 @@ function recalcLeagueAvgs() {
     const ip = ipToFloat(p.ip);
     tIP += ip; tER += p.er||0; tBBp += p.bb||0; tKp += p.k||0; tHp += p.h||0;
   });
-  const newERA  = tIP > 0 ? (tER * 9) / tIP : LG_ERA;
+  // SEVEN innings, not nine. MaxPreps prints high school ERA as ER*7/IP, which is
+  // what every p.era below already is. Computing the league constant on a nine-inning
+  // basis made LG_ERA 29% too high and inflated every ERA+ and pWAR on the site.
+  const newERA  = tIP > 0 ? (tER * 7) / tIP : LG_ERA;
   const newK9   = tIP > 0 ? (tKp * 9) / tIP : LG_K9;
   const newBB9  = tIP > 0 ? (tBBp * 9) / tIP : LG_BB9;
   const newWHIP = tIP > 0 ? (tBBp + tHp) / tIP : LG_WHIP;
@@ -909,6 +925,39 @@ function recalcLeagueAvgs() {
   });
 }
 
+// ===================== JERSEY NUMBERS =====================
+// history.js stores a jersey number on every archived row so that same-named
+// teammates can be told apart when matching players across seasons. The 2026
+// MaxPreps captures did not carry numbers into this file, so `num` is
+// reconstructed from what is recoverable:
+//
+//   1. Rows already using the "-NN" duplicate-name suffix convention
+//      (E. Silveira-3, J. Medina-30, etc.)
+//   2. Anything listed in JERSEY_OVERRIDES below
+//
+// Everything else gets num: null, which is harmless. A number only matters when
+// a roster carries two players with the same abbreviated name. Add entries here
+// as numbers become available; nothing else needs to change.
+const JERSEY_OVERRIDES = {
+  // "Team|Name": jersey
+  // Nipomo carries two L. Hobbs and Santa Maria two A. Rice this season without
+  // the -NN suffix. They are separable by class year, and history.js falls back
+  // to class year when no number is present, but adding real numbers here is the
+  // more reliable fix.
+};
+
+function assignJerseys() {
+  const apply = p => {
+    const m = /-(\d+)$/.exec(p.name);
+    if (m) { p.num = parseInt(m[1], 10); return; }
+    const o = JERSEY_OVERRIDES[p.team + '|' + p.name];
+    p.num = (o === undefined) ? null : o;
+  };
+  batters.forEach(apply);
+  pitchers.forEach(apply);
+}
+
 // Run on load
+assignJerseys();
 recalcLeagueAvgs();
 
