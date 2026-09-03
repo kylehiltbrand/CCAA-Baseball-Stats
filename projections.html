@@ -158,6 +158,94 @@ footer a:hover{color:var(--text)}
 .mtxt b{color:var(--text);font-weight:600}
 .formula{background:var(--bg3);border:1px solid var(--bdr2);border-radius:5px;padding:.5rem .75rem;font-family:'Rajdhani',sans-serif;font-size:.82rem;font-weight:600;letter-spacing:.03em;color:var(--text);margin:.45rem 0;display:inline-block}
 
+/* ── TEAMS / PLAYERS TABS ─────────────────────────────────── */
+.tabbar{display:flex;gap:0;margin:0 0 1.1rem;border-bottom:1px solid var(--bdr)}
+.tabbtn{padding:.6rem 1.25rem;background:none;border:none;border-bottom:2px solid transparent;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1rem;letter-spacing:.05em;text-transform:uppercase;color:var(--sub);cursor:pointer;transition:color .15s,border-color .15s}
+.tabbtn:hover{color:var(--text)}
+.tabbtn.on{color:var(--gold);border-bottom-color:var(--gold)}
+.tabbtn .tcount{font-size:.6rem;font-weight:600;color:var(--dim);margin-left:.4rem;vertical-align:middle}
+.subtabs{display:flex;gap:.4rem;padding:.7rem 1rem;border-bottom:1px solid var(--bdr);background:var(--bg3)}
+.subtab{padding:.3rem .8rem;border-radius:4px;border:1px solid var(--bdr2);background:none;font-family:'Inter',sans-serif;font-size:.63rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--sub);cursor:pointer;transition:all .13s}
+.subtab:hover{color:var(--text)}
+.subtab.on{background:rgba(240,165,0,.13);border-color:rgba(240,165,0,.45);color:var(--gold)}
+
+/* player projection rows */
+.hhead,.hrow{display:grid;align-items:center;gap:.6rem;padding:.6rem 1rem;border-bottom:1px solid var(--bdr)}
+.hhead{grid-template-columns:26px 1fr 34px 42px 50px 50px 56px 132px 56px;background:var(--bg3);font-size:.53rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--dim);padding:.5rem 1rem}
+.hrow{grid-template-columns:26px 1fr 34px 42px 50px 50px 56px 132px 56px;cursor:pointer;transition:background .12s}
+.phead,.qrow{display:grid;align-items:center;gap:.6rem;padding:.6rem 1rem;border-bottom:1px solid var(--bdr)}
+.phead{grid-template-columns:26px 1fr 34px 50px 132px 50px 50px 52px 56px;background:var(--bg3);font-size:.53rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--dim);padding:.5rem 1rem}
+.qrow{grid-template-columns:26px 1fr 34px 50px 132px 50px 50px 52px 56px;transition:background .12s}
+.hrow:hover,.qrow:hover{background:var(--bg3)}
+.hrow:last-child,.qrow:last-child{border-bottom:none}
+.hhead .s,.phead .s{cursor:pointer;user-select:none}
+.hhead .s:hover,.phead .s:hover{color:var(--sub)}
+.hhead .s.on,.phead .s.on{color:var(--gold)}
+.hrk{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.85rem;color:var(--dim);text-align:center}
+.hrk.top{color:var(--gold)}
+.hplayer{display:flex;align-items:center;gap:.45rem;min-width:0}
+.hplayer img{width:20px;height:20px;object-fit:contain;flex-shrink:0}
+.hpn{min-width:0}
+.hpname{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.92rem;color:var(--text);line-height:1.15;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hpteam{font-size:.57rem;color:var(--sub);margin-top:.04rem;display:flex;align-items:center;gap:.3rem}
+.hcl{font-size:.55rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.1rem .3rem;border-radius:3px;background:rgba(99,179,237,.13);color:var(--sky);text-align:center}
+.hnum{font-family:'Rajdhani',sans-serif;font-weight:600;font-size:.85rem;color:var(--text);text-align:right}
+.hnum.dim{color:var(--sub);font-weight:500}
+.hwar{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1rem;text-align:right}
+.hwar.hi{color:var(--gold)}.hwar.md{color:var(--text)}.hwar.lo{color:var(--dim)}
+
+/* percentile band: 20th-80th filled, projection ticked */
+.bandcell{display:flex;align-items:center;gap:.5rem}
+.bandval{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.95rem;color:var(--text);width:34px;text-align:right;flex-shrink:0}
+.band{position:relative;flex:1;height:14px;min-width:40px}
+.bandtrack{position:absolute;top:5px;left:0;right:0;height:4px;background:var(--bg);border:1px solid var(--bdr2);border-radius:2px}
+.bandfill{position:absolute;top:5px;height:4px;background:rgba(240,165,0,.4);border-radius:2px}
+.bandtick{position:absolute;top:1px;width:2px;height:12px;background:var(--gold);border-radius:1px}
+.bandends{position:absolute;top:-1px;left:0;right:0;height:14px;font-size:.48rem;color:var(--dim);pointer-events:none}
+
+/* comps drawer */
+.hcomp{grid-column:1/-1;font-size:.65rem;color:var(--sub);line-height:1.7;padding:.5rem 0 .1rem 66px;border-top:1px dashed var(--bdr);margin-top:.5rem}
+.hcomp b{color:var(--text);font-weight:600}
+.compchip{display:inline-block;background:var(--bg3);border:1px solid var(--bdr2);border-radius:3px;padding:.08rem .35rem;margin-right:.3rem;font-size:.62rem;color:var(--text)}
+.hint{font-size:.58rem;color:var(--dim);padding:.5rem 1rem;font-style:italic}
+
+/* scorecard */
+.sgrid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.7rem;padding:1rem}
+.scard{background:var(--bg3);border:1px solid var(--bdr);border-radius:7px;padding:.75rem .85rem}
+.sc-lbl{font-size:.5rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--dim)}
+.sc-val{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.35rem;color:var(--text);margin-top:.15rem;line-height:1}
+.sc-val.g{color:var(--gold)}.sc-val.r{color:#fc8181}
+.sc-sub{font-size:.58rem;color:var(--sub);margin-top:.25rem;line-height:1.5}
+.agetbl{width:100%;border-collapse:collapse;font-size:.68rem}
+.agetbl th{text-align:right;font-size:.5rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);padding:.35rem .5rem;border-bottom:1px solid var(--bdr)}
+.agetbl th:first-child{text-align:left}
+.agetbl td{text-align:right;padding:.35rem .5rem;border-bottom:1px solid var(--bdr);color:var(--sub);font-family:'Rajdhani',sans-serif;font-weight:600;font-size:.8rem}
+.agetbl td:first-child{text-align:left;color:var(--text);font-family:'Inter',sans-serif;font-size:.68rem;font-weight:600}
+.agetbl tr:last-child td{border-bottom:none}
+
+.mshow{display:none}
+@media(max-width:640px){
+  .tabbtn{flex:1;padding:.6rem .5rem;font-size:.88rem}
+  .hhead,.phead{display:none}
+  .hrow,.qrow{grid-template-columns:22px 1fr 34px 58px;gap:.4rem .45rem;padding:.7rem .75rem;row-gap:.3rem}
+  .hrow .mhide,.qrow .mhide{display:none}
+  /* Explicit placement. Left to auto-flow, the WAR cell lands on the row AFTER
+     the full-width band and reads as an orphan number in the left margin. */
+  .hrow .hrk,.qrow .hrk{grid-column:1;grid-row:1}
+  .hrow .hplayer,.qrow .hplayer{grid-column:2;grid-row:1}
+  .hrow .hcl,.qrow .hcl{grid-column:3;grid-row:1}
+  .hrow .hwar,.qrow .hwar{grid-column:4;grid-row:1}
+  .hrow .bandcell,.qrow .bandcell{grid-column:2/-1;grid-row:2}
+  .hrow .mshow,.qrow .mshow{display:block;grid-column:2/-1;grid-row:3;
+    font-size:.62rem;color:var(--sub);letter-spacing:.01em}
+  .hrow .hcomp{grid-column:1/-1;grid-row:4}
+  .hcomp{padding-left:0}
+  .subtabs{overflow-x:auto;scrollbar-width:none}
+  .subtabs::-webkit-scrollbar{display:none}
+  .subtab{flex-shrink:0}
+  .sgrid2{grid-template-columns:1fr 1fr;padding:.75rem}
+}
+
 /* ── MOBILE ───────────────────────────────────────────────── */
 @media(max-width:640px){
   html{font-size:13px}
@@ -258,16 +346,24 @@ footer a:hover{color:var(--text)}
     <span class="updated-dot"></span><span id="last-updated">—</span>
   </div>
 
+  <div class="tabbar">
+    <button class="tabbtn on" onclick="setTab('teams',this)">Teams</button>
+    <button class="tabbtn" onclick="setTab('players',this)">Players<span class="tcount" id="tab-pcount"></span></button>
+  </div>
+
+  <div id="tab-teams">
+
   <!-- INTRO -->
   <div class="card">
     <div class="card-hdr">
       <div>
-        <div class="card-title">2027 Projections <span class="advb">ADV</span></div>
+        <div class="card-title">2027 Team Projections <span class="advb">ADV</span></div>
         <div class="card-sub">Returning production model · CCAA-calibrated</div>
       </div>
     </div>
     <div class="intro">
-      <p>These are <strong>returning-production projections</strong>, not a full forecasting system. With a single season of CCAA data there is no prior year to weight against, so the model does what one season allows: it estimates each program's 2026 talent level, works out how much of that production graduates, applies a growth curve to the players who come back, and assumes departing production is partially replaced.</p>
+      <p>These are <strong>returning-production projections</strong> at the team level: the model estimates each program's 2026 talent, works out how much of that production graduates, applies a growth curve to the players who come back, and assumes departing production is partially replaced. It reads one season of aggregate output, which is a different and coarser thing from the player model in the Players tab.</p>
+      <p style="color:var(--sub)">The growth factors in step 3 below are still the reasoned values this page launched with. The four-season archive can now measure them directly, and the Players tab does. Reconciling the two is the next job on this page.</p>
       <p>Every input is CCAA-calibrated. WAR comes from the same oWAR and pWAR figures used across the site, which recalibrate to league average on every page load. A projection is a central estimate, not a prediction of what will happen.</p>
       <div class="warnbox" id="datagap">
         <span class="wi">⚠</span>
@@ -361,11 +457,109 @@ footer a:hover{color:var(--text)}
     </div></div>
   </div>
 
+  </div><!-- /tab-teams -->
+
+  <div id="tab-players" hidden>
+
+  <!-- INTRO -->
+  <div class="card">
+    <div class="card-hdr">
+      <div>
+        <div class="card-title">2027 Player Projections <span class="advb">ADV</span></div>
+        <div class="card-sub" id="pp-sub">Frozen forecast · CCAA-calibrated</div>
+      </div>
+      <div style="font-size:.6rem;color:var(--sub);text-align:right;line-height:1.6;max-width:230px">
+        Bands are 20th to 80th percentile<br>drawn from comparable players
+      </div>
+    </div>
+    <div class="intro">
+      <p>Every returning player in the conference, projected forward one season. Each component of a hitter's line is projected separately and regressed by its own measured reliability, then aged on a curve derived from the archive rather than assumed. This is a different animal from the team model in the other tab, which works off a single season of aggregate production.</p>
+      <p>These numbers are <strong>frozen</strong>. They will not move when a stat update is pushed. That is the point: a forecast that quietly rewrites itself cannot be checked, and this one is meant to be checked in June against what actually happens.</p>
+      <div class="warnbox">
+        <span class="wi">⚠</span>
+        <p id="pp-warn">—</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEADERBOARD -->
+  <div class="llabel"><span class="dot" style="background:var(--gold)"></span>Projected 2027 Players</div>
+  <div class="card">
+    <div class="card-hdr">
+      <div>
+        <div class="card-title" id="pl-title">Projected Hitters</div>
+        <div class="card-sub" id="pl-sub">—</div>
+      </div>
+    </div>
+    <div class="subtabs">
+      <button class="subtab on" onclick="setPKind('bat',this)">Hitters</button>
+      <button class="subtab" onclick="setPKind('pit',this)">Pitchers</button>
+    </div>
+    <div id="pl-body"></div>
+    <div class="hint" id="pl-hint">Tap a hitter to see the comparable players his band was built from.</div>
+  </div>
+
+  <!-- SCORECARD -->
+  <div class="llabel"><span class="dot" style="background:var(--gold)"></span>Does It Work?</div>
+  <div class="card">
+    <div class="card-hdr">
+      <div>
+        <div class="card-title">Backtest Scorecard</div>
+        <div class="card-sub">Held-out seasons · lower error is better</div>
+      </div>
+      <div style="font-size:.6rem;color:var(--sub);text-align:right;line-height:1.6;max-width:240px">
+        The model was rebuilt without<br>2025 and 2026, then scored against them
+      </div>
+    </div>
+    <div class="sgrid2" id="score-grid"></div>
+    <div class="mrow"><div class="mstep">→</div><div class="mtxt" id="score-note">—</div></div>
+  </div>
+
+  <!-- METHODOLOGY -->
+  <div class="llabel"><span class="dot" style="background:var(--gold)"></span>Methodology</div>
+  <div class="card">
+    <div class="card-hdr">
+      <div>
+        <div class="card-title">How the Player Model Works</div>
+        <div class="card-sub">Six steps · every constant measured</div>
+      </div>
+    </div>
+    <div class="mrow"><div class="mstep">1</div><div class="mtxt">
+      <b>Break the line into components.</b> A hitter is not projected as one number. Walk rate, strikeout rate, home run rate, batting average on balls in play and extra-base share are each projected separately, then reassembled into a full stat line. This matters because the components are not equally trustworthy: strikeout rate is half signal at <b id="k-k">—</b> plate appearances, BABIP not until <b id="k-babip">—</b> balls in play. Averaging them into one figure and regressing them all the same amount throws that away.
+    </div></div>
+    <div class="mrow"><div class="mstep">2</div><div class="mtxt">
+      <b>Weight four seasons.</b> Each prior season is expressed relative to its own league environment, since the CCAA run environment moves year to year, then weighted <b id="wts">—</b> from most recent to oldest and by playing time within each season.
+      <div class="formula">rate = &Sigma;(weight &times; PA &times; rate/league) &divide; &Sigma;(weight &times; PA)</div>
+    </div></div>
+    <div class="mrow"><div class="mstep">3</div><div class="mtxt">
+      <b>Regress each component on its own constant.</b> Using the harmonic form <code>n/(n+k)</code>, which never reaches full credibility. That is deliberate and it is the opposite of what the leaderboards do: the stats pages describe what a player <i>did</i>, so playing time earns full credit, while a projection estimates what he <i>is</i>, and no high school sample is ever fully convincing.
+    </div></div>
+    <div class="mrow"><div class="mstep">4</div><div class="mtxt">
+      <b>Age the result.</b> Measured from every matched player-season in the archive, pooled rather than averaged per player so a single sophomore who hits three homers cannot write the curve. Shown below in units of league average, after the calibration scalar of <b id="agescale">—</b>.
+      <div style="margin:.5rem 0 .2rem"><table class="agetbl" id="age-table"></table></div>
+      Non-seniors return at <b id="retline">—</b>, so survivorship is a mild problem here rather than a fatal one.
+    </div></div>
+    <div class="mrow"><div class="mstep">5</div><div class="mtxt">
+      <b>Project playing time separately.</b> Rate and opportunity are forecast independently, as they should be. Fit across every returning player in the archive:
+      <div class="formula" id="pt-formula">—</div>
+      Correlation is <b id="pt-r">—</b>, so this is the loosest part of the model. A player who wins a job takes a jump nothing here can see coming.
+    </div></div>
+    <div class="mrow"><div class="mstep">6</div><div class="mtxt">
+      <b>Build bands from comparables, not from a bell curve.</b> Each hitter is matched to the <b>25</b> most similar historical player-seasons on strikeout rate, walk rate, power, BABIP, playing time and class. The 20th and 80th percentiles come from what those players actually did the following year. A profile the model has historically struggled with gets a wide band automatically, with no one deciding it should.
+    </div></div>
+    <div class="mrow"><div class="mstep">⚠</div><div class="mtxt">
+      <b>Known limitations.</b> No park factors yet. No incoming freshmen or transfers, so a program's real 2027 roster will be larger than what appears here. Class year stands in for age, which misses anyone who repeated a year. Pitcher projections are weak enough that the scorecard above says so outright. And a player who does not return at all is projected as though he will, because nothing in season totals predicts quitting.
+    </div></div>
+  </div>
+
+  </div><!-- /tab-players -->
+
 </main>
 
 <footer>CCAA Baseball · Spring 2026 · Central Coast Athletic Association, CA · Stats: <a href="standings.html">Mountain</a> · <a href="standings.html">Sunset</a> · <a href="standings.html">Ocean</a></footer>
 
 <script src="data.js"></script>
+<script src="proj2027.js"></script>
 <script>
 /* ============================================================
    2027 PROJECTIONS ENGINE
@@ -715,6 +909,217 @@ function setLeague(l,btn){
   btn.classList.add('on');
   renderTable();
   renderTeamReturners();
+  if(curTab==='players') renderPlayers();
+}
+
+
+/* ============================================================
+   PLAYER PROJECTIONS TAB
+   Reads the frozen PROJ_BAT / PROJ_PIT / PROJ_CARD from
+   proj2027.js. Nothing in here recomputes anything: the model
+   runs offline in build.js so the published forecast stays put
+   between stat updates.
+   ============================================================ */
+const HAS_PROJ = (typeof PROJ_BAT !== 'undefined' && typeof PROJ_PIT !== 'undefined');
+const PB = HAS_PROJ ? PROJ_BAT : [];
+const PP = HAS_PROJ ? PROJ_PIT : [];
+const PC = (typeof PROJ_CARD !== 'undefined') ? PROJ_CARD : null;
+
+let curTab='teams', pKind='bat';
+let pSort={bat:{col:'owar',asc:false},pit:{col:'pwar',asc:false}};
+
+function setTab(t,btn){
+  curTab=t;
+  document.querySelectorAll('.tabbtn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('tab-teams').hidden   = (t!=='teams');
+  document.getElementById('tab-players').hidden = (t!=='players');
+  if(t==='players') renderPlayers();
+  history.replaceState(null,'',t==='players'?'#players':location.pathname);
+}
+function setPKind(k,btn){
+  pKind=k;
+  document.querySelectorAll('.subtab').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  renderPlayers();
+}
+function pSortBy(col){
+  const s=pSort[pKind];
+  if(s.col===col) s.asc=!s.asc; else { s.col=col; s.asc=(col==='era'||col==='whip'||col==='k'); }
+  renderPlayers();
+}
+
+/* wRC+ band drawn on a fixed 40-200 scale so bars are comparable row to row.
+   ERA runs 1.50-7.00 and is inverted, since low is good. */
+function bandBar(lo,mid,hi,min,max,invert){
+  const pos=v=>Math.max(0,Math.min(100,((v-min)/(max-min))*100));
+  let a=pos(lo), b=pos(hi), t=pos(mid);
+  if(invert){ a=100-pos(hi); b=100-pos(lo); t=100-pos(mid); }
+  const left=Math.min(a,b), width=Math.max(1.5,Math.abs(b-a));
+  return `<div class="band">
+    <div class="bandtrack"></div>
+    <div class="bandfill" style="left:${left}%;width:${width}%"></div>
+    <div class="bandtick" style="left:calc(${t}% - 1px)"></div>
+  </div>`;
+}
+
+function clBadge(y){return `<span class="hcl">${y}</span>`;}
+function warCls(v){return v>=2?'hi':v>=0.5?'md':'lo';}
+function sgn(v,d){return (v>0?'+':'')+v.toFixed(d===undefined?1:d);}
+function pf3(v){return v==null?'—':v.toFixed(3).replace(/^0/,'');}
+
+function renderPlayers(){
+  if(!HAS_PROJ){
+    document.getElementById('pl-body').innerHTML =
+      '<div class="hint">proj2027.js is not loaded, so there is nothing to show here. '+
+      'Generate it with <code>node build.js</code> and put it beside data.js.</div>';
+    return;
+  }
+  const isBat = pKind==='bat';
+  const rows=(isBat?PB:PP).filter(p=>curLeague==='all'||TL[p.t]===curLeague);
+  const s=pSort[pKind];
+  rows.sort((a,b)=>{
+    let va=a[s.col],vb=b[s.col];
+    if(typeof va==='string') return s.asc?va.localeCompare(vb):vb.localeCompare(va);
+    va=va==null?(s.asc?Infinity:-Infinity):va; vb=vb==null?(s.asc?Infinity:-Infinity):vb;
+    return s.asc?va-vb:vb-va;
+  });
+
+  document.getElementById('pl-title').textContent = isBat?'Projected Hitters':'Projected Pitchers';
+  document.getElementById('pl-sub').textContent =
+    rows.length+(isBat?' returning hitters':' returning pitchers')+
+    (curLeague==='all'?' · all leagues':' · '+curLeague[0].toUpperCase()+curLeague.slice(1));
+  document.getElementById('pl-hint').textContent = isBat
+    ? 'Tap a hitter to see the comparable players his band was built from.'
+    : 'Pitcher bands use one pooled spread rather than per-player comparables; there are only '+
+      (PC?PC.backtest.pitN:'a few')+' scored pitcher seasons on file, which is not enough to condition them.';
+
+  const sc=c=>'class="s'+(s.col===c?' on':'')+'" onclick="pSortBy(\''+c+'\')"';
+  let html='';
+  if(isBat){
+    html+=`<div class="hhead">
+      <span>#</span><span ${sc('n')}>Player</span><span>Cl</span>
+      <span style="text-align:right" ${sc('pa')}>PA</span>
+      <span style="text-align:right" ${sc('avg')}>AVG</span>
+      <span style="text-align:right" ${sc('obp')}>OBP</span>
+      <span style="text-align:right" ${sc('woba')}>wOBA</span>
+      <span ${sc('wrc')}>wRC+ · 20–80 band</span>
+      <span style="text-align:right" ${sc('owar')}>oWAR</span>
+    </div>`;
+    html+=rows.map((p,i)=>`<div class="hrow" onclick="toggleComp(this)">
+      <span class="hrk${i<3?' top':''}">${i+1}</span>
+      <span class="hplayer">${logoImg(p.t,20)}<span class="hpn">
+        <span class="hpname">${p.n}</span>
+        <span class="hpteam">${p.t}${p.seasons>1?' · '+p.seasons+' yr history':''}</span>
+      </span></span>
+      ${clBadge(p.y)}
+      <span class="hnum mhide">${p.pa}</span>
+      <span class="hnum mhide">${pf3(p.avg)}</span>
+      <span class="hnum mhide">${pf3(p.obp)}</span>
+      <span class="hnum mhide">${pf3(p.woba)}</span>
+      <span class="bandcell"><span class="bandval">${p.wrc}</span>${bandBar(p.wrc20,p.wrc,p.wrc80,40,200,false)}</span>
+      <span class="hwar ${warCls(p.owar)}">${sgn(p.owar)}</span>
+      <span class="mshow">${p.pa} PA · ${pf3(p.avg)}/${pf3(p.obp)}/${pf3(p.slg)} · ${pf3(p.woba)} wOBA · ${p.wrc20}&ndash;${p.wrc80} band</span>
+      <span class="hcomp" hidden>
+        <b>Projection</b> ${p.pa} PA, ${pf3(p.avg)}/${pf3(p.obp)}/${pf3(p.slg)}, ${p.hr.toFixed(1)} HR,
+        ${p.bb} BB, ${p.k} K, ${pf3(p.babip)} BABIP.
+        <b>80th percentile</b> ${p.wrc80} wRC+ · <b>20th</b> ${p.wrc20} wRC+.
+        <br><b>2026</b> ${p.pa26} PA, ${p.wrc26==null?'—':p.wrc26} wRC+, ${p.owar26==null?'—':sgn(p.owar26)} oWAR as a ${p.y26}.
+        <br><b>Most similar</b> ${p.comps.map(c=>'<span class="compchip">'+c.n+' · '+c.t+' '+c.s.slice(0,4)+'</span>').join('')}
+      </span>
+    </div>`).join('');
+  } else {
+    html+=`<div class="phead">
+      <span>#</span><span ${sc('n')}>Player</span><span>Cl</span>
+      <span style="text-align:right" ${sc('ip')}>IP</span>
+      <span ${sc('era')}>ERA · 20–80 band</span>
+      <span style="text-align:right" ${sc('whip')}>WHIP</span>
+      <span style="text-align:right" ${sc('k9')}>K/9</span>
+      <span style="text-align:right" ${sc('eraplus')}>ERA+</span>
+      <span style="text-align:right" ${sc('pwar')}>pWAR</span>
+    </div>`;
+    html+=rows.map((p,i)=>`<div class="qrow">
+      <span class="hrk${i<3?' top':''}">${i+1}</span>
+      <span class="hplayer">${logoImg(p.t,20)}<span class="hpn">
+        <span class="hpname">${p.n}</span>
+        <span class="hpteam">${p.t}${p.seasons>1?' · '+p.seasons+' yr history':''}</span>
+      </span></span>
+      ${clBadge(p.y)}
+      <span class="hnum mhide">${p.ip.toFixed(1)}</span>
+      <span class="bandcell"><span class="bandval">${p.era.toFixed(2)}</span>${bandBar(p.era20,p.era,p.era80,1.5,7,true)}</span>
+      <span class="hnum mhide">${p.whip.toFixed(2)}</span>
+      <span class="hnum mhide">${p.k9.toFixed(1)}</span>
+      <span class="hnum mhide">${p.eraplus}</span>
+      <span class="hwar ${warCls(p.pwar)}">${sgn(p.pwar)}</span>
+      <span class="mshow">${p.ip.toFixed(1)} IP · ${p.whip.toFixed(2)} WHIP · ${p.k9.toFixed(1)} K/9 · ${p.eraplus} ERA+ · ${p.era20.toFixed(2)}&ndash;${p.era80.toFixed(2)} band</span>
+    </div>`).join('');
+  }
+  document.getElementById('pl-body').innerHTML = html || '<div class="hint">No players match this filter.</div>';
+}
+
+function toggleComp(row){
+  const d=row.querySelector('.hcomp');
+  if(d) d.hidden=!d.hidden;
+}
+
+/* ---------- model card, scorecard, methodology fill ---------- */
+function renderCard(){
+  if(!PC) return;
+  const bt=PC.backtest;
+  const gain=(1-bt.batRMSE/bt.batBaseRMSE)*100;
+  const pgain=(1-bt.pitRMSE/bt.pitBaseRMSE)*100;
+
+  document.getElementById('pp-sub').textContent =
+    'Frozen '+PC.built+' · '+PC.counts.batters+' hitters, '+PC.counts.pitchers+' pitchers';
+
+  document.getElementById('pp-warn').innerHTML =
+    'Read the scorecard before you trust a number here. Across '+bt.batN+' held-out player-seasons the hitter '+
+    'model beats simply assuming every player will be league average by '+gain.toFixed(0)+'% on error, which is a '+
+    'real edge and a small one. The pitcher model beats that same baseline by '+pgain.toFixed(0)+'%, which is close '+
+    'to nothing: '+bt.pitN+' scored pitcher seasons cannot support much. High school players change fast and the '+
+    'samples are short. Treat the bands as the honest part and the point estimate as a midpoint, not a prediction.';
+
+  document.getElementById('score-grid').innerHTML=[
+    ['Hitter error','g',bt.batRMSE.toFixed(3),'RMSE on wOBA relative to league, '+bt.batN+' held-out seasons'],
+    ['vs no model','',bt.batBaseRMSE.toFixed(3),'Assuming every hitter is exactly league average'],
+    ['Hitter edge',gain>=8?'g':'',gain.toFixed(0)+'%','Error reduction the model actually buys'],
+    ['Bias','',(bt.batBias>=0?'+':'')+bt.batBias.toFixed(3),'Mean error; positive means too optimistic'],
+    ['Pitcher error',pgain<5?'r':'',bt.pitRMSE.toFixed(3),'RMSE on ER/IP relative to league, '+bt.pitN+' seasons'],
+    ['Pitcher edge',pgain<5?'r':'',pgain.toFixed(0)+'%','Against the same league-average baseline'],
+    ['Playing time','',bt.paMAE.toFixed(0)+' PA','Average miss on projected plate appearances'],
+    ['Seasons used','',String(PC.seasons.length),PC.seasons.join(', ')]
+  ].map(([l,c,v,s])=>`<div class="scard"><div class="sc-lbl">${l}</div>
+    <div class="sc-val ${c}">${v}</div><div class="sc-sub">${s}</div></div>`).join('');
+
+  document.getElementById('score-note').innerHTML =
+    '<b>What this means.</b> A projection system that cannot beat "everyone will be average" is worse than useless, '+
+    'because it looks authoritative while adding noise. The hitter side clears that bar. The pitcher side barely does, '+
+    'and it is published at three times the measured regression strength for exactly that reason, which is why so many '+
+    'pitcher projections cluster near league average. The pooled backtest also shows returning pitchers beating their '+
+    'projected ERA by about '+Math.round((1-PC.pitMedianRatio)*100)+'%, but that sample only contains arms that kept '+
+    'their innings, so the point estimates are not shifted down by it. The number is here so you can disagree.';
+
+  document.getElementById('k-k').textContent=PC.kBat.k;
+  document.getElementById('k-babip').textContent=PC.kBat.babip;
+  document.getElementById('wts').textContent=PC.seasonWeights.join(' / ');
+  document.getElementById('agescale').textContent=PC.ageScale.toFixed(2);
+  document.getElementById('pt-formula').textContent=
+    'projected PA = '+PC.pt.bat.b0.toFixed(1)+' + '+PC.pt.bat.b1.toFixed(3)+' × 2026 PA';
+  document.getElementById('pt-r').textContent='r = '+PC.pt.bat.r.toFixed(2);
+
+  const R=PC.retention;
+  document.getElementById('retline').textContent=
+    ['Fr','So','Jr'].filter(y=>R[y]).map(y=>y+' '+(100*R[y].rate).toFixed(0)+'%').join(', ');
+
+  const A=PC.aging;
+  document.getElementById('age-table').innerHTML=
+    '<thead><tr><th>Class step</th><th>n</th><th>BB%</th><th>K%</th><th>HR</th><th>BABIP</th></tr></thead><tbody>'+
+    ['Fr->So','So->Jr','Jr->Sr'].filter(k=>A[k]).map(k=>{
+      const v=A[k];
+      const f=x=>(x>=0?'+':'')+x.toFixed(3);
+      return '<tr><td>'+k.replace('->',' → ')+'</td><td>'+v.n+'</td><td>'+f(v.bb)+'</td><td>'+
+        f(v.k)+'</td><td>'+f(v.hr)+'</td><td>'+f(v.babip)+'</td></tr>';
+    }).join('')+'</tbody>';
 }
 
 /* ---------- boot ---------- */
@@ -728,6 +1133,16 @@ renderTable();
 renderReturners();
 renderTeamReturners();
 renderGap();
+renderCard();
+if(HAS_PROJ){
+  const c=document.getElementById('tab-pcount');
+  if(c) c.textContent=PB.length+PP.length;
+}
+/* Deep link: projections.html#players opens straight to the player tab. */
+if(location.hash==='#players'){
+  const btn=document.querySelectorAll('.tabbtn')[1];
+  if(btn) setTab('players',btn);
+}
 
 if(typeof DATA_UPDATED!=='undefined'&&DATA_UPDATED){
   const [y,m,d]=DATA_UPDATED.split('-').map(Number);       // force local time
