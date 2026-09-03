@@ -20,6 +20,34 @@
 // mixing the two silently inflates ERA+ and pWAR by a factor of 9/7.
 // history.js uses the same basis, so ERA+ is comparable across seasons.
 //
+// ── REGRESSION / STABILIZATION ──
+// The credibility thresholds below are measured, not guessed. Method: for each
+// rate, weighted observed variance across players minus expected sampling
+// variance gives true-talent variance, and k = var_event / var_true. k is the
+// sample size at which a stat is half signal, half noise. Pooled across all
+// four seasons on file (2022-23 through 2025-26):
+//
+//     K%  (hitter)     27 PA        K%  (pitcher)     47 BF
+//     XBH% / HR%       66 PA        BB% (pitcher)     59 BF
+//     wOBA             71 PA        H%  (pitcher)    200 BF
+//     AVG              77 AB        ER/IP           ~50 IP
+//     BB% (hitter)     82 PA
+//     BABIP           126 BIP
+//
+// Cross-checked against year-over-year correlation on 188 matched batter and
+// 46 matched pitcher seasons; the ordering matches and the implied year-to-year
+// talent persistence lands at 0.64-0.90 across metrics, which is sensible.
+//
+// The ER/IP figure is the one soft number here. A Poisson model returns 9 IP,
+// which is far too fast because runs cluster within innings; ~50 IP is backed
+// out of the observed year-over-year correlation instead.
+//
+// NOTE ON FORM: this file regresses linearly, min(n/k, 1). That is a display
+// choice and it is deliberate — WAR here is descriptive, a record of what a
+// player did, so playing time earns full credit past the threshold. A genuine
+// talent estimate should use the harmonic form n/(n+k), which never reaches
+// full credibility. Use that in projections.html, not here.
+//
 // ── JERSEY NUMBERS ──
 // See assignJerseys() near the bottom. Numbers exist so that history.js can
 // match players across seasons when a roster carries two of the same name.
@@ -53,12 +81,20 @@ let WHIP_HI        = 1.83;   // .15 above lgWHIP (rough)
 const RUNS_PER_WIN  = 6.0;    // scaled for HS run environment — produces meaningful WAR per short season
 const REPL_RUNS_600 = -33.4;  // replacement-level runs per 600 PA (scaled)
 const RAA_PER_600   = 95.1;   // runs above avg per 600 PA swing
-// Regression anchors — full credibility at these thresholds
-const WRC_FULL_PA   = 80;     // PA for full wRC+ credibility
-const ERA_FULL_IP   = 40;     // IP for full ERA+ credibility — higher threshold gives regression room to separate elite arms
+// Pitching replacement level, in runs allowed per inning ABOVE league average.
+// 0.229 puts replacement ERA at 5.35 against a 3.75 league, and sets pitching at
+// 40% of league-wide WAR — the conventional hitting/pitching split. Formerly a
+// nominal 0.03, which was absorbing the old nine-inning LG_ERA inflation and
+// left pitching at 19% of league WAR once that was corrected.
+const REPL_RUNS_IP  = 0.229;  // replacement-level runs per IP above league avg
+// Regression anchors — full credibility at these thresholds. MEASURED from the
+// four-season archive, not assumed; see the REGRESSION note in the header and
+// stabilization.js for the derivation. Re-run it whenever a season is added.
+const WRC_FULL_PA   = 71;     // PA for full wRC+ credibility — measured wOBA k
+const ERA_FULL_IP   = 50;     // IP for full ERA+ credibility — measured ER/IP k
 const REPL_WRC      = 65;     // wRC+ at replacement level — below this = negative oWAR
-const WAR_FULL_PA   = 80;     // PA for full oWAR credibility
-const WAR_FULL_IP   = 30;     // IP for full pWAR credibility
+const WAR_FULL_PA   = 71;     // PA for full oWAR credibility
+const WAR_FULL_IP   = 50;     // IP for full pWAR credibility
 
 function calcWOBA(bb, hbp, h, doubles, triples, hr, ab, sf) {
   const singles = h - doubles - triples - hr;
@@ -109,7 +145,7 @@ function calcPWAR(era, ip) {
   // /7 to match the seven-inning ERA basis: (lgERA - ERA)/IP_per_game gives the
   // per-inning run differential, which is then scaled by innings pitched.
   const raa = (LG_ERA - era) / 7 * ip;
-  const rar = raa + (0.03 * ip);
+  const rar = raa + (REPL_RUNS_IP * ip);
   const raw = rar / RUNS_PER_WIN;
   return Math.round(raw * weight * 10) / 10;
 }
