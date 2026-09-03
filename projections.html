@@ -164,7 +164,16 @@ footer a:hover{color:var(--text)}
 .tabbtn:hover{color:var(--text)}
 .tabbtn.on{color:var(--gold);border-bottom-color:var(--gold)}
 .tabbtn .tcount{font-size:.6rem;font-weight:600;color:var(--dim);margin-left:.4rem;vertical-align:middle}
-.subtabs{display:flex;gap:.4rem;padding:.7rem 1rem;border-bottom:1px solid var(--bdr);background:var(--bg3)}
+.subtabs{display:flex;align-items:center;gap:.4rem;padding:.7rem 1rem;border-bottom:1px solid var(--bdr);background:var(--bg3);flex-wrap:wrap}
+.ctlsep{width:1px;height:18px;background:var(--bdr2);margin:0 .35rem;flex-shrink:0}
+.ctlgrp{display:flex;align-items:center;gap:.4rem;flex-shrink:0}
+.ctllbl{font-size:.5rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--dim);flex-shrink:0;margin-right:.1rem}
+.tsel{padding:.3rem .55rem;border-radius:4px;border:1px solid var(--bdr2);background:var(--bg2);font-family:'Inter',sans-serif;font-size:.63rem;font-weight:600;letter-spacing:.03em;color:var(--text);cursor:pointer;max-width:180px}
+.tsel:focus{outline:none;border-color:rgba(240,165,0,.5)}
+.tsel.on{border-color:rgba(240,165,0,.45);color:var(--gold)}
+.clsnote{font-size:.58rem;color:var(--dim);padding:.5rem 1rem 0;line-height:1.6;font-style:italic}
+.emptyst{padding:1.6rem 1rem;text-align:center;font-size:.72rem;color:var(--sub);line-height:1.7}
+.emptyst b{color:var(--text)}
 .subtab{padding:.3rem .8rem;border-radius:4px;border:1px solid var(--bdr2);background:none;font-family:'Inter',sans-serif;font-size:.63rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--sub);cursor:pointer;transition:all .13s}
 .subtab:hover{color:var(--text)}
 .subtab.on{background:rgba(240,165,0,.13);border-color:rgba(240,165,0,.45);color:var(--gold)}
@@ -240,7 +249,14 @@ footer a:hover{color:var(--text)}
     font-size:.62rem;color:var(--sub);letter-spacing:.01em}
   .hrow .hcomp{grid-column:1/-1;grid-row:4}
   .hcomp{padding-left:0}
-  .subtabs{overflow-x:auto;scrollbar-width:none}
+  /* Each control group takes a full row rather than wrapping mid-group, which
+     otherwise strands a single pill ("Sr") alone on its own line. */
+  .subtabs{overflow-x:visible;flex-wrap:wrap;row-gap:.5rem;scrollbar-width:none}
+  .ctlsep{display:none}
+  .ctlgrp{flex:1 1 100%}
+  .ctlgrp .subtab{flex:1;text-align:center;padding:.3rem .4rem}
+  .ctllbl{flex-shrink:0}
+  .tsel{max-width:100%;flex:1 1 100%}
   .subtabs::-webkit-scrollbar{display:none}
   .subtab{flex-shrink:0}
   .sgrid2{grid-template-columns:1fr 1fr;padding:.75rem}
@@ -492,9 +508,24 @@ footer a:hover{color:var(--text)}
       </div>
     </div>
     <div class="subtabs">
-      <button class="subtab on" onclick="setPKind('bat',this)">Hitters</button>
-      <button class="subtab" onclick="setPKind('pit',this)">Pitchers</button>
+      <span class="ctlgrp">
+        <button class="subtab kind on" onclick="setPKind('bat',this)">Hitters</button>
+        <button class="subtab kind" onclick="setPKind('pit',this)">Pitchers</button>
+      </span>
+      <span class="ctlsep"></span>
+      <span class="ctlgrp">
+        <span class="ctllbl">Class '27</span>
+        <button class="subtab cls on" onclick="setPClass('all',this)">All</button>
+        <button class="subtab cls" onclick="setPClass('So',this)">So</button>
+        <button class="subtab cls" onclick="setPClass('Jr',this)">Jr</button>
+        <button class="subtab cls" onclick="setPClass('Sr',this)">Sr</button>
+      </span>
+      <span class="ctlsep"></span>
+      <select class="tsel" id="team-sel" onchange="setPTeam(this.value)" aria-label="Filter by team">
+        <option value="all">All teams</option>
+      </select>
     </div>
+    <div class="clsnote" id="cls-note">—</div>
     <div id="pl-body"></div>
     <div class="hint" id="pl-hint">Tap a hitter to see the comparable players his band was built from.</div>
   </div>
@@ -909,7 +940,7 @@ function setLeague(l,btn){
   btn.classList.add('on');
   renderTable();
   renderTeamReturners();
-  if(curTab==='players') renderPlayers();
+  if(curTab==='players'){ buildTeamSelect(); renderPlayers(); }
 }
 
 
@@ -925,7 +956,7 @@ const PB = HAS_PROJ ? PROJ_BAT : [];
 const PP = HAS_PROJ ? PROJ_PIT : [];
 const PC = (typeof PROJ_CARD !== 'undefined') ? PROJ_CARD : null;
 
-let curTab='teams', pKind='bat';
+let curTab='teams', pKind='bat', pClass='all', pTeam='all';
 let pSort={bat:{col:'owar',asc:false},pit:{col:'pwar',asc:false}};
 
 function setTab(t,btn){
@@ -934,14 +965,59 @@ function setTab(t,btn){
   btn.classList.add('on');
   document.getElementById('tab-teams').hidden   = (t!=='teams');
   document.getElementById('tab-players').hidden = (t!=='players');
-  if(t==='players') renderPlayers();
+  if(t==='players'){ buildTeamSelect(); renderPlayers(); }
   history.replaceState(null,'',t==='players'?'#players':location.pathname);
 }
 function setPKind(k,btn){
   pKind=k;
-  document.querySelectorAll('.subtab').forEach(b=>b.classList.remove('on'));
+  /* Scoped to .subtab.kind. Clearing every .subtab would wipe the class pills
+     too, silently resetting a filter the reader had set. */
+  document.querySelectorAll('.subtab.kind').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
+  buildTeamSelect();
   renderPlayers();
+}
+function setPClass(c,btn){
+  pClass=c;
+  document.querySelectorAll('.subtab.cls').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  buildTeamSelect();
+  renderPlayers();
+}
+function setPTeam(v){
+  pTeam=v;
+  const sel=document.getElementById('team-sel');
+  if(sel) sel.classList.toggle('on', v!=='all');
+  renderPlayers();
+}
+
+/* Rows matching every filter EXCEPT the one named, so each control can show
+   the count it would actually yield rather than a count of the whole file. */
+function pPool(kind){ return (kind==='pit'?PP:PB); }
+function pFilter(rows,opts){
+  const o=opts||{};
+  return rows.filter(p=>
+    (o.skipLeague || curLeague==='all' || TL[p.t]===curLeague) &&
+    (o.skipTeam   || pTeam==='all'     || p.t===pTeam) &&
+    (o.skipClass  || pClass==='all'    || p.y===pClass));
+}
+
+/* The team list is rebuilt from whatever is actually showing, so a league or
+   class filter never leaves a team in the dropdown that would return nothing.
+   If the current pick falls out of range it resets rather than silently
+   rendering an empty table. */
+function buildTeamSelect(){
+  const sel=document.getElementById('team-sel');
+  if(!sel||!HAS_PROJ) return;
+  const avail=pFilter(pPool(pKind),{skipTeam:true});
+  const counts={};
+  avail.forEach(p=>counts[p.t]=(counts[p.t]||0)+1);
+  const names=Object.keys(counts).sort();
+  if(pTeam!=='all' && !counts[pTeam]) pTeam='all';
+  sel.innerHTML='<option value="all">All teams ('+avail.length+')</option>'+
+    names.map(n=>'<option value="'+n+'"'+(n===pTeam?' selected':'')+'>'+n+' ('+counts[n]+')</option>').join('');
+  sel.value=pTeam;
+  sel.classList.toggle('on', pTeam!=='all');
 }
 function pSortBy(col){
   const s=pSort[pKind];
@@ -976,7 +1052,7 @@ function renderPlayers(){
     return;
   }
   const isBat = pKind==='bat';
-  const rows=(isBat?PB:PP).filter(p=>curLeague==='all'||TL[p.t]===curLeague);
+  const rows=pFilter(pPool(pKind));
   const s=pSort[pKind];
   rows.sort((a,b)=>{
     let va=a[s.col],vb=b[s.col];
@@ -986,9 +1062,13 @@ function renderPlayers(){
   });
 
   document.getElementById('pl-title').textContent = isBat?'Projected Hitters':'Projected Pitchers';
+  const bits=[];
+  if(curLeague!=='all') bits.push(curLeague[0].toUpperCase()+curLeague.slice(1));
+  if(pTeam!=='all') bits.push(pTeam);
+  if(pClass!=='all') bits.push({So:'sophomores',Jr:'juniors',Sr:'seniors'}[pClass]+' in 2027');
   document.getElementById('pl-sub').textContent =
-    rows.length+(isBat?' returning hitters':' returning pitchers')+
-    (curLeague==='all'?' · all leagues':' · '+curLeague[0].toUpperCase()+curLeague.slice(1));
+    rows.length+(isBat?' projected hitter':' projected pitcher')+(rows.length===1?'':'s')+
+    (bits.length?' · '+bits.join(' · '):' · all leagues, all classes');
   document.getElementById('pl-hint').textContent = isBat
     ? 'Tap a hitter to see the comparable players his band was built from.'
     : 'Pitcher bands use one pooled spread rather than per-player comparables; there are only '+
@@ -1054,7 +1134,13 @@ function renderPlayers(){
       <span class="mshow">${p.ip.toFixed(1)} IP · ${p.whip.toFixed(2)} WHIP · ${p.k9.toFixed(1)} K/9 · ${p.eraplus} ERA+ · ${p.era20.toFixed(2)}&ndash;${p.era80.toFixed(2)} band</span>
     </div>`).join('');
   }
-  document.getElementById('pl-body').innerHTML = html || '<div class="hint">No players match this filter.</div>';
+  if(!rows.length){
+    const wider=pFilter(pPool(pKind),{skipTeam:true,skipClass:true}).length;
+    html='<div class="emptyst">No '+(isBat?'hitters':'pitchers')+' match this combination.'+
+      (wider?'<br><b>'+wider+'</b> would show with the class and team filters cleared.'
+           :'<br>Nothing in this league at all — try All Leagues.')+'</div>';
+  }
+  document.getElementById('pl-body').innerHTML = html;
 }
 
 function toggleComp(row){
@@ -1098,6 +1184,15 @@ function renderCard(){
     'pitcher projections cluster near league average. The pooled backtest also shows returning pitchers beating their '+
     'projected ERA by about '+Math.round((1-PC.pitMedianRatio)*100)+'%, but that sample only contains arms that kept '+
     'their innings, so the point estimates are not shifted down by it. The number is here so you can disagree.';
+
+  /* Spell out why there is no Fr pill rather than leaving a reader to wonder.
+     Class here is the 2027 class, so the conference's current freshmen appear
+     as sophomores, and 2027 freshmen are not in school yet. */
+  const fr=PB.filter(p=>p.y26==='Fr').length + PP.filter(p=>p.y26==='Fr').length;
+  const note=document.getElementById('cls-note');
+  if(note) note.innerHTML='Class is the 2027 class, matching the badge on each row. '+
+    'The conference\'s '+fr+' current freshmen appear here as sophomores. There are no 2027 '+
+    'freshmen because incoming players have no record to project from.';
 
   document.getElementById('k-k').textContent=PC.kBat.k;
   document.getElementById('k-babip').textContent=PC.kBat.babip;

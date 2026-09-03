@@ -100,14 +100,93 @@ async def main():
         await pg.locator('.hhead .s').nth(6).click()          # back to oWAR
         await pg.wait_for_timeout(200)
 
+        # ---------------- class + team filters ----------------
+        allN = await pg.eval_on_selector_all('#pl-body .hrow', 'e=>e.length')
+        note = (await pg.inner_text('#cls-note')).strip()
+        check('class note filled', note and note != '—', repr(note[:45]))
+        check('no Fr pill offered',
+              await pg.eval_on_selector_all('.subtab.cls', 'e=>e.every(x=>x.textContent!=="Fr")'))
+
+        # class filter: each pill must narrow, and every row must match it
+        tot = 0
+        for cls in ['So', 'Jr', 'Sr']:
+            await pg.click('.subtab.cls:text-is("%s")' % cls)
+            await pg.wait_for_timeout(220)
+            n = await pg.eval_on_selector_all('#pl-body .hrow', 'e=>e.length')
+            tot += n
+            pure = await pg.eval_on_selector_all(
+                '#pl-body .hcl', 'e=>e.every(x=>x.textContent.trim()==="%s")' % cls)
+            check('class %s filter is pure (%d rows)' % (cls, n), pure and n > 0)
+        check('class filters partition the set', tot == allN, '%d vs %d' % (tot, allN))
+
+        await pg.click('.subtab.cls:text-is("All")')
+        await pg.wait_for_timeout(220)
+        check('clearing class restores all rows',
+              await pg.eval_on_selector_all('#pl-body .hrow', 'e=>e.length') == allN)
+
+        # team filter
+        opts = await pg.eval_on_selector_all('#team-sel option', 'e=>e.map(o=>o.value)')
+        check('team select populated', len(opts) > 10, '%d options' % len(opts))
+        check('team counts in labels',
+              await pg.eval_on_selector('#team-sel option:nth-child(2)',
+                                        'e=>/\(\d+\)$/.test(e.textContent.trim())'))
+        team = opts[1]
+        await pg.select_option('#team-sel', team)
+        await pg.wait_for_timeout(250)
+        tn = await pg.eval_on_selector_all('#pl-body .hrow', 'e=>e.length')
+        pure = await pg.eval_on_selector_all(
+            '#pl-body .hpteam', 'e=>e.every(x=>x.textContent.split(" · ")[0]==="%s")' % team)
+        check('team filter is pure (%s, %d rows)' % (team, tn), pure and 0 < tn < allN)
+
+        # team + class stack
+        await pg.click('.subtab.cls:text-is("Sr")')
+        await pg.wait_for_timeout(250)
+        both = await pg.eval_on_selector_all('#pl-body .hrow', 'e=>e.length')
+        check('filters stack', both <= tn)
+        stacked_ok = await pg.evaluate('''(t) => [...document.querySelectorAll('#pl-body .hrow')]
+            .every(r => r.querySelector('.hpteam').textContent.split(" · ")[0] === t
+                     && r.querySelector('.hcl').textContent.trim() === "Sr")''', team)
+        check('stacked filters both applied', stacked_ok)
+
+        # a league that excludes the chosen team must reset it, not blank the table
+        await pg.click('.subtab.cls:text-is("All")')
+        await pg.wait_for_timeout(200)
+        lg_for = await pg.evaluate('(t)=>TL[t]', team)
+        other = [l for l in ['mountain', 'sunset', 'ocean'] if l != lg_for][0]
+        idx = {'mountain': 2, 'sunset': 3, 'ocean': 4}[other]
+        await pg.click('.fbtn:nth-child(%d)' % idx)
+        await pg.wait_for_timeout(300)
+        sel_now = await pg.eval_on_selector('#team-sel', 'e=>e.value')
+        rows_now = await pg.eval_on_selector_all('#pl-body .hrow', 'e=>e.length')
+        check('out-of-league team resets to all', sel_now == 'all', repr(sel_now))
+        check('table not left empty after reset', rows_now > 0, '%d rows' % rows_now)
+        await pg.click('.fbtn:nth-child(1)')
+        await pg.wait_for_timeout(250)
+
+        # filters carry across the hitter/pitcher toggle
+        await pg.select_option('#team-sel', team)
+        await pg.wait_for_timeout(200)
+        await pg.click('.subtab.kind:text-is("Pitchers")')
+        await pg.wait_for_timeout(300)
+        kept = await pg.eval_on_selector('#team-sel', 'e=>e.value')
+        check('team filter survives kind switch', kept == team, repr(kept))
+        qpure = await pg.eval_on_selector_all(
+            '#pl-body .qrow .hpteam',
+            'e=>e.every(x=>x.textContent.split(" · ")[0]==="%s")' % team)
+        check('pitcher rows respect team filter', qpure)
+        await pg.click('.subtab.kind:text-is("Hitters")')
+        await pg.wait_for_timeout(200)
+        await pg.select_option('#team-sel', 'all')
+        await pg.wait_for_timeout(200)
+
         # --- pitchers sub-tab ---
-        await pg.click('.subtab:nth-child(2)')
+        await pg.click('.subtab.kind:text-is("Pitchers")')
         await pg.wait_for_timeout(300)
         qrows = await pg.eval_on_selector_all('#pl-body .qrow', 'e=>e.length')
         check('pitcher rows rendered', qrows > 20, 'got %d' % qrows)
 
         # --- league filter drives the players tab ---
-        await pg.click('.subtab:nth-child(1)')
+        await pg.click('.subtab.kind:text-is("Hitters")')
         await pg.wait_for_timeout(200)
         allh = await pg.eval_on_selector_all('#pl-body .hrow', 'e=>e.length')
         await pg.click('.fbtn:nth-child(2)')   # Mountain
