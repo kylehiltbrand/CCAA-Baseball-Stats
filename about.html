@@ -64,9 +64,9 @@ footer a:hover{color:var(--text)}
   .sp26{display:none}
   nav a{padding:0 .65rem;font-size:.7rem}
   .mob-nav{display:flex;position:fixed;bottom:0;left:0;right:0;background:var(--bg2);border-top:1px solid var(--bdr);z-index:200;height:54px}
-  .mob-nav a{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.2rem;font-size:.52rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--sub);transition:color .15s}
-  .mob-nav a.on{color:var(--gold)}
-  .mob-nav a .mn-ic{font-size:1.1rem;line-height:1}
+  .mob-nav a,.mob-nav .mn-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.2rem;font-family:'Inter',sans-serif;font-size:.55rem;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:var(--sub);background:none;border:none;padding:0;min-width:0;cursor:pointer;transition:color .15s}
+  .mob-nav a.on,.mob-nav .mn-btn.on{color:var(--gold)}
+  .mob-nav .mn-ic{font-size:1.15rem;line-height:1}
   .two-col{grid-template-columns:1fr!important}
   .scgrid{grid-template-columns:repeat(2,1fr)!important}
 }
@@ -151,6 +151,31 @@ main{max-width:1280px;margin:0 auto;padding:1.5rem 1.5rem 4rem}
 @media(max-width:640px){
   .navdd-btn{padding:0 .65rem;font-size:.7rem}
   .navdd-menu{min-width:140px}
+}
+</style>
+<style id="mob-analysis-sheet">
+/* ── MOBILE ANALYSIS SHEET ───────────────────────────────────
+   The bottom bar carries six full-width entries instead of eight
+   abbreviations; Graphs / Projections / Write-ups live behind the
+   Analysis entry, mirroring the desktop dropdown. */
+.mob-sheet{display:none}
+@media(max-width:640px){
+  .mob-sheet{display:block;position:fixed;top:0;right:0;bottom:0;left:0;z-index:210;pointer-events:none}
+  .ms-scrim{position:absolute;top:0;right:0;bottom:0;left:0;background:rgba(5,8,13,.6);opacity:0;transition:opacity .18s}
+  .ms-panel{position:absolute;left:.55rem;right:.55rem;bottom:calc(54px + env(safe-area-inset-bottom) + .5rem);background:var(--bg2);border:1px solid var(--bdr2);border-radius:12px;box-shadow:0 14px 34px rgba(0,0,0,.55);padding:.3rem;opacity:0;transform:translateY(12px);transition:opacity .18s,transform .18s}
+  .mob-sheet.open{pointer-events:auto}
+  .mob-sheet.open .ms-scrim{opacity:1}
+  .mob-sheet.open .ms-panel{opacity:1;transform:translateY(0)}
+  .ms-hdr{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--sub);padding:.5rem .75rem .3rem}
+  .ms-link{display:flex;align-items:center;gap:.75rem;padding:.65rem .75rem;border-radius:8px;color:var(--text)}
+  .ms-link+.ms-link{margin-top:.1rem}
+  .ms-link:active{background:var(--bg3)}
+  .ms-link.on{background:var(--bg3)}
+  .ms-ic{font-size:1.15rem;width:1.4rem;text-align:center;flex-shrink:0}
+  .ms-txt{min-width:0}
+  .ms-lb{display:block;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:.92rem;letter-spacing:.03em;text-transform:uppercase;line-height:1.15}
+  .ms-link.on .ms-lb{color:var(--gold)}
+  .ms-sb{display:block;font-size:.62rem;color:var(--sub)}
 }
 </style>
 </head>
@@ -279,15 +304,22 @@ main{max-width:1280px;margin:0 auto;padding:1.5rem 1.5rem 4rem}
 
 <!-- MOBILE NAV -->
 <nav class="mob-nav">
-  <a href="standings.html"><span class="mn-ic">&#127942;</span>Stand</a>
+  <a href="standings.html"><span class="mn-ic">&#127942;</span>Standings</a>
   <a href="stats.html"><span class="mn-ic">&#128202;</span>Stats</a>
   <a href="teams.html"><span class="mn-ic">&#9918;</span>Teams</a>
-  <a href="graphs.html"><span class="mn-ic">&#128200;</span>Graphs</a>
-  <a href="projections.html"><span class="mn-ic">&#128302;</span>Proj</a>
-  <a href="writeups.html"><span class="mn-ic">&#128221;</span>Write</a>
+  <button type="button" class="mn-btn" id="mnAnalysis" aria-expanded="false" aria-haspopup="true" aria-controls="mobSheet"><span class="mn-ic">&#128200;</span>Analysis</button>
   <a href="awards.html"><span class="mn-ic">&#127941;</span>Awards</a>
   <a href="about.html"><span class="mn-ic">&#8505;&#65039;</span>About</a>
 </nav>
+<div class="mob-sheet" id="mobSheet" role="dialog" aria-modal="true" aria-label="Analysis">
+  <div class="ms-scrim"></div>
+  <div class="ms-panel">
+    <div class="ms-hdr">Analysis</div>
+    <a href="graphs.html" class="ms-link"><span class="ms-ic">&#128200;</span><span class="ms-txt"><span class="ms-lb">Graphs</span><span class="ms-sb">Charts &amp; trends</span></span></a>
+    <a href="projections.html" class="ms-link"><span class="ms-ic">&#128302;</span><span class="ms-txt"><span class="ms-lb">Projections</span><span class="ms-sb">2027 outlook</span></span></a>
+    <a href="writeups.html" class="ms-link"><span class="ms-ic">&#128221;</span><span class="ms-txt"><span class="ms-lb">Write-ups</span><span class="ms-sb">Long-form analysis</span></span></a>
+  </div>
+</div>
 
 <footer>CCAA Baseball · Spring 2026 · Central Coast Athletic Association, CA · Stats: <a href="standings.html">Mountain</a> · <a href="standings.html">Sunset</a> · <a href="standings.html">Ocean</a></footer>
 <script>
@@ -306,6 +338,7 @@ main{max-width:1280px;margin:0 auto;padding:1.5rem 1.5rem 4rem}
   // A child page (writeup.html) can declare which nav entry owns it via
   // <body data-nav="writeups.html">, so section highlighting still works.
   var here=key(document.body.getAttribute('data-nav')||location.pathname);
+  var ANALYSIS=['graphs','projections','writeups','writeup'];
   document.querySelectorAll('nav a[href]').forEach(function(a){
     if(key(a.getAttribute('href'))===here){
       a.classList.add('on');
@@ -324,12 +357,53 @@ main{max-width:1280px;margin:0 auto;padding:1.5rem 1.5rem 4rem}
     btn.addEventListener('click',function(e){
       e.stopPropagation();
       var willOpen=!dd.classList.contains('open');
-      closeAll();
+      closeAll(); closeSheet();
       if(willOpen){ dd.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
     });
   });
-  document.addEventListener('click',closeAll);
-  document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeAll(); });
+
+  /* ---- mobile Analysis sheet ---- */
+  var sheet=document.getElementById('mobSheet');
+  var mnBtn=document.getElementById('mnAnalysis');
+  function closeSheet(){
+    if(sheet && sheet.classList.contains('open')){
+      sheet.classList.remove('open');
+      if(mnBtn) mnBtn.setAttribute('aria-expanded','false');
+    }
+  }
+  if(sheet){
+    sheet.querySelectorAll('.ms-link').forEach(function(a){
+      if(key(a.getAttribute('href'))===here) a.classList.add('on');
+    });
+    var panel=sheet.querySelector('.ms-panel');
+    if(panel) panel.addEventListener('click',function(e){ e.stopPropagation(); });
+    var scrim=sheet.querySelector('.ms-scrim');
+    if(scrim) scrim.addEventListener('click',function(){ closeSheet(); });
+  }
+  if(mnBtn && ANALYSIS.indexOf(here)>-1) mnBtn.classList.add('on');
+  if(mnBtn && sheet){
+    mnBtn.addEventListener('click',function(e){
+      e.stopPropagation();
+      var willOpen=!sheet.classList.contains('open');
+      closeAll(); closeSheet();
+      if(willOpen){ sheet.classList.add('open'); mnBtn.setAttribute('aria-expanded','true'); }
+    });
+  }
+
+  /* ---- homepage Analysis tab (index.html only) ---- */
+  var hb=document.getElementById('anCard'), hp=document.getElementById('anPanel');
+  if(hb && hp){
+    hb.addEventListener('click',function(e){
+      e.stopPropagation();
+      var open=hp.classList.toggle('open');
+      hb.setAttribute('aria-expanded',open?'true':'false');
+      hp.hidden=!open;
+    });
+    hp.addEventListener('click',function(e){ e.stopPropagation(); });
+  }
+
+  document.addEventListener('click',function(){ closeAll(); closeSheet(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'){ closeAll(); closeSheet(); } });
 })();
 </script>
 </body>

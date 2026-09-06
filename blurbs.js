@@ -143,10 +143,68 @@ const BLURB = (function () {
     return _ctx;
   }
 
+  /* ---------- two-way helpers -------------------------------- */
+
+  const warNum = v => (v > 0 ? '+' : '') + (Math.round(v * 10) / 10).toFixed(1);
+
+  // Thresholds at which the second role is worth quoting rate stats for.
+  const TW_IP = 6, TW_PA = 12;
+  function twoWayReal(b, p) {
+    return !!(b && p && (b.pa || 0) >= TW_PA && ipF(p.ip) >= TW_IP);
+  }
+
+  // One factual sentence describing the mound side of a two-way player.
+  function pitchingLine(p, tm, brief) {
+    const ip = ipF(p.ip), app = p.app || 0;
+    if (ip <= 0) return null;
+    if (brief)
+      return `He also made ${app} ${pl(app, 'appearance')} on the mound for ${tm}, covering ${p.ip} ${pl(ip, 'inning')}, a light enough workload that the bulk of his value stays with the bat.`;
+    let s = `He also took the ball for ${tm}, covering ${p.ip} ${pl(ip, 'inning')} across ${app} ${pl(app, 'appearance')}`;
+    const bits = [];
+    if (p.era !== null && p.era !== undefined) bits.push(`a ${f2(p.era)} ERA`);
+    if (p.era_plus !== null && p.era_plus !== undefined) bits.push(`a ${p.era_plus} ERA+`);
+    if (!bits.length && p.whip !== null && p.whip !== undefined) bits.push(`a ${f2(p.whip)} WHIP`);
+    if (bits.length) s += ` with ${bits.join(' and ')}`;
+    if (p.k > 0) s += `, striking out ${p.k}`;
+    return s + '.';
+  }
+
+  // One factual sentence describing the offensive side of a two-way player.
+  function hittingLine(b, tm, brief) {
+    const pa = b.pa || 0;
+    if (pa <= 0) return null;
+    if (brief)
+      return `He also took ${pa} ${pl(pa, 'plate appearance')} in the ${tm} lineup, a small enough sample that most of his value comes from the mound.`;
+    let s = `He also held a spot in the ${tm} lineup, taking ${pa} ${pl(pa, 'plate appearance')}`;
+    const bits = [];
+    if (b.wrc_plus !== null && b.wrc_plus !== undefined) bits.push(`a ${b.wrc_plus} wRC+`);
+    if (b.woba !== null && b.woba !== undefined) bits.push(`a ${f3(b.woba)} wOBA`);
+    if (!bits.length && b.avg !== null && b.avg !== undefined) bits.push(`a ${f3(b.avg)} average`);
+    if (bits.length) s += ` with ${bits.join(' and ')}`;
+    return s + '.';
+  }
+
+  // Splits the two-way value out explicitly so the pitching contribution is
+  // always stated, never just alluded to.
+  function twoWayValue(b, p, tm) {
+    const o = (b && b.owar !== null && b.owar !== undefined) ? b.owar : null;
+    const w = (p && p.pwar !== null && p.pwar !== undefined) ? p.pwar : null;
+    if (o !== null && w !== null) {
+      const t = Math.round((o + w) * 10) / 10;
+      return `Splitting the value out, the bat was worth ${warNum(o)} oWAR and the arm ${warNum(w)} pWAR, putting his two-way total at ${warNum(t)} WAR for ${tm}.`;
+    }
+    if (w !== null) return `The mound work on its own was worth ${warNum(w)} pWAR to ${tm}.`;
+    if (o !== null) return `The bat on its own was worth ${warNum(o)} oWAR to ${tm}.`;
+    return `Carrying both roles is the fuller measure of what he gave ${tm}.`;
+  }
+
   /* ---------- batters ---------------------------------------- */
 
   function forBatter(b, alsoPitches) {
     if (!_ctx) return '';
+    // `alsoPitches` may be the player's pitcher object (preferred, lets us
+    // quote the mound line) or a bare boolean from an older call site.
+    const mate = (alsoPitches && typeof alsoPitches === 'object') ? alsoPitches : null;
     const nm = b.name, tm = b.team, pa = b.pa || 0, gp = b.gp || 0;
     const yi = yearInfo(b.year);
     const w = b.wrc_plus;
@@ -165,9 +223,15 @@ const BLURB = (function () {
       else
         S.push(`The sample is far too small for any of his rate stats to carry meaning.`);
       S.push(`At this workload the numbers describe opportunity rather than ability.`);
-      S.push(yi.under
-        ? `As a ${yi.word} he has time to turn those reps into a larger role.`
-        : `A bigger sample would give a much clearer read on what he can do.`);
+      if (mate && ipF(mate.ip) >= TW_IP) {
+        const pln = pitchingLine(mate, tm);
+        if (pln) S.push(pln);
+        S.push(twoWayValue(b, mate, tm));
+      } else {
+        S.push(yi.under
+          ? `As a ${yi.word} he has time to turn those reps into a larger role.`
+          : `A bigger sample would give a much clearer read on what he can do.`);
+      }
       return S.join(' ');
     }
 
@@ -251,7 +315,23 @@ const BLURB = (function () {
     }
 
     /* --- S3: context / batted-ball ------------------------- */
+    /* High-school BABIP is far less luck-driven than the pro version. The
+       hitters at the top of this pool are genuinely squaring the ball up
+       against a wide spread of arm quality, and their BABIPs stay high
+       year over year. Before flagging an elevated mark as something that
+       has to regress, check the contact-quality proxies actually available
+       here — isolated power, extra-base share, and strikeout rate. When
+       the batted-ball profile supports the number, it gets credited as
+       skill rather than written off as balls finding grass. */
     const bab = b.babip, med = _ctx.b.babipMed;
+    const isoPct = pctile(_ctx.b.iso, iso);
+    const conPct = kR === null ? null : pctile(_ctx.b.contact, 1 - kR);
+    const xbh = (b.doubles || 0) + (b.triples || 0) + (b.hr || 0);
+    const xbShare = (b.h > 0) ? xbh / b.h : null;
+    const hardContact =
+      (isoPct !== null && isoPct >= 0.75) ||
+      (isoPct !== null && isoPct >= 0.60 && conPct !== null && conPct >= 0.60) ||
+      (isoPct !== null && isoPct >= 0.55 && xbShare !== null && xbShare >= 0.40);
     let s3 = null;
     if (bab !== null && bab !== undefined && !isNaN(bab)) {
       if (bab <= med - 0.070 && (w === null || w < 105)) {
@@ -260,22 +340,36 @@ const BLURB = (function () {
           `Worth noting that his ${f3(bab)} BABIP came in well below the league figure of about ${f3(med)}, so the results likely undersell how he was actually hitting the ball.`,
           `He ran a ${f3(bab)} BABIP against a league mark near ${f3(med)}, a gap that usually points to batted-ball luck rather than contact quality.`
         ], seed);
+      } else if (bab >= med + 0.080 && w !== null && w >= 115 && hardContact) {
+        s3 = pick([
+          `His ${f3(bab)} BABIP ran well above the league mark of about ${f3(med)}, and the batted-ball profile supports it: ${xbh} extra-base ${pl(xbh, 'hit')} and a ${f3(iso)} ISO point to contact quality carrying that number rather than balls simply finding grass.`,
+          `The ${f3(bab)} BABIP sits well over the league figure near ${f3(med)}, but with a ${f3(iso)} ISO and ${xbh} extra-base ${pl(xbh, 'hit')} behind it, that mark reads as hard contact rather than something owed back to the average.`
+        ], seed);
       } else if (bab >= med + 0.080 && w !== null && w >= 115) {
         s3 = pick([
-          `One thing to watch is the ${f3(bab)} BABIP, comfortably above the league mark of about ${f3(med)}, so some of the batting average line may be tough to repeat.`,
-          `His ${f3(bab)} BABIP sat well over the league figure near ${f3(med)}, which is the piece of the line most likely to move next season.`
+          `His ${f3(bab)} BABIP came in well above the league mark of about ${f3(med)} with extra-base damage closer to the middle of the pool, so that is the piece of the line most likely to move next season.`,
+          `The ${f3(bab)} BABIP sat well over the league figure near ${f3(med)}, and with the power numbers nearer the pool average, some of the batting average may be harder to hold.`
         ], seed);
       }
     }
-    if (!s3) s3 = warPhrase(b.owar, tm, 'offensive');
-    if (!s3) s3 = `He finished with a ${f3(b.avg)}/${f3(b.obp)}/${f3(b.slg)} line on the year.`;
-    S.push(s3);
+    const twFull = twoWayReal(b, mate);
+    // When the two-way split is coming in S4, skip the value line here so the
+    // same WAR figure isn't quoted twice in one blurb.
+    if (!s3 && !twFull) s3 = warPhrase(b.owar, tm, 'offensive');
+    if (!s3 && !twFull) s3 = `He finished with a ${f3(b.avg)}/${f3(b.obp)}/${f3(b.slg)} line on the year.`;
+    if (s3) S.push(s3);
 
     /* --- S4: forward-looking / close ------------------------ */
-    if (partial) {
+    if (twFull) {
+      if (partial)
+        S.push(`That came in under the ${_ctx.QB} plate appearances used as the qualifying line here, so the rate stats are still settling.`);
+      const pln = pitchingLine(mate, tm);
+      if (pln) S.push(pln);
+      S.push(twoWayValue(b, mate, tm));
+    } else if (mate) {
+      S.push(pitchingLine(mate, tm, true));
+    } else if (partial) {
       S.push(`That came in under the ${_ctx.QB} plate appearances used as the qualifying line here, so the rate stats are still settling.`);
-    } else if (alsoPitches) {
-      S.push(`He also took the ball on the mound, which makes his two-way total the fuller picture of what he gave ${tm}.`);
     } else if (yi.under && (w === null || w < 100)) {
       S.push(`With ${yi.left} more ${pl(yi.left, 'season')} of CCAA baseball ahead of him, there is plenty of runway to build on these reps.`);
     } else if (yi.under) {
@@ -297,6 +391,9 @@ const BLURB = (function () {
 
   function forPitcher(p, alsoHits) {
     if (!_ctx) return '';
+    // `alsoHits` may be the player's batter object (preferred) or a bare
+    // boolean from an older call site.
+    const mate = (alsoHits && typeof alsoHits === 'object') ? alsoHits : null;
     const nm = p.name, tm = p.team;
     const ip = ipF(p.ip), app = p.app || 0;
     const yi = yearInfo(p.year);
@@ -310,9 +407,15 @@ const BLURB = (function () {
       if (p.k > 0) S.push(`He recorded ${p.k} ${pl(p.k, 'strikeout')} in that limited work.`);
       else S.push(`The workload was light enough that his rate stats swing on a handful of batters.`);
       S.push(`At this few innings ERA and WHIP move dramatically on one or two outcomes, so there is not much signal to read.`);
-      S.push(yi.under
-        ? `As a ${yi.word} he has time to grow into a larger role on the staff.`
-        : `A longer look would be needed to say much about his true level.`);
+      if (mate && (mate.pa || 0) >= TW_PA) {
+        const hln = hittingLine(mate, tm);
+        if (hln) S.push(hln);
+        S.push(twoWayValue(mate, p, tm));
+      } else {
+        S.push(yi.under
+          ? `As a ${yi.word} he has time to grow into a larger role on the staff.`
+          : `A longer look would be needed to say much about his true level.`);
+      }
       return S.join(' ');
     }
 
@@ -384,17 +487,23 @@ const BLURB = (function () {
         `The stuff clearly plays, and tightening up the ${f1(bb9)} BB/9 is the single lever most likely to move the run prevention.`,
         `He misses enough bats for the profile to work, with the ${f1(bb9)} BB/9 the most obvious place to find improvement.`
       ], seed);
-    } else {
+    } else if (!twoWayReal(mate, p)) {
       s3 = warPhrase(p.pwar, tm, 'pitching')
         || `He finished with a ${f2(p.whip)} WHIP over that workload.`;
     }
-    S.push(s3);
+    if (s3) S.push(s3);
 
     /* --- S4: forward-looking / close ------------------------ */
-    if (partial) {
+    if (mate && twoWayReal(mate, p)) {
+      if (partial)
+        S.push(`That sits under the ${_ctx.QP} innings used as the qualifying line here, so the rate stats are still firming up.`);
+      const hln = hittingLine(mate, tm);
+      if (hln) S.push(hln);
+      S.push(twoWayValue(mate, p, tm));
+    } else if (mate) {
+      S.push(hittingLine(mate, tm, true));
+    } else if (partial) {
       S.push(`That sits under the ${_ctx.QP} innings used as the qualifying line here, so the rate stats are still firming up.`);
-    } else if (alsoHits) {
-      S.push(`He also carried a spot in the lineup, so his two-way total is the better measure of his overall value.`);
     } else if (yi.under && (ep === null || ep < 100)) {
       S.push(`Getting varsity innings as a ${yi.word} matters, and he has ${yi.left} more ${pl(yi.left, 'season')} to build on them.`);
     } else if (yi.under) {
@@ -417,10 +526,10 @@ const BLURB = (function () {
       // Two-way: lead with whichever side carried the larger workload.
       const bWeight = (b.pa || 0) / 30;
       const pWeight = ipF(p.ip) / 18;
-      return bWeight >= pWeight ? forBatter(b, true) : forPitcher(p, true);
+      return bWeight >= pWeight ? forBatter(b, p) : forPitcher(p, b);
     }
-    if (b) return forBatter(b, false);
-    if (p) return forPitcher(p, false);
+    if (b) return forBatter(b, null);
+    if (p) return forPitcher(p, null);
     return '';
   }
 
